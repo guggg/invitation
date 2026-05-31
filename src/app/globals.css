@@ -904,10 +904,11 @@ img {
 }
 
 .friends-v2-shell {
+  --friends-ink: #fff;
   min-height: 100vh;
   overflow: clip;
   background: #f7f6f2;
-  color: #2f302f;
+  color: var(--friends-ink);
 }
 
 .ascii-portal {
@@ -917,7 +918,6 @@ img {
   overflow: hidden;
   background: #030303;
   color: #f7f7f2;
-  cursor: pointer;
   transition:
     opacity 420ms ease,
     filter 420ms ease;
@@ -997,10 +997,10 @@ img {
   min-width: 140px;
   min-height: 52px;
   margin-top: 58px;
-  border: 1px solid currentColor;
+  border: 1px solid #2f302f;
   border-radius: 8px;
-  background: transparent;
-  color: inherit;
+  background: #2f302f;
+  color: #ffffff;
   font-weight: 950;
   cursor: pointer;
   transition:
@@ -1011,9 +1011,9 @@ img {
 
 .ascii-portal-idle button:hover,
 .ascii-portal-idle button:focus-visible {
-  border-color: #f7f7f2;
-  background: #f7f7f2;
-  color: #030303;
+  border-color: #4a4a4a;
+  background: #4a4a4a;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -1289,13 +1289,35 @@ img {
   width: 100%;
   align-items: center;
   padding: 22px 36px;
-  color: #2f302f;
+  color: #8f8f8f;
   text-shadow: 0 1px 20px rgba(247, 246, 242, 0.54);
+}
+
+.friends-v2-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  z-index: -1;
+  background: linear-gradient(
+    to bottom,
+    rgba(247, 246, 242, 0.96) 0%,
+    rgba(247, 246, 242, 0.8) 50%,
+    rgba(247, 246, 242, 0) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(to bottom, black 35%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 35%, transparent 100%);
+  pointer-events: none;
 }
 
 .friends-v2-brand {
   font-size: 1rem;
   font-weight: 900;
+  padding: 6px 0;
 }
 
 .friends-v2-header nav {
@@ -1308,6 +1330,7 @@ img {
 
 .friends-v2-header a {
   border-radius: 999px;
+  padding: 6px 14px;
   transition:
     background 180ms ease,
     box-shadow 180ms ease,
@@ -1329,7 +1352,7 @@ img {
   display: grid;
   gap: 7px;
   transform: translateY(-50%);
-  color: #2f302f;
+  color: #8f8f8f;
   text-shadow: 0 1px 18px rgba(247, 246, 242, 0.62);
 }
 
@@ -1449,7 +1472,8 @@ img {
 .friends-v2-hero-facts span {
   border: 1px solid rgba(47, 48, 47, 0.28);
   border-radius: 8px;
-  background: rgba(247, 246, 242, 0.38);
+  /* background: rgba(247, 246, 242, 0.38); */
+  background-color: #2f302f;
   padding: 10px 14px;
   font-size: 1.2rem;
   font-weight: 900;
@@ -1503,7 +1527,7 @@ img {
 .signal-section {
   display: grid;
   place-items: center;
-  color: #302825;
+  color: var(--friends-ink);
 }
 
 .signal-copy {
@@ -1528,7 +1552,7 @@ img {
 }
 
 .schedule-theatre {
-  color: #2f302f;
+  color: var(--friends-ink);
 }
 
 .section-kicker {
@@ -1581,7 +1605,7 @@ img {
   display: grid;
   place-items: center start;
   overflow: hidden;
-  color: #2f302f;
+  color: var(--friends-ink);
 }
 
 .venue-map-stage {
@@ -1592,7 +1616,9 @@ img {
 }
 
 .venue-map-stage iframe {
-  width: 100%;
+  position: absolute;
+  left: 0;
+  width: 140%;
   height: 100%;
   border: 0;
   filter: grayscale(0.08) saturate(0.48) contrast(0.9) brightness(1.03);
@@ -1628,9 +1654,10 @@ img {
   gap: 8px;
   min-height: 48px;
   margin-top: 28px;
-  border: 1px solid rgba(47, 48, 47, 0.34);
+  border: 1px solid #2f302f;
   border-radius: 8px;
-  background: rgba(247, 246, 242, 0.6);
+  background: #2f302f;
+  color: #ffffff;
   padding: 12px 16px;
   font-weight: 900;
   transition:
@@ -1641,8 +1668,9 @@ img {
 
 .venue-copy a:hover,
 .venue-copy a:focus-visible {
-  border-color: #b8c4b1;
-  background: #b7c7d9;
+  border-color: #4a4a4a;
+  background: #4a4a4a;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
@@ -1650,7 +1678,7 @@ img {
   position: relative;
   z-index: 1;
   min-height: 3600px;
-  color: #28231f;
+  color: var(--friends-ink);
 }
 
 .project-gallery-stage {
@@ -1665,7 +1693,7 @@ img {
 
 .project-copy h2 {
   min-height: 2.05em;
-  color: #28231f;
+  color: var(--friends-ink);
   filter: blur(0);
   animation: project-title-focus 520ms ease both;
 }
@@ -1759,7 +1787,7 @@ img {
   right: 160px;
   bottom: 142px;
   width: 310px;
-  color: #10131d;
+  color: var(--friends-ink);
 }
 
 .project-meta p {
@@ -1792,7 +1820,7 @@ img {
   width: 84px;
   border: 0;
   background: transparent;
-  color: #10131d;
+  color: var(--friends-ink);
   cursor: pointer;
   border-radius: 8px;
   transition:
@@ -1927,10 +1955,10 @@ img {
   display: grid;
   gap: 10px;
   min-height: 154px;
-  border: 1px solid rgba(183, 199, 217, 0.72);
+  border: 1px solid #2f302f;
   border-radius: 8px;
-  background: #f7f6f2;
-  color: inherit;
+  background: #2f302f;
+  color: #ffffff;
   padding: 24px;
   text-align: left;
   cursor: pointer;
@@ -1940,7 +1968,7 @@ img {
 }
 
 .rsvp-intent button:hover {
-  background: #f6d6dc;
+  background: #4a4a4a;
   transform: translateY(-4px);
 }
 
@@ -1993,10 +2021,10 @@ img {
   justify-content: center;
   gap: 8px;
   min-height: 54px;
-  border: 1px solid #b7c7d9;
+  border: 1px solid #2f302f;
   border-radius: 8px;
-  background: #b7c7d9;
-  color: #2f302f;
+  background: #2f302f;
+  color: #ffffff;
   padding: 13px 16px;
   font-weight: 950;
   cursor: pointer;
@@ -2012,8 +2040,49 @@ img {
 .rsvp-identity button:focus-visible,
 .rsvp-next:focus-visible,
 .rsvp-confirm:focus-visible {
-  border-color: #b8c4b1;
-  background: #f6d6dc;
+  border-color: #4a4a4a;
+  background: #4a4a4a;
+  transform: translateY(-2px);
+}
+
+.rsvp-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.rsvp-buttons > button {
+  flex: 1;
+}
+
+.rsvp-buttons .rsvp-back {
+  flex: 0 0 auto;
+  min-width: 100px;
+}
+
+.rsvp-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 54px;
+  border: 1px solid rgba(47, 48, 47, 0.42);
+  border-radius: 8px;
+  background: transparent;
+  color: #2f302f;
+  padding: 13px 16px;
+  font-weight: 950;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.rsvp-back:hover,
+.rsvp-back:focus-visible {
+  border-color: #2f302f;
+  background: rgba(47, 48, 47, 0.08);
   transform: translateY(-2px);
 }
 
@@ -2050,10 +2119,10 @@ img {
   height: 36px;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(184, 196, 177, 0.82);
+  border: 1px solid #2f302f;
   border-radius: 50%;
-  background: transparent;
-  color: inherit;
+  background: #2f302f;
+  color: #ffffff;
   cursor: pointer;
   transition:
     background 160ms ease,
@@ -2063,8 +2132,8 @@ img {
 
 .rsvp-stepper button:hover,
 .rsvp-stepper button:focus-visible {
-  border-color: #b7c7d9;
-  background: #e6e0d6;
+  border-color: #4a4a4a;
+  background: #4a4a4a;
   transform: scale(1.05);
 }
 
@@ -2157,7 +2226,7 @@ img {
   display: grid;
   place-items: center;
   text-align: center;
-  color: #2f302f;
+  color: var(--friends-ink);
 }
 
 @media (max-width: 980px) {

@@ -40,7 +40,7 @@ export const photos: WeddingPhoto[] = [
     width: 2756,
     height: 4134,
     alt: "婚紗照直幅",
-    role: "gallery"
+    role: "family"
   },
   {
     id: "gallery-02",
@@ -48,7 +48,7 @@ export const photos: WeddingPhoto[] = [
     width: 2756,
     height: 4134,
     alt: "婚紗照直幅",
-    role: "gallery"
+    role: "family"
   },
   {
     id: "gallery-03",
@@ -91,20 +91,12 @@ export const photos: WeddingPhoto[] = [
     role: "gallery"
   },
   {
-    id: "gallery-08",
-    src: "/photos/gallery-08.jpg",
-    width: 4134,
-    height: 2756,
-    alt: "婚紗照橫幅",
-    role: "gallery"
-  },
-  {
     id: "gallery-09",
     src: "/photos/gallery-09.jpg",
     width: 2756,
     height: 4134,
     alt: "婚紗照直幅",
-    role: "gallery"
+    role: "family"
   },
   {
     id: "family-01",
@@ -115,12 +107,20 @@ export const photos: WeddingPhoto[] = [
     role: "family"
   },
   {
+    id: "gallery-08",
+    src: "/photos/gallery-08.jpg",
+    width: 4134,
+    height: 2756,
+    alt: "婚紗照橫幅",
+    role: "family"
+  },
+  {
     id: "family-02",
     src: "/photos/family-02.jpg",
     width: 2756,
     height: 4134,
     alt: "4J 與 Yuan 精選婚紗照",
-    role: "family"
+    role: "gallery"
   },
   {
     id: "family-03",
@@ -128,7 +128,7 @@ export const photos: WeddingPhoto[] = [
     width: 2756,
     height: 4134,
     alt: "4J 與 Yuan 精選婚紗照",
-    role: "family"
+    role: "gallery"
   },
   {
     id: "family-04",
@@ -136,7 +136,7 @@ export const photos: WeddingPhoto[] = [
     width: 4134,
     height: 2756,
     alt: "4J 與 Yuan 精選婚紗照",
-    role: "family"
+    role: "gallery"
   },
   {
     id: "family-05",
@@ -144,7 +144,7 @@ export const photos: WeddingPhoto[] = [
     width: 4134,
     height: 2756,
     alt: "4J 與 Yuan 精選婚紗照",
-    role: "family"
+    role: "gallery"
   },
   {
     id: "family-06",
@@ -152,7 +152,7 @@ export const photos: WeddingPhoto[] = [
     width: 2756,
     height: 4134,
     alt: "4J 與 Yuan 精選婚紗照",
-    role: "family"
+    role: "gallery"
   },
   {
     id: "family-07",
@@ -160,7 +160,7 @@ export const photos: WeddingPhoto[] = [
     width: 2756,
     height: 4134,
     alt: "4J 與 Yuan 精選婚紗照",
-    role: "family"
+    role: "gallery"
   }
 ];
 

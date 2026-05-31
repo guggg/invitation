@@ -49,6 +49,45 @@ describe("FriendRsvpExperience", () => {
     });
   });
 
+  it("allows navigating back to edit previous steps", () => {
+    render(<FriendRsvpExperience endpoint="https://example.com/rsvp" />);
+
+    // Step 1: Intent
+    fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
+
+    // Step 2: Identity
+    fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
+    fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
+
+    // Go back from step 2 to step 1
+    fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
+    expect(screen.getByRole("button", { name: "我會到場" })).toBeInTheDocument();
+
+    // Go to step 2 again
+    fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
+    // Value should still be retained
+    expect(screen.getByLabelText("名字")).toHaveValue("Yuan");
+    expect(screen.getByLabelText("聯絡電話")).toHaveValue("0912345678");
+
+    // Go to step 3: Details
+    fireEvent.click(screen.getByRole("button", { name: "下一步" }));
+    expect(screen.getByText("葷食份數")).toBeInTheDocument();
+
+    // Go back from step 3 to step 2
+    fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
+    expect(screen.getByLabelText("名字")).toBeInTheDocument();
+
+    // Go to step 3 again
+    fireEvent.click(screen.getByRole("button", { name: "下一步" }));
+    // Go to step 4: Card Preview
+    fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
+    expect(screen.getByText("出席確認")).toBeInTheDocument();
+
+    // Go back from step 4 to step 3
+    fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
+    expect(screen.getByText("葷食份數")).toBeInTheDocument();
+  });
+
   it("lets declined guests skip meal details and keeps submission disabled without endpoint", () => {
     render(<FriendRsvpExperience endpoint="" />);
 

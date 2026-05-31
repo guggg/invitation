@@ -128,6 +128,17 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
     }
   }
 
+  function handleBack() {
+    setMessage("");
+    if (step === "identity") {
+      setStep("intent");
+    } else if (step === "details") {
+      setStep("identity");
+    } else if (step === "card") {
+      setStep(data.attendance === "attending" ? "details" : "identity");
+    }
+  }
+
   return (
     <div className="friend-rsvp-experience">
       <div className="rsvp-orbit" aria-hidden="true">
@@ -175,9 +186,14 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
               placeholder="0912 345 678"
             />
           </label>
-          <button type="button" onClick={continueFromIdentity}>
-            {data.attendance === "attending" ? "下一步" : "確認回覆內容"}
-          </button>
+          <div className="rsvp-buttons">
+            <button className="rsvp-back" type="button" onClick={handleBack}>
+              上一頁
+            </button>
+            <button className="rsvp-next" type="button" onClick={continueFromIdentity}>
+              {data.attendance === "attending" ? "下一步" : "確認回覆內容"}
+            </button>
+          </div>
         </div>
       ) : null}
 
@@ -206,9 +222,14 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
             />
           ) : null}
 
-          <button className="rsvp-next" type="button" onClick={generateCard}>
-            確認回覆內容
-          </button>
+          <div className="rsvp-buttons">
+            <button className="rsvp-back" type="button" onClick={handleBack}>
+              上一頁
+            </button>
+            <button className="rsvp-next" type="button" onClick={generateCard}>
+              確認回覆內容
+            </button>
+          </div>
         </div>
       ) : null}
 
@@ -230,15 +251,27 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
               {message}
             </p>
           ) : null}
-          <button
-            className="rsvp-confirm"
-            type="button"
-            disabled={!endpoint || status === "submitting" || status === "success"}
-            onClick={submitCard}
-          >
-            {endpoint ? <Send size={18} aria-hidden="true" /> : null}
-            {!endpoint ? "出席回覆尚未開放" : status === "submitting" ? "送出中" : "確認送出"}
-          </button>
+          <div className="rsvp-buttons">
+            {status !== "success" && (
+              <button
+                className="rsvp-back"
+                type="button"
+                disabled={status === "submitting"}
+                onClick={handleBack}
+              >
+                上一頁
+              </button>
+            )}
+            <button
+              className="rsvp-confirm"
+              type="button"
+              disabled={!endpoint || status === "submitting" || status === "success"}
+              onClick={submitCard}
+            >
+              {endpoint ? <Send size={18} aria-hidden="true" /> : null}
+              {!endpoint ? "出席回覆尚未開放" : status === "submitting" ? "送出中" : "確認送出"}
+            </button>
+          </div>
         </div>
       ) : null}
 

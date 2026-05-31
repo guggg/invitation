@@ -21,10 +21,24 @@ export function FriendsMotionController() {
 
     if (!reduceMotion) {
       lenis = new Lenis({ lerp: 0.08, wheelMultiplier: 0.85 });
+      if (document.querySelector(".ascii-portal")) {
+        lenis.stop();
+      }
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add(tick);
       gsap.ticker.lagSmoothing(0);
     }
+
+    const handlePhaseChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{ phase: string }>;
+      const phase = customEvent.detail.phase;
+      if (phase !== "done") {
+        lenis?.stop();
+      } else {
+        lenis?.start();
+      }
+    };
+    window.addEventListener("portal-phase-change", handlePhaseChange);
 
     const context = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>("[data-friend-section]").forEach((section) => {
@@ -94,6 +108,7 @@ export function FriendsMotionController() {
       context.revert();
       gsap.ticker.remove(tick);
       lenis?.destroy();
+      window.removeEventListener("portal-phase-change", handlePhaseChange);
     };
   }, []);
 

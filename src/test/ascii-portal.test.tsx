@@ -186,7 +186,7 @@ describe("AsciiPortal transition", () => {
     expect(getPortalSceneName(0.34)).toBeNull();
     expect(getPortalSceneName(0.48)).toBeNull();
     expect(getPortalSceneName(0.62)).toBeNull();
-    expect(getPortalSceneName(0.77)).toBeNull();
+    expect(getPortalSceneName(0.73)).toBeNull();
     expect(getPortalSceneName(0.9)).toBe("title");
   });
 
@@ -209,13 +209,13 @@ describe("AsciiPortal transition", () => {
     expect(getPortalSceneName(0.42)).toBeNull();
     expect(getPortalSceneName(0.56)).toBeNull();
     expect(getPortalSceneName(0.72)).toBeNull();
-    expect(getPortalSceneName(0.86)).toBeNull();
+    expect(getPortalSceneName(0.86)).toBe("title");
     expect(getPortalSceneName(0.9)).toBe("title");
   });
 
   it("steps through high-density ascii specimens before the title reveal", () => {
     expect(getSpecimenPortalSceneName(0.16)).toBe("rings");
-    expect(getSpecimenPortalSceneName(0.34)).toBe("shoes");
+    expect(getSpecimenPortalSceneName(0.44)).toBe("balloons");
     expect(getSpecimenPortalSceneName(0.5)).toBe("balloons");
     expect(getSpecimenPortalSceneName(0.66)).toBe("bouquet");
     expect(getSpecimenPortalSceneName(0.82)).toBeNull();
@@ -223,8 +223,8 @@ describe("AsciiPortal transition", () => {
 
   it("nearly mutes the generated field while a specimen is active", () => {
     expect(getSpecimenFieldOpacity(0.16)).toBeLessThanOrEqual(0.1);
-    expect(getSpecimenFieldOpacity(0.34)).toBeLessThanOrEqual(0.1);
-    expect(getSpecimenFieldOpacity(0.5)).toBeLessThanOrEqual(0.1);
+    expect(getSpecimenFieldOpacity(0.42)).toBeLessThanOrEqual(0.1);
+    expect(getSpecimenFieldOpacity(0.44)).toBeLessThanOrEqual(0.1);
     expect(getSpecimenFieldOpacity(0.66)).toBeLessThanOrEqual(0.1);
     expect(getSpecimenFieldOpacity(0.82)).toBe(1);
   });

@@ -8,7 +8,7 @@ export const wedding = {
   venue: {
     name: "優聖美地",
     mapsUrl: "https://maps.app.goo.gl/kh9wq747YUEJQPMP8",
-    mapEmbedUrl: "https://www.google.com/maps?q=%E5%84%AA%E8%81%96%E7%BE%8E%E5%9C%B0&z=15&output=embed"
+    mapEmbedUrl: "https://www.google.com/maps?q=%E5%84%AA%E8%81%96%E7%BE%8E%E5%9C%B0%E9%84%89%E6%9D%91%E6%B8%A1%E5%81%87%E5%88%A5%E5%A2%85&z=16&output=embed"
   },
   schedule: [
     {

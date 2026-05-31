@@ -11,7 +11,7 @@ type GridSize = {
 };
 
 const introPhrases = ["Yuan & 4J's Wedding", "2026.10.3", "4J & Yuan's Wedding", "優聖美地"];
-const CHAR_WIDTH = 8;
+const CHAR_WIDTH = 7.2;
 const LINE_HEIGHT = 13;
 const TRANSITION_MS = 5400;
 const RAMP = " .`':-=/+<>!?235689AON";
@@ -39,7 +39,7 @@ const PORTAL_OBJECTS: PortalObject[] = [
   // Legacy generated-field object scenes are intentionally disabled while the new
   // specimen renderers handle the visible wedding objects.
   ...(LEGACY_FIELD_OBJECT_SCENES_ENABLED ? LEGACY_FIELD_OBJECTS : []),
-  { name: "title", start: 0.87, end: 0.99 }
+  { name: "title", start: 0.75, end: 0.99 }
 ];
 
 const SCENE_RAMPS: Record<PortalSceneName, string> = {
@@ -233,10 +233,10 @@ type SpecimenScene = {
 };
 
 const SPECIMEN_SCENES: SpecimenScene[] = [
-  { name: "rings", start: 0.1, end: 0.27 },
-  { name: "shoes", start: 0.27, end: 0.45 },
-  { name: "balloons", start: 0.45, end: 0.61 },
-  { name: "bouquet", start: 0.61, end: 0.78 }
+  { name: "rings", start: 0.1, end: 0.28 },
+  // { name: "shoes", start: 0.27, end: 0.45 },
+  { name: "balloons", start: 0.35, end: 0.53 },
+  { name: "bouquet", start: 0.60, end: 0.78 }
 ];
 
 function createSpecimenCanvas(progress: number, time: number, pointer: { x: number; y: number }, revealStart: number) {
@@ -556,7 +556,7 @@ export function renderShoesSpecimen(progress: number, time: number, pointer: { x
 }
 
 export function renderBalloonSpecimen(progress: number, time: number, pointer: { x: number; y: number }) {
-  const canvas = createSpecimenCanvas(progress, time, pointer, 0.45);
+  const canvas = createSpecimenCanvas(progress, time, pointer, 0.35);
   const balloons = [
     [-0.36, -0.3, 0.15, 0.24],
     [-0.22, -0.62, 0.13, 0.23],
@@ -1571,6 +1571,20 @@ export function AsciiPortal() {
 
   useEffect(() => {
     phaseRef.current = phase;
+    window.dispatchEvent(new CustomEvent("portal-phase-change", { detail: { phase } }));
+
+    if (phase !== "done") {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
   }, [phase]);
 
   useEffect(() => {
@@ -1670,7 +1684,6 @@ export function AsciiPortal() {
           "--specimen-field-opacity": specimenFieldOpacity
         } as CSSProperties
       }
-      onClick={phase === "transition" ? undefined : enter}
       onPointerMove={(event) => {
         const x = (event.clientX / Math.max(1, window.innerWidth)) * 100;
         const y = (event.clientY / Math.max(1, window.innerHeight)) * 100;
