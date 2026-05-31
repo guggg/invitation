@@ -10,6 +10,9 @@ export function ProjectGallery() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeProject = projects[activeIndex];
 
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchStartY, setTouchStartY] = useState(0);
+
   useEffect(() => {
     const onProgress = (event: Event) => {
       const progress = (event as CustomEvent<{ progress?: number }>).detail?.progress ?? 0;
@@ -21,15 +24,40 @@ export function ProjectGallery() {
     return () => window.removeEventListener("friend-gallery-progress", onProgress);
   }, [projects.length]);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+    setTouchStartY(e.targetTouches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+
+    const diffX = touchStartX - endX;
+    const diffY = touchStartY - endY;
+
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        setActiveIndex((prev) => Math.min(projects.length - 1, prev + 1));
+      } else {
+        setActiveIndex((prev) => Math.max(0, prev - 1));
+      }
+    }
+  };
+
   return (
     <section
       id="gallery"
       className="project-gallery"
       data-friend-section="4"
-        data-section-label="照片"
-        aria-labelledby="gallery-title"
+      data-section-label="照片"
+      aria-labelledby="gallery-title"
+    >
+      <div
+        className="project-gallery-stage"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
-        <div className="project-gallery-stage">
           <div className="project-copy">
           <p data-fx="blur-reveal">婚紗照</p>
           <h2 id="gallery-title" key={activeProject.id}>

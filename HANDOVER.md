@@ -119,6 +119,20 @@
       * 給予選單連結 `.friends-v2-header a` 新增 `padding: 6px 14px`，讓滑動 Hover 時的粉色膠囊背景（Pill）擁有更優雅的內縮空間。
       * 為 `.friends-v2-brand` (左側 Logo) 設定獨立的 `padding: 6px 0`，使其完美的與網頁左側對齊線貼合，視覺平衡極佳。
 
+### ⑫ 禁用 Google Maps 背景地圖 pointer-events
+* **目的**：解決在手機上以單指滑動瀏覽頁面時，Google Maps iframe 會攔截觸發「兩指移動地圖」的半透明黑色提示框，且該提示文字會與網頁原本的文字重疊的問題。
+* **修改檔案**：[`src/app/globals.css`](file:///Users/cfh00585519/Documents/repos/toys/invitation/src/app/globals.css)
+* **實作方式**：
+  * 在 `.venue-map-stage iframe` 加上 `pointer-events: none;`。這能使所有滑動、觸控事件直接「穿透」地圖 iframe，不僅徹底移成了重疊提示文字，更讓手機使用者在經過地圖區塊時能流暢地單指往下滑動，不會被地圖鎖定（使用者若需導航，可直接點擊下方深灰色的「Google Maps」實體按鈕）。
+
+### ⑬ 婚紗照區塊 (Gallery) 新增手機版左右滑動切換
+* **目的**：解決手機版因螢幕寬度小於 860px 而未啟用 GSAP 的 ScrollTrigger Pin 滾動解鎖機制，導致使用者往下滑時會「直接略過（Scroll past）」整個婚紗照區塊、無法滑動切換照片的問題。
+* **修改檔案**：[`src/components/friends/ProjectGallery.tsx`](file:///Users/cfh00585519/Documents/repos/toys/invitation/src/components/friends/ProjectGallery.tsx)
+* **實作方式**：
+  * 在 `.project-gallery-stage` 容器加上 `onTouchStart` 與 `onTouchEnd` 觸控手勢監聽。
+  * 透過計算 `touchStartX` 與觸控結束點的位移，判斷是否為**水平滑動**（`Math.abs(diffX) > Math.abs(diffY)` 且位移大於 `50px`）。
+  * 偵測到**左滑**時切換至下一張照片 (`Math.min(projects.length - 1, prev + 1)`)，**右滑**時切換至上一張照片 (`Math.max(0, prev - 1)`)，提供手機使用者直覺且極致順暢的輪播（Carousel）手勢操作體驗，同時不影響原本的上下頁面捲動。
+
 ---
 
 ## 2. 後續開發與維護指南

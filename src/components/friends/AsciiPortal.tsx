@@ -13,7 +13,7 @@ type GridSize = {
 const introPhrases = ["Yuan & 4J's Wedding", "2026.10.3", "4J & Yuan's Wedding", "優聖美地"];
 const CHAR_WIDTH = 7.2;
 const LINE_HEIGHT = 13;
-const TRANSITION_MS = 5400;
+const TRANSITION_MS = 8100;
 const RAMP = " .`':-=/+<>!?235689AON";
 const NOISE = ".,-:;_+/<>=!?123456890AONN";
 

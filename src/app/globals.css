@@ -929,7 +929,7 @@ img {
 }
 
 .ascii-portal.is-transitioning {
-  animation: ascii-portal-exit 5400ms linear forwards;
+  animation: ascii-portal-exit 8100ms linear forwards;
 }
 
 .ascii-portal-grid {
@@ -1624,6 +1624,7 @@ img {
   filter: grayscale(0.08) saturate(0.48) contrast(0.9) brightness(1.03);
   transform: scale(1.03);
   transform-origin: center;
+  pointer-events: none;
 }
 
 .venue-map-stage::after {
