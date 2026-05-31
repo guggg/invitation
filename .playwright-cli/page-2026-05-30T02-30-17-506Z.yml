@@ -1,0 +1,122 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e9] [cursor=pointer]:
+      - paragraph [ref=e10]: 歡迎來到我們的婚禮
+      - generic "Yuan & 4J's Wedding" [ref=e11]:
+        - generic [ref=e12]:
+          - generic [ref=e13]: "Y"
+          - generic [ref=e14]: u
+          - generic [ref=e15]: a
+          - generic [ref=e16]: "n"
+        - generic [ref=e18]: "&"
+        - generic [ref=e19]:
+          - generic [ref=e20]: "4"
+          - generic [ref=e21]: J
+          - generic [ref=e22]: "'"
+          - generic [ref=e23]: s
+        - generic [ref=e24]:
+          - generic [ref=e25]: W
+          - generic [ref=e26]: e
+          - generic [ref=e27]: d
+          - generic [ref=e28]: d
+          - generic [ref=e29]: i
+          - generic [ref=e30]: "n"
+          - generic [ref=e31]: g
+      - button "請點擊" [ref=e32]
+    - generic [ref=e33]:
+      - link "Yuan and 4J wedding opening" [ref=e34] [cursor=pointer]:
+        - /url: "#opening"
+        - text: 4J&Yuan
+      - navigation "朋友版導覽" [ref=e35]:
+        - link "時間" [ref=e36] [cursor=pointer]:
+          - /url: "#schedule"
+        - link "地點" [ref=e37] [cursor=pointer]:
+          - /url: "#venue"
+        - link "照片" [ref=e38] [cursor=pointer]:
+          - /url: "#gallery"
+        - link "回覆" [ref=e39] [cursor=pointer]:
+          - /url: "#rsvp"
+        - link "長輩版" [ref=e40] [cursor=pointer]:
+          - /url: /family
+    - complementary "頁面段落" [ref=e41]:
+      - link "1 開場" [ref=e42] [cursor=pointer]:
+        - /url: "#opening"
+        - generic [ref=e43]: "1"
+        - strong [ref=e44]: 開場
+      - link "2 邀請" [ref=e45] [cursor=pointer]:
+        - /url: "#signal"
+        - generic [ref=e46]: "2"
+        - strong [ref=e47]: 邀請
+      - link "3 流程" [ref=e48] [cursor=pointer]:
+        - /url: "#schedule"
+        - generic [ref=e49]: "3"
+        - strong [ref=e50]: 流程
+      - link "4 地點" [ref=e51] [cursor=pointer]:
+        - /url: "#venue"
+        - generic [ref=e52]: "4"
+        - strong [ref=e53]: 地點
+      - link "5 照片" [ref=e54] [cursor=pointer]:
+        - /url: "#gallery"
+        - generic [ref=e55]: "5"
+        - strong [ref=e56]: 照片
+      - link "6 回覆" [ref=e57] [cursor=pointer]:
+        - /url: "#rsvp"
+        - generic [ref=e58]: "6"
+        - strong [ref=e59]: 回覆
+      - link "7 那天見" [ref=e60] [cursor=pointer]:
+        - /url: "#finale"
+        - generic [ref=e61]: "7"
+        - strong [ref=e62]: 那天見
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - paragraph [ref=e65]: 我們的婚禮邀請
+        - heading "Yuan & 4J 4J & Yuan" [level=1] [ref=e66]:
+          - generic [ref=e67]: Yuan & 4J
+          - generic [ref=e68]: 4J & Yuan
+        - generic [ref=e69]:
+          - generic [ref=e70]: 2026.10.3
+          - generic [ref=e71]: 優聖美地
+      - generic "婚紗照精選" [ref=e72]:
+        - figure [ref=e73]:
+          - img "4J 與 Yuan 的婚紗照" [ref=e74]
+        - figure [ref=e75]:
+          - img "4J 與 Yuan 的婚紗照" [ref=e76]
+        - figure [ref=e77]:
+          - img "4J 與 Yuan 的婚紗照" [ref=e78]
+    - iframe [ref=e84]:
+      - link "Open in Maps (opens in new tab)" [ref=f1e4] [cursor=pointer]:
+        - /url: about:invalid#zClosurez
+        - text: Open in Maps
+        - img [ref=f1e6]
+    - region "婚禮之前" [ref=e85]:
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - heading "婚禮之前" [level=2] [ref=e89]
+          - generic [ref=e90]: 在那天以前
+        - img "婚紗照直幅" [ref=e92]
+        - generic [ref=e93]:
+          - paragraph [ref=e94]: 把時間先停在婚禮前一刻。
+          - list [ref=e95]:
+            - listitem [ref=e96]: 婚紗照
+            - listitem [ref=e97]: 安靜的一刻
+            - listitem [ref=e98]: 邀請你來
+        - generic "婚紗照場景選擇" [ref=e99]:
+          - button "婚禮之前" [ref=e100] [cursor=pointer]
+          - button "河岸邊的一天" [ref=e101] [cursor=pointer]
+          - button "花園裡的我們" [ref=e102] [cursor=pointer]
+          - button "溫柔的一刻" [ref=e103] [cursor=pointer]
+          - button "等你一起來" [ref=e104] [cursor=pointer]
+    - generic [ref=e106]:
+      - generic [ref=e107]:
+        - generic [ref=e108]: 出席回覆
+        - strong [ref=e109]: "01"
+      - generic [ref=e110]:
+        - button "我會到場" [ref=e111] [cursor=pointer]:
+          - generic [ref=e112]: 我會到場
+          - generic [ref=e113]: 一起見證這一天
+        - button "這次無法參加" [ref=e114] [cursor=pointer]:
+          - generic [ref=e115]: 這次無法參加
+          - generic [ref=e116]: 把祝福送到
+  - button "Open Next.js Dev Tools" [ref=e123] [cursor=pointer]:
+    - img [ref=e124]
+  - alert [ref=e127]

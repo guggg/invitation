@@ -1,0 +1,1254 @@
+{
+  "url": "https://aino.agency/",
+  "errors": [],
+  "before": {
+    "title": "Aino — Design & Technology Agency",
+    "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                      ONNNNNNNNNOO00A8869452I3?!<>>=+//::---------:://+==><!?3I2549668A00OONNNNNNNNNOO00A8869452I3?!<>>=+//::                                     \n                                                  NN        69452I?!<>=+//:--------:://+=>     54    0OONNNNNNNNOO0A869452I3?!>==+/::                                             \n                                                       ONNNNNNO0A869523?!>=+/:-------:/+=>!?I25968A0ONNNNNNOO0A8942I3!<=+/::                                                      \n                                                               ONNNNO0A895I?!>+/:-----:/=>!324680ONNNNNO0A645I?<=+/:                                                              \n                                                                       ONNNOA653<=/:---:+>?2980ONNNOA653<=/:                                                                      \n                                                          ",
+    "canvasCount": 0,
+    "svgCount": 0,
+    "preCount": 0,
+    "gridCount": 1,
+    "monoCount": 1,
+    "htmlSnippet": "<header data-component=\"header\"><nav id=\"nav\" class=\"hoverchar\" data-active=\"true\" style=\"opacity: 1;\"><div><a href=\"/\" rel=\"prefetch\" class=\"home\" data-active=\"true\">Aino</a></div><div><a href=\"/work\" rel=\"prefetch\" class=\"work\" data-active=\"true\">Work</a><a href=\"/services\" rel=\"prefetch\" data-active=\"true\">Services</a></div><div class=\"secondary\"><a href=\"/about\" rel=\"prefetch\" class=\"about\" data-active=\"true\">About</a><a href=\"/play\" rel=\"prefetch\" data-active=\"true\">Play</a></div><div class=\"last\"><button class=\"toggler ghost\">Settings</button><a href=\"/contact\" rel=\"prefetch\" data-active=\"true\">Contact</a></div><div class=\"mobile\"><button class=\"ghost mobile-contact\" data-active=\"true\">Contact</button><button class=\"ghost mobile-close\" data-active=\"true\">Menu</button></div></nav></header><main id=\"app\"><section class=\"gridcontainer\"><div class=\"grid mono\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ONNNNNNNNNOO00A8869452I3?!&lt;&gt;&gt;=+//::---------:://+==&gt;&lt;!?3I2549668A00OONNNNNNNNNOO00A8869452I3?!&lt;&gt;&gt;=+//::&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;69452I?!&lt;&gt;=+//:--------:://+=&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;54&nbsp;&nbsp;&nbsp;&nbsp;0OONNNNNNNNOO0A869452I3?!&gt;==+/::&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ONNNNNNO0A869523?!&gt;=+/:-------:/+=&gt;!?I25968A0ONNNNNNOO0A8942I3!&lt;=+/::&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs",
+    "elements": [
+      {
+        "tag": "header",
+        "cls": "",
+        "text": "AinoWorkServicesAboutPlaySettingsContactContactMenu"
+      },
+      {
+        "tag": "nav",
+        "cls": "hoverchar",
+        "text": "AinoWorkServicesAboutPlaySettingsContactContactMenu"
+      },
+      {
+        "tag": "div",
+        "cls": "",
+        "text": "Aino"
+      },
+      {
+        "tag": "a",
+        "cls": "home",
+        "text": "Aino"
+      },
+      {
+        "tag": "div",
+        "cls": "",
+        "text": "WorkServices"
+      },
+      {
+        "tag": "a",
+        "cls": "work",
+        "text": "Work"
+      },
+      {
+        "tag": "a",
+        "cls": "",
+        "text": "Services"
+      },
+      {
+        "tag": "div",
+        "cls": "secondary",
+        "text": "AboutPlay"
+      },
+      {
+        "tag": "a",
+        "cls": "about",
+        "text": "About"
+      },
+      {
+        "tag": "a",
+        "cls": "",
+        "text": "Play"
+      },
+      {
+        "tag": "div",
+        "cls": "last",
+        "text": "SettingsContact"
+      },
+      {
+        "tag": "button",
+        "cls": "toggler ghost",
+        "text": "Settings"
+      },
+      {
+        "tag": "a",
+        "cls": "",
+        "text": "Contact"
+      },
+      {
+        "tag": "div",
+        "cls": "mobile",
+        "text": "ContactMenu"
+      },
+      {
+        "tag": "button",
+        "cls": "ghost mobile-contact",
+        "text": "Contact"
+      },
+      {
+        "tag": "button",
+        "cls": "ghost mobile-close",
+        "text": "Menu"
+      },
+      {
+        "tag": "main",
+        "cls": "",
+        "text": "ONNNNNNNNNOO00A8869452I3?!<>>=+//::---------:://+==><!?3I2549668A00OONNNNNNNNNOO"
+      },
+      {
+        "tag": "section",
+        "cls": "gridcontainer",
+        "text": "ONNNNNNNNNOO00A8869452I3?!<>>=+//::---------:://+==><!?3I2549668A00OONNNNNNNNNOO"
+      },
+      {
+        "tag": "div",
+        "cls": "grid mono",
+        "text": "ONNNNNNNNNOO00A8869452I3?!<>>=+//::---------:://+==><!?3I2549668A00OONNNNNNNNNOO"
+      },
+      {
+        "tag": "div",
+        "cls": "home-content",
+        "text": "A002 SANDISKA004 SAMSØE SAMSØEWe build premium storefronts where brands grow and"
+      },
+      {
+        "tag": "div",
+        "cls": "sections",
+        "text": "A002 SANDISKA004 SAMSØE SAMSØEWe build premium storefronts where brands grow and"
+      },
+      {
+        "tag": "section",
+        "cls": "section",
+        "text": "A002 SANDISKA004 SAMSØE SAMSØE"
+      },
+      {
+        "tag": "a",
+        "cls": "col w4",
+        "text": "A002 SANDISK"
+      },
+      {
+        "tag": "div",
+        "cls": "image",
+        "text": ""
+      },
+      {
+        "tag": "img",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "A002 SANDISK"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "A002 SANDISK"
+      },
+      {
+        "tag": "a",
+        "cls": "col w4",
+        "text": "A004 SAMSØE SAMSØE"
+      },
+      {
+        "tag": "div",
+        "cls": "video",
+        "text": ""
+      },
+      {
+        "tag": "video",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "A004 SAMSØE SAMSØE"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "A004 SAMSØE SAMSØE"
+      },
+      {
+        "tag": "section",
+        "cls": "section",
+        "text": "We build premium storefronts where brands grow and consumers fall in love.All wo"
+      },
+      {
+        "tag": "div",
+        "cls": "col w5",
+        "text": "We build premium storefronts where brands grow and consumers fall in love.All wo"
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "We build premium storefronts where brands grow and consumers fall in love.All wo"
+      },
+      {
+        "tag": "p",
+        "cls": "mega stagger",
+        "text": "We build premium storefronts where brands grow and consumers fall in love."
+      },
+      {
+        "tag": "br",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "",
+        "text": "All work Our services"
+      },
+      {
+        "tag": "a",
+        "cls": "button fadein",
+        "text": "All work"
+      },
+      {
+        "tag": "a",
+        "cls": "button fadein",
+        "text": "Our services"
+      },
+      {
+        "tag": "section",
+        "cls": "section between",
+        "text": "a001 nudie jeansa020 emma s"
+      },
+      {
+        "tag": "a",
+        "cls": "col w4",
+        "text": "a001 nudie jeans"
+      },
+      {
+        "tag": "div",
+        "cls": "image",
+        "text": ""
+      },
+      {
+        "tag": "img",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "a001 nudie jeans"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "a001 nudie jeans"
+      },
+      {
+        "tag": "a",
+        "cls": "col",
+        "text": "a020 emma s"
+      },
+      {
+        "tag": "div",
+        "cls": "image",
+        "text": ""
+      },
+      {
+        "tag": "img",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "a020 emma s"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "a020 emma s"
+      },
+      {
+        "tag": "section",
+        "cls": "section",
+        "text": "A007 All BluesA010 Gulled"
+      },
+      {
+        "tag": "a",
+        "cls": "col w4",
+        "text": "A007 All Blues"
+      },
+      {
+        "tag": "div",
+        "cls": "image",
+        "text": ""
+      },
+      {
+        "tag": "img",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "A007 All Blues"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "A007 All Blues"
+      },
+      {
+        "tag": "a",
+        "cls": "col w4",
+        "text": "A010 Gulled"
+      },
+      {
+        "tag": "div",
+        "cls": "image",
+        "text": ""
+      },
+      {
+        "tag": "img",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "A010 Gulled"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "A010 Gulled"
+      },
+      {
+        "tag": "section",
+        "cls": "section",
+        "text": "a011 beyond medals"
+      },
+      {
+        "tag": "a",
+        "cls": "col w8",
+        "text": "a011 beyond medals"
+      },
+      {
+        "tag": "div",
+        "cls": "image",
+        "text": ""
+      },
+      {
+        "tag": "img",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "a011 beyond medals"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "a011 beyond medals"
+      },
+      {
+        "tag": "section",
+        "cls": "section",
+        "text": "a014 Socksssa015 tinteda021 sweet sktbs"
+      },
+      {
+        "tag": "a",
+        "cls": "col",
+        "text": "a014 Socksss"
+      },
+      {
+        "tag": "div",
+        "cls": "image",
+        "text": ""
+      },
+      {
+        "tag": "img",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "a014 Socksss"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "a014 Socksss"
+      },
+      {
+        "tag": "a",
+        "cls": "col",
+        "text": "a015 tinted"
+      },
+      {
+        "tag": "div",
+        "cls": "image",
+        "text": ""
+      },
+      {
+        "tag": "img",
+        "cls": "",
+        "text": ""
+      },
+      {
+        "tag": "div",
+        "cls": "html",
+        "text": "a015 tinted"
+      },
+      {
+        "tag": "h3",
+        "cls": "",
+        "text": "a015 tinted"
+      },
+      {
+        "tag": "a",
+        "cls": "col",
+        "text": "a021 sweet sktbs"
+      }
+    ]
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "ms": 80,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                   -  6-·  !                                                                                      \n                                                                                      - <=                                                                                        \n                                                                        N    A N3 6NO- N: -9   N ? 0                                                                              \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                   -  6-·  !                                                                                      \n                                                                                      - <=                                                                                        \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                   -  6-·  !                                                                                      \n                                                                                      - <=                                                                                        \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 1,
+      "ms": 300,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                 8    A    X                     !           X        +       :     3      <Z          8É     G   8A                    8                         \n               8             E  G 8G   8588       8         H   4H #    1  :   / - --3/         >      +  0 G?<>X    XI         X  X E          8  8    88           8            \n       8 8       D 8          Å  D X   Å HÖ5   H     A   0  >É3  A =0 + ?-:E + :  -ZP! --  --    -  +   !X = C  Ö  X  A 4    48 G  A  Ö   ÅÅ  8 Å    E  8 8 8                     \n            8E E",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                 8    A    X                     !           X        +       :     3      <Z          8É     G   8A                    8                         \n               8             E  G 8G   8588       8         H   4H #    1  :   / - --3/         >      +  0 G?<>X    XI         X  X E          8  8    88           8            \n       8 8       D 8          Å  D X   Å H",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                 8    A    X                     !           X        +       :     3      <Z          8É     G   8A                    8                         \n               8             E  G 8G   8588       8         H   4H #    1  :   / - --3/         >      +  0 G?<>X    XI         X  X E          8  8    88           8            \n       8 8       D 8          Å  D X   Å H",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "ms": 520,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 3,
+      "ms": 740,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 4,
+      "ms": 960,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 5,
+      "ms": 1180,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 6,
+      "ms": 1400,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 7,
+      "ms": 1620,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 8,
+      "ms": 1840,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 9,
+      "ms": 2060,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 10,
+      "ms": 2280,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 11,
+      "ms": 2500,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n::::::::::::::::::::::::::'                 ·::::::::::::::::::::::::::::::::::::::::::'':::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n::    ::::::::::::::::::::'                 ·:    ::        ;;;!^/\\;::::::::::::::::::::::     ::    :::::::::::::::::::::::::::::::::        :::::::::::::::::::::::::::       ::\n::::::::::::::::::::::::::'                 ·:::::::::::_!/\\=<{(>>><=*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n::::::::::::::::",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "::::::::::::::::::::::::::'                 ·::::::::::::::::::::::::::::::::::::::::::'':::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n::    ::::::::::::::::::::'                 ·:    ::        ;;;!^/\\;::::::::::::::::::::::     ::    :::::::::::::::::::::::::::::::::        :::::::::::::::::::::::::::       ::\n::::::::::::::::::::::::::'               ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "::::::::::::::::::::::::::'                 ·::::::::::::::::::::::::::::::::::::::::::'':::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n::    ::::::::::::::::::::'                 ·:    ::        ;;;!^/\\;::::::::::::::::::::::     ::    :::::::::::::::::::::::::::::::::        :::::::::::::::::::::::::::       ::\n::::::::::::::::::::::::::'               ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 12,
+      "ms": 2720,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''`                                                                            \n      ''''''''''''''''''''''''''''''''''''''''    ''        ''''''''''''''''''''''''''''''     ''                                                                                 \n  ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''                                                                              \n  ''''''''''''''",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''`                                                                            \n      ''''''''''''''''''''''''''''''''''''''''    ''        ''''''''''''''''''''''''''''''     ''                                                                                 \n  ''''''''''''''''''''''''''''''''''''''''",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "  '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''`                                                                            \n      ''''''''''''''''''''''''''''''''''''''''    ''        ''''''''''''''''''''''''''''''     ''                                                                                 \n  ''''''''''''''''''''''''''''''''''''''''",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 13,
+      "ms": 2940,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n························································································································································                          \n··    ········································    ··        ······························     ··    ·································        ··········                          \n························································································································································                          \n················",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "························································································································································                          \n··    ········································    ··        ······························     ··    ·································        ··········                          \n··········································",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "························································································································································                          \n··    ········································    ··        ······························     ··    ·································        ··········                          \n··········································",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 14,
+      "ms": 3160,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 15,
+      "ms": 3380,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 16,
+      "ms": 3600,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 17,
+      "ms": 3820,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    },
+    {
+      "frame": 18,
+      "ms": 4040,
+      "bodyText": "AINO\nWORK\nSERVICES\nABOUT\nPLAY\nSETTINGS\nCONTACT\n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                                                                                                                                                                  \n                ",
+      "canvasCount": 0,
+      "candidates": [
+        {
+          "tag": "section",
+          "cls": "gridcontainer",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "abcplus, helvetica, sans-serif",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "none",
+          "zIndex": "10"
+        },
+        {
+          "tag": "div",
+          "cls": "grid mono",
+          "text": "                                                                                                                                                                                  \n                                                                                                                                                                                  \n                                          ",
+          "textLength": 11097,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "w": 1440,
+            "h": 1000
+          },
+          "font": "mono, monospace",
+          "fontSize": "12.5831px",
+          "lineHeight": "16.1798px",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)",
+          "zIndex": "auto"
+        }
+      ]
+    }
+  ]
+}

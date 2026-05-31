@@ -1,0 +1,85 @@
+{
+  "states": [
+    {
+      "name": "00-intro",
+      "progress": null,
+      "portal": true,
+      "fieldChars": 0,
+      "objectCount": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyText": "歡迎來到我們的婚禮\n\n4\nJ\n&\nY\nu\na\nn\n請點擊\n4J&Yuan\n時間\n地點\n照片\n回覆\n長輩版\n1\n開場\n2\n邀請\n3\n流程\n4\n地點\n5\n照片\n6\n回覆\n7\n那天見\n\n我們的婚禮邀請\n\nYuan & 4J\n4J & Yuan\n2026.10.3\n優聖美地\n婚禮之前\n在那天以前\n\n把時間先停在婚禮前一刻。\n\n婚紗照\n安靜的一刻\n邀請你來\n出席回覆\n01\n我會到場\n一起見證這一天\n這次無法參加\n把祝福送到"
+    },
+    {
+      "name": "01-rings",
+      "progress": "24%",
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyText": "4J&Yuan\n時間\n地點\n照片\n回覆\n,.. .                                ,.,,.,,::,.,,.,,..                        ..,.,,:,:..,,,                       ..,.,:::,,::,,.=.                             .,,..:,:,-,,:,,:.,\n,..,,,.            "
+    },
+    {
+      "name": "02-shoes",
+      "progress": "38%",
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyText": "4J&Yuan\n時間\n地點\n照片\n回覆\n                                                                                                                +                                                                   \n                   "
+    },
+    {
+      "name": "03-balloons",
+      "progress": "51%",
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyText": "4J&Yuan\n時間\n地點\n照片\n回覆\n                        =                                                                                   1              2                          >                             \n              +    "
+    },
+    {
+      "name": "04-flowers",
+      "progress": "65%",
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyText": "4J&Yuan\n時間\n地點\n照片\n回覆\n                                                                                                       A     4                -                                                     \n                   "
+    },
+    {
+      "name": "05-petals",
+      "progress": "83%",
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyText": "4J&Yuan\n時間\n地點\n照片\n回覆\n                                                             6                                                                                                               >      \n               /   "
+    },
+    {
+      "name": "06-title",
+      "progress": "96%",
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyText": "4J&Yuan\n時間\n地點\n照片\n回覆\n                                                                                                                                                                                    \n                   "
+    },
+    {
+      "name": "07-opening",
+      "progress": null,
+      "portal": false,
+      "fieldChars": 0,
+      "objectCount": 0,
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "bodyText": "4J&Yuan\n時間\n地點\n照片\n回覆\n長輩版\n1\n開場\n2\n邀請\n3\n流程\n4\n地點\n5\n照片\n6\n回覆\n7\n那天見\n\n我們的婚禮邀請\n\nYuan & 4J\n4J & Yuan\n2026.10.3\n優聖美地\n婚禮之前\n在那天以前\n\n把時間先停在婚禮前一刻。\n\n婚紗照\n安靜的一刻\n邀請你來\n出席回覆\n01\n我會到場\n一起見證這一天\n這次無法參加\n把祝福送到"
+    }
+  ],
+  "errors": []
+}

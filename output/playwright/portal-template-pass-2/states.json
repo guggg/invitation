@@ -1,0 +1,85 @@
+{
+  "states": [
+    {
+      "name": "00-intro",
+      "requestedProgress": null,
+      "portal": true,
+      "fieldChars": 0,
+      "objectCount": 0,
+      "progress": null,
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "name": "01-rings",
+      "requestedProgress": 0.18,
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "progress": "21%",
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "name": "02-shoes",
+      "requestedProgress": 0.34,
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "progress": "37%",
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "name": "03-balloons",
+      "requestedProgress": 0.48,
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "progress": "51%",
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "name": "04-flowers",
+      "requestedProgress": 0.62,
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "progress": "66%",
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "name": "05-petals",
+      "requestedProgress": 0.78,
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "progress": "82%",
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "name": "06-title",
+      "requestedProgress": 0.9,
+      "portal": true,
+      "fieldChars": 13755,
+      "objectCount": 0,
+      "progress": "95%",
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    {
+      "name": "07-opening",
+      "requestedProgress": 1.05,
+      "portal": false,
+      "fieldChars": 0,
+      "objectCount": 0,
+      "progress": null,
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    }
+  ],
+  "errors": []
+}
