@@ -8,6 +8,7 @@
   --red: #f6d6dc;
   --green: #b8c4b1;
   --acid: #e6e0d6;
+  --music-bar-h: 56px;
   --cobalt: #b7c7d9;
 }
 
@@ -1446,6 +1447,7 @@ img {
 .friends-v2-hero-copy p,
 .signal-copy p,
 .section-kicker p,
+.dress-code-copy p,
 .venue-copy p,
 .project-copy p,
 .rsvp-theatre-copy p,
@@ -1459,6 +1461,7 @@ img {
 .friends-v2-hero-copy h1,
 .signal-copy h2,
 .section-kicker h2,
+.dress-code-copy h2,
 .venue-copy h2,
 .project-copy h2,
 .rsvp-theatre-copy h2,
@@ -1557,6 +1560,7 @@ img {
 }
 
 .signal-copy span,
+.dress-code-copy span,
 .venue-copy span,
 .rsvp-theatre-copy span,
 .finale-section span {
@@ -1617,6 +1621,116 @@ img {
 .schedule-scene p {
   margin: 0;
   opacity: 0.72;
+}
+
+.dress-code-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.58fr) minmax(0, 1fr);
+  gap: 46px;
+  align-items: center;
+  color: var(--ink);
+}
+
+.dress-code-copy {
+  align-self: start;
+  width: min(620px, 100%);
+}
+
+.dress-code-copy h2 {
+  font-size: clamp(4.7rem, 10vw, 9.2rem);
+}
+
+.dress-code-palette {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid rgba(47, 48, 47, 0.18);
+}
+
+.dress-code-swatch {
+  min-height: 390px;
+  background: rgba(247, 246, 242, 0.48);
+  backdrop-filter: blur(16px);
+}
+
+.dress-code-swatch-color {
+  height: 48%;
+  border-bottom: 1px solid rgba(47, 48, 47, 0.12);
+}
+
+.dress-code-swatch > div:last-child {
+  padding: 22px;
+}
+
+.dress-code-swatch h3 {
+  margin: 0 0 8px;
+  font-size: 1.28rem;
+  font-weight: 950;
+}
+
+.dress-code-swatch code {
+  display: block;
+  margin-bottom: 18px;
+  color: rgba(47, 48, 47, 0.62);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.dress-code-swatch p {
+  margin: 0;
+  color: rgba(47, 48, 47, 0.72);
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.65;
+}
+
+.dress-code-notes {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  gap: 1px;
+  border: 1px solid rgba(47, 48, 47, 0.18);
+}
+
+.dress-code-notes article {
+  min-height: 190px;
+  padding: 28px;
+  background: rgba(47, 48, 47, 0.88);
+  color: #f7f6f2;
+}
+
+.dress-code-notes p {
+  margin: 0 0 14px;
+  color: rgba(247, 246, 242, 0.62);
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.dress-code-notes span,
+.dress-code-notes li {
+  font-size: 1rem;
+  font-weight: 750;
+  line-height: 1.8;
+}
+
+.dress-code-notes ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dress-code-notes li::before {
+  margin-right: 8px;
+  color: rgba(247, 246, 242, 0.56);
+  content: "—";
 }
 
 .venue-theatre {
@@ -2289,6 +2403,7 @@ img {
   }
 
   .friends-v2-hero,
+  .dress-code-section,
   .project-gallery-stage,
   .rsvp-theatre {
     grid-template-columns: 1fr;
@@ -2297,6 +2412,7 @@ img {
   .friends-v2-hero-copy h1,
   .signal-copy h2,
   .section-kicker h2,
+  .dress-code-copy h2,
   .venue-copy h2,
   .project-copy h2,
   .rsvp-theatre-copy h2,
@@ -2313,6 +2429,26 @@ img {
   }
 
   .schedule-scenes {
+    grid-template-columns: 1fr;
+  }
+
+  .dress-code-palette {
+    grid-template-columns: 1fr;
+  }
+
+  .dress-code-swatch {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .dress-code-swatch-color {
+    height: auto;
+    border-right: 1px solid rgba(47, 48, 47, 0.12);
+    border-bottom: 0;
+  }
+
+  .dress-code-notes {
     grid-template-columns: 1fr;
   }
 
@@ -2352,6 +2488,7 @@ img {
   .friends-v2-hero-copy h1,
   .signal-copy h2,
   .section-kicker h2,
+  .dress-code-copy h2,
   .venue-copy h2,
   .project-copy h2,
   .rsvp-theatre-copy h2,
@@ -2388,5 +2525,902 @@ img {
 
   .rsvp-card-preview h3 {
     font-size: 3rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Music Pulse Bar — fixed glassmorphism strip at bottom
+   ───────────────────────────────────────────────────────────── */
+
+.music-pulse-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 clamp(16px, 4vw, 48px);
+  height: var(--music-bar-h);
+  background: rgba(3, 3, 3, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: auto;
+}
+
+.music-countdown-ticker {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.84);
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+  font-size: clamp(0.74rem, 1.8vw, 0.88rem);
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.music-countdown-time,
+.music-countdown-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-countdown-time {
+  flex: 0 1 auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.music-countdown-message {
+  flex: 0 1 auto;
+  min-width: 2ch;
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.music-countdown-separator {
+  color: rgba(255, 255, 255, 0.34);
+}
+
+.music-countdown-cursor {
+  color: rgba(255, 255, 255, 0.78);
+  animation: music-countdown-cursor 1s steps(2, start) infinite;
+}
+
+@keyframes music-countdown-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+
+.music-pulse-btn {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px; /* WCAG 2.5.5 minimum touch target */
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  font-size: 0.78rem;
+  line-height: 1;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
+  /* Tap affordance — no hover-only interaction */
+}
+
+.music-pulse-btn:active {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.music-pulse-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(184, 196, 177, 0.55);
+}
+
+.music-pulse-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.music-pulse-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 28px; /* container height matches barMaxPx */
+}
+
+.music-pulse-bar-item {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.75);
+  min-height: 2px;
+  transition: height 120ms ease-out;
+}
+
+.music-pulse-hint {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.02em;
+}
+
+/* Ensure the fixed bar never obscures the last sections' content */
+.rsvp-theatre {
+  padding-bottom: calc(72px + var(--music-bar-h));
+}
+
+.finale-section {
+  padding-bottom: calc(72px + var(--music-bar-h));
+}
+
+/* reduced-motion: bars stay static — music still plays */
+@media (prefers-reduced-motion: reduce) {
+  .music-pulse-bar-item {
+    transition: none;
+  }
+
+  .music-countdown-cursor {
+    animation: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LED 站牌板 — 朋友版接駁車時刻表 (ShuttleBoard)
+   ───────────────────────────────────────────────────────────── */
+
+.shuttle-theatre {
+  color: var(--friends-ink);
+}
+
+.led-board {
+  background: #0d100d;
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 14px 36px rgba(13, 16, 13, 0.55), inset 0 0 0 2px #1d221d;
+}
+
+.led-inner {
+  position: relative;
+  background: radial-gradient(ellipse at top, rgba(20, 24, 20, 0) 0%, #0a0c0a 100%), #0b0d0b;
+  border-radius: 9px;
+  padding: 20px 22px;
+  overflow: hidden;
+}
+
+/* Scanline overlay */
+.led-inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+}
+
+.led-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 191, 73, 0.18);
+  padding-bottom: 12px;
+  margin-bottom: 6px;
+}
+
+.led-title {
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffbf49;
+  text-shadow: 0 0 8px rgba(255, 191, 73, 0.55);
+  font-size: 0.95rem;
+}
+
+.led-clock {
+  font-family: "Courier New", monospace;
+  color: #5fe07a;
+  text-shadow: 0 0 8px rgba(95, 224, 122, 0.5);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.led-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5fe07a;
+  box-shadow: 0 0 6px #5fe07a;
+  animation: led-blink 1.4s steps(1) infinite;
+  flex-shrink: 0;
+}
+
+.led-dot--static {
+  animation: none;
+}
+
+/* Amber dot + PENDING label — used when schedule is not yet confirmed */
+.led-clock--pending {
+  color: #ffbf49;
+  text-shadow: 0 0 8px rgba(255, 191, 73, 0.55);
+}
+
+.led-dot--amber {
+  background: #ffbf49;
+  box-shadow: 0 0 6px #ffbf49;
+}
+
+@keyframes led-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.25; }
+}
+
+.led-group {
+  font-family: "Courier New", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  padding: 8px 4px 6px;
+  opacity: 0.45;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 191, 73, 0.1);
+  margin-bottom: 2px;
+}
+
+.led-group--mt {
+  margin-top: 10px;
+}
+
+.led-group.outbound {
+  color: #ffbf49;
+}
+
+.led-group.return {
+  color: #5fe07a;
+}
+
+.led-row {
+  display: grid;
+  grid-template-columns: 56px 1fr auto auto 44px;
+  align-items: center;
+  gap: 8px;
+  font-family: "Courier New", monospace;
+  padding: 9px 4px;
+  border-bottom: 1px dotted rgba(255, 191, 73, 0.1);
+}
+
+.led-row:last-of-type {
+  border-bottom: none;
+}
+
+.led-row.outbound {
+  color: #ffbf49;
+  text-shadow: 0 0 6px rgba(255, 191, 73, 0.4);
+}
+
+.led-row.return {
+  color: #5fe07a;
+  text-shadow: 0 0 6px rgba(95, 224, 122, 0.4);
+}
+
+.led-t {
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.led-r {
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.led-r-main {
+  display: block;
+}
+
+.led-r-sub {
+  display: block;
+  opacity: 0.55;
+  font-size: 0.65rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.led-veh {
+  font-size: 0.62rem;
+  opacity: 0.7;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+.led-badge {
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid currentColor;
+  white-space: nowrap;
+}
+
+/* Pending badge overrides colour to amber regardless of row direction */
+.led-badge--pending {
+  color: #ffbf49;
+  border-color: rgba(255, 191, 73, 0.65);
+  text-shadow: 0 0 6px rgba(255, 191, 73, 0.4);
+}
+
+/* Per-row calendar button */
+.led-cal-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 191, 73, 0.45);
+  background: transparent;
+  color: #ffbf49;
+  font-family: "Courier New", monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(255, 191, 73, 0.4);
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+
+.led-row.return .led-cal-icon-btn {
+  border-color: rgba(95, 224, 122, 0.45);
+  color: #5fe07a;
+  text-shadow: 0 0 6px rgba(95, 224, 122, 0.4);
+}
+
+.led-cal-icon-btn:hover {
+  background: rgba(255, 191, 73, 0.12);
+}
+
+.led-row.return .led-cal-icon-btn:hover {
+  background: rgba(95, 224, 122, 0.1);
+}
+
+.led-cal-icon-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Marquee */
+.led-marquee {
+  margin-top: 12px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 191, 73, 0.18);
+  padding-top: 10px;
+}
+
+.led-marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  color: #5fe07a;
+  text-shadow: 0 0 6px rgba(95, 224, 122, 0.4);
+  animation: led-scroll-left 22s linear infinite;
+}
+
+.led-marquee-text--static {
+  display: inline-block;
+  white-space: nowrap;
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  color: #5fe07a;
+  text-shadow: 0 0 6px rgba(95, 224, 122, 0.4);
+}
+
+@keyframes led-scroll-left {
+  from { transform: translateX(100vw); }
+  to { transform: translateX(-100%); }
+}
+
+@media (max-width: 480px) {
+  /* 3-track: time | info | cal-btn — veh and badge hidden, marquee already says "暫定預告" */
+  .led-row {
+    grid-template-columns: 50px 1fr 44px;
+  }
+  .led-veh,
+  .led-badge {
+    display: none;
+  }
+  .led-r-sub {
+    max-width: 52vw;
+  }
+  .led-board {
+    max-width: 100%;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   接駁車版面 — 左右並排佈局 (shuttle-layout)
+   ───────────────────────────────────────────────────────────── */
+
+.shuttle-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+  gap: 28px;
+  align-items: start;
+  margin-top: 60px;
+}
+
+/* Remove the old standalone margin — layout now controls it */
+.shuttle-board-wrap {
+  margin-top: 0;
+  max-width: none;
+}
+
+.shuttle-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ─── Tips card ─── */
+
+.shuttle-tips-card {
+  background: rgba(247, 246, 242, 0.62);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(47, 48, 47, 0.16);
+  border-radius: 12px;
+  padding: 22px 24px;
+  box-shadow: 0 8px 32px rgba(47, 48, 47, 0.07);
+  color: #2f302f;
+}
+
+.shuttle-tips-heading {
+  margin: 0 0 16px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.shuttle-tips-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.shuttle-tips-item {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.shuttle-tips-icon {
+  flex-shrink: 0;
+  font-size: 1em;
+}
+
+/* ─── Picker card ─── */
+
+.shuttle-picker-card {
+  background: rgba(247, 246, 242, 0.62);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(47, 48, 47, 0.16);
+  border-radius: 12px;
+  padding: 22px 24px;
+  box-shadow: 0 8px 32px rgba(47, 48, 47, 0.07);
+  color: #2f302f;
+}
+
+.shuttle-picker-heading {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.shuttle-picker-sub {
+  margin: 0 0 18px;
+  font-size: clamp(0.88rem, 1.5vw, 0.96rem);
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
+.shuttle-picker-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.shuttle-picker-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 64px;
+  padding: 12px 14px;
+  border: 1px solid rgba(47, 48, 47, 0.28);
+  border-radius: 8px;
+  background: rgba(247, 246, 242, 0.5);
+  color: #2f302f;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 160ms ease;
+}
+
+.shuttle-picker-btn:hover {
+  background: rgba(184, 196, 177, 0.28);
+  border-color: rgba(47, 48, 47, 0.44);
+}
+
+.shuttle-picker-btn:focus-visible {
+  outline: 2px solid #2f302f;
+  outline-offset: 2px;
+}
+
+.shuttle-picker-btn--active:focus-visible {
+  outline: 2px solid #f7f6f2;
+  outline-offset: 2px;
+}
+
+.shuttle-picker-btn--active {
+  background: #2f302f;
+  border-color: #2f302f;
+  color: #f7f6f2;
+  transform: translateY(-2px);
+}
+
+.shuttle-picker-btn--active:hover {
+  background: #4a4a4a;
+  border-color: #4a4a4a;
+}
+
+.shuttle-picker-btn-label {
+  font-size: clamp(0.88rem, 1.5vw, 0.96rem);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.shuttle-picker-btn-sub {
+  font-size: 0.74rem;
+  opacity: 0.62;
+  line-height: 1.3;
+}
+
+.shuttle-picker-btn--active .shuttle-picker-btn-sub {
+  opacity: 0.76;
+}
+
+.shuttle-picker-result {
+  min-height: 60px;
+}
+
+.shuttle-picker-result-label {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.shuttle-picker-result-label--return {
+  margin-top: 16px;
+}
+
+.shuttle-picker-trips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.shuttle-picker-trip {
+  display: grid;
+  grid-template-columns: 46px auto 1fr;
+  gap: 8px;
+  align-items: baseline;
+  padding: 9px 11px;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  border-left: 3px solid transparent;
+}
+
+.shuttle-picker-trip.outbound {
+  background: rgba(184, 196, 177, 0.18);
+  border-left-color: #b8c4b1;
+}
+
+.shuttle-picker-trip.return {
+  background: rgba(183, 199, 217, 0.18);
+  border-left-color: #b7c7d9;
+}
+
+.shuttle-picker-time {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.shuttle-picker-pending {
+  font-size: 0.6em;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #c8960a;
+  opacity: 0.85;
+}
+
+.shuttle-picker-vehicle {
+  font-weight: 800;
+  white-space: nowrap;
+  opacity: 0.72;
+}
+
+.shuttle-picker-note {
+  opacity: 0.66;
+  font-size: 0.78rem;
+}
+
+.shuttle-picker-placeholder {
+  margin: 0;
+  font-size: 0.88rem;
+  opacity: 0.46;
+  font-style: italic;
+}
+
+/* Stack on narrow screens */
+@media (max-width: 980px) {
+  .shuttle-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .shuttle-picker-btns {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   長輩版接駁車時刻表 (FamilyShuttleTable)
+   ───────────────────────────────────────────────────────────── */
+
+.family-shuttle-section {
+  border-top: 1px solid rgba(200, 164, 93, 0.28);
+}
+
+.family-shuttle-pending-notice {
+  margin: 0 0 18px;
+  padding: 14px 18px;
+  border-left: 4px solid #c8a45d;
+  border-radius: 0 6px 6px 0;
+  background: rgba(200, 164, 93, 0.1);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-weight: 800;
+  color: #7a5c1e;
+  line-height: 1.6;
+}
+
+.family-shuttle-info {
+  margin: 0 0 28px;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(128, 0, 32, 0.82);
+  line-height: 1.7;
+}
+
+.family-shuttle-info strong {
+  color: #800020;
+}
+
+.family-shuttle-group-title {
+  margin: 0 0 12px;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 900;
+}
+
+.family-shuttle-outbound-title {
+  color: #2a5c2a;
+}
+
+.family-shuttle-return-title {
+  margin-top: 36px;
+  color: #1e3a6e;
+}
+
+.family-shuttle-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 8px;
+}
+
+.family-shuttle-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.55;
+}
+
+.family-shuttle-table th {
+  text-align: left;
+  padding: 10px 14px;
+  background: rgba(200, 164, 93, 0.14);
+  border-bottom: 2px solid rgba(200, 164, 93, 0.44);
+  font-weight: 900;
+  color: #9e7d3d;
+  white-space: nowrap;
+}
+
+.family-shuttle-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(200, 164, 93, 0.2);
+  vertical-align: top;
+}
+
+/* Sub-group header rows */
+.family-shuttle-group-header td {
+  font-weight: 900;
+  font-size: clamp(0.82rem, 1.6vw, 0.95rem);
+  padding: 8px 14px 6px;
+  border-bottom: 1px solid rgba(200, 164, 93, 0.3);
+  background: rgba(200, 164, 93, 0.07);
+}
+
+.family-shuttle-outbound-header td {
+  color: #2a5c2a;
+}
+
+.family-shuttle-return-header td {
+  color: #1e3a6e;
+}
+
+/* Outbound rows — light green tint */
+.family-shuttle-outbound .family-shuttle-time,
+.family-shuttle-outbound .family-shuttle-arrive {
+  color: #2a5c2a;
+  font-weight: 900;
+}
+
+/* Return rows — light blue tint */
+.family-shuttle-return .family-shuttle-time,
+.family-shuttle-return .family-shuttle-arrive {
+  color: #1e3a6e;
+  font-weight: 900;
+}
+
+.family-shuttle-time,
+.family-shuttle-arrive {
+  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+  font-weight: 900;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.family-shuttle-vehicle {
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+.family-shuttle-note {
+  color: rgba(128, 0, 32, 0.78);
+  max-width: 360px;
+}
+
+.family-shuttle-action {
+  white-space: nowrap;
+}
+
+.family-shuttle-ics-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #c8a45d;
+  border-radius: 6px;
+  background: transparent;
+  color: #800020;
+  font-weight: 800;
+  font-size: clamp(0.82rem, 1.6vw, 0.95rem);
+  cursor: pointer;
+  transition: background 160ms ease;
+  white-space: nowrap;
+}
+
+.family-shuttle-ics-btn:hover {
+  background: rgba(200, 164, 93, 0.14);
+}
+
+.family-shuttle-ics-btn:focus-visible {
+  outline: 2px solid #800020;
+  outline-offset: 2px;
+}
+
+/* Vehicle column is always visible — on return trips it's the only way to
+   distinguish first wave (A1·B1·C1) from second (A2·B2·C2). */
+@media (max-width: 720px) {
+  .family-shuttle-vehicle {
+    font-size: 0.88rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .family-shuttle-table {
+    font-size: 0.9rem;
+  }
+
+  .family-shuttle-time,
+  .family-shuttle-arrive {
+    font-size: 1rem;
+  }
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (max-width: 640px) {
+  .music-pulse-bar {
+    gap: 10px;
+    padding: 0 12px;
+  }
+
+  .music-countdown-ticker {
+    gap: 5px;
+    font-size: 0.68rem;
+  }
+
+  .music-countdown-separator {
+    display: none;
+  }
+
+  .music-countdown-message {
+    max-width: 9em;
   }
 }

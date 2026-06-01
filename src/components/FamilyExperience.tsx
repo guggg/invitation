@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, CalendarDays, Clock, MapPin } from "lucide-react";
 import { RsvpForm } from "@/components/RsvpForm";
+import { FamilyShuttleTable } from "@/components/FamilyShuttleTable";
 import { familyPhotos } from "@/lib/photos";
 import { wedding } from "@/lib/wedding";
 
@@ -78,6 +79,8 @@ export function FamilyExperience({ endpoint }: FamilyExperienceProps) {
           <ArrowUpRight size={20} aria-hidden="true" />
         </a>
       </section>
+
+      <FamilyShuttleTable />
 
       <section className="family-gallery" aria-label="精選婚紗照">
         {familyPhotos.slice(1, 5).map((photo) => (

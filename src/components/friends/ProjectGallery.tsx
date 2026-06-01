@@ -49,7 +49,7 @@ export function ProjectGallery() {
     <section
       id="gallery"
       className="project-gallery"
-      data-friend-section="4"
+      data-friend-section="5"
       data-section-label="照片"
       aria-labelledby="gallery-title"
     >

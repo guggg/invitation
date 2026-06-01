@@ -1571,6 +1571,7 @@ export function AsciiPortal() {
 
   useEffect(() => {
     phaseRef.current = phase;
+    document.body.dataset.portalPhase = phase;
     window.dispatchEvent(new CustomEvent("portal-phase-change", { detail: { phase } }));
 
     if (phase !== "done") {

@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
 import { AsciiPortal } from "@/components/friends/AsciiPortal";
+import { DressCodeSection } from "@/components/friends/DressCodeSection";
 import { FriendRsvpExperience } from "@/components/friends/FriendRsvpExperience";
 import { FriendsHeader } from "@/components/friends/FriendsHeader";
 import { FriendsMotionController } from "@/components/friends/FriendsMotionController";
+import { MusicPulseBar } from "@/components/friends/MusicPulseBar";
 import { LivingBackground } from "@/components/friends/LivingBackground";
 import { ProjectGallery } from "@/components/friends/ProjectGallery";
 import { SectionRail } from "@/components/friends/SectionRail";
+import { ShuttleBoard } from "@/components/friends/ShuttleBoard";
+import { ShuttlePicker } from "@/components/friends/ShuttlePicker";
+import { ShuttleTips } from "@/components/friends/ShuttleTips";
 import { heroPhotos } from "@/lib/photos";
 import { wedding } from "@/lib/wedding";
 
@@ -19,6 +24,7 @@ export function FriendsExperience({ endpoint }: FriendsExperienceProps) {
     <main className="friends-v2-shell">
       <LivingBackground />
       <FriendsMotionController />
+      <MusicPulseBar />
       <AsciiPortal />
       <FriendsHeader />
       <SectionRail />
@@ -89,10 +95,12 @@ export function FriendsExperience({ endpoint }: FriendsExperienceProps) {
         </div>
       </section>
 
+      <DressCodeSection dressCode={wedding.dressCode} sectionIndex={3} />
+
       <section
         id="venue"
         className="friends-v2-section venue-theatre"
-        data-friend-section="3"
+        data-friend-section="4"
         data-section-label="地點"
       >
         <div className="venue-map-stage">
@@ -119,9 +127,30 @@ export function FriendsExperience({ endpoint }: FriendsExperienceProps) {
       <ProjectGallery />
 
       <section
+        id="shuttle"
+        className="friends-v2-section shuttle-theatre"
+        data-friend-section="6"
+        data-section-label="接駁車"
+      >
+        <div className="section-kicker" data-fx="blur-reveal">
+          <p>接駁班次・暫定預告</p>
+          <h2>搭我們的車，一起到達。</h2>
+        </div>
+        <div className="shuttle-layout">
+          <div className="shuttle-board-wrap">
+            <ShuttleBoard />
+          </div>
+          <div className="shuttle-aside">
+            <ShuttleTips />
+            <ShuttlePicker />
+          </div>
+        </div>
+      </section>
+
+      <section
         id="rsvp"
         className="friends-v2-section rsvp-theatre"
-        data-friend-section="5"
+        data-friend-section="7"
         data-section-label="回覆"
       >
         <div className="rsvp-theatre-copy" data-fx="blur-reveal">
@@ -135,7 +164,7 @@ export function FriendsExperience({ endpoint }: FriendsExperienceProps) {
       <section
         id="finale"
         className="friends-v2-section finale-section"
-        data-friend-section="6"
+        data-friend-section="8"
         data-section-label="那天見"
       >
         <div data-fx="blur-reveal">

@@ -53,21 +53,27 @@ export function FriendsMotionController() {
         });
       });
 
-      gsap.utils.toArray<HTMLElement>("[data-fx='blur-reveal']").forEach((element) => {
-        gsap.fromTo(
-          element,
-          { autoAlpha: 0, y: 60, filter: "blur(18px)", scale: 0.96 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            filter: "blur(0px)",
-            scale: 1,
-            duration: 1.15,
-            ease: "power3.out",
-            scrollTrigger: { trigger: element, start: "top 82%" }
-          }
-        );
-      });
+      if (!reduceMotion) {
+        gsap.utils.toArray<HTMLElement>("[data-fx='blur-reveal']").forEach((element) => {
+          gsap.fromTo(
+            element,
+            { autoAlpha: 0, y: 60, filter: "blur(18px)", scale: 0.96 },
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: "blur(0px)",
+              scale: 1,
+              duration: 1.15,
+              ease: "power3.out",
+              scrollTrigger: { trigger: element, start: "top 82%" }
+            }
+          );
+        });
+      } else {
+        gsap.utils.toArray<HTMLElement>("[data-fx='blur-reveal']").forEach((element) => {
+          gsap.set(element, { autoAlpha: 1, y: 0, filter: "blur(0px)", scale: 1 });
+        });
+      }
 
       gsap.utils.toArray<HTMLElement>("[data-fx='drift']").forEach((element, index) => {
         gsap.to(element, {

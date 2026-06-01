@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>接駁車呈現方式比較 — 方案 B / 方案 C</title>
+<style>
+  /* ===== 取自專案真實配色 (src/app/globals.css) ===== */
+  :root {
+    --surface: #f7f6f2;
+    --ink: #2f302f;
+    --rose: rgba(246, 214, 220, 1);
+    --sage: rgba(184, 196, 177, 1);
+    --mist: rgba(183, 199, 217, 1);
+    --mono: "Courier New", monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--surface);
+    color: var(--ink);
+    font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    padding: 48px 20px 80px;
+    line-height: 1.6;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .page-head { text-align: center; margin-bottom: 56px; }
+  .page-head p { font-family: var(--mono); letter-spacing: 4px; font-size: 0.8rem; opacity: 0.55; text-transform: uppercase; }
+  .page-head h1 { font-size: 1.9rem; font-weight: 900; margin-top: 8px; }
+  .page-head small { display:block; margin-top:12px; opacity:0.6; font-size:0.9rem; }
+
+  .scheme { margin-bottom: 72px; }
+  .scheme-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 0.85rem; letter-spacing: 2px;
+    padding: 6px 14px; border: 1px solid var(--ink); border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .scheme h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: 6px; }
+  .scheme .note { opacity: 0.6; font-size: 0.9rem; margin-bottom: 28px; max-width: 620px; }
+
+  /* ============================================================
+     方案 B — 車票式卡片
+     修正：改為上下結構，站名不再與存根並列搶寬度
+     - 上：方向標籤 + 路線行（站名水平，white-space:nowrap）
+     - 下：存根橫條（虛線上緣 + 圓形缺口）
+     ============================================================ */
+
+  /* 分組標題 */
+  .ticket-group-label {
+    font-family: var(--mono); font-size: 0.78rem; letter-spacing: 3px;
+    opacity: 0.5; text-transform: uppercase;
+    margin-bottom: 14px; margin-top: 8px;
+    padding-left: 2px;
+  }
+
+  .ticket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 18px;
+  }
+  /* 回程只有 2 張，限制最寬避免撐太大 */
+  .ticket-grid.return-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 480px));
+  }
+
+  .ticket {
+    position: relative;
+    background: rgba(247, 246, 242, 0.55);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(47, 48, 47, 0.18);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+    min-height: 44px; /* 觸控友好 */
+  }
+  .ticket:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(47,48,47,0.12); }
+  @media (prefers-reduced-motion: reduce) {
+    .ticket { transition: none; }
+    .ticket:hover { transform: none; }
+  }
+
+  /* 行進方向色帶：頂部 border */
+  .ticket.outbound { border-top: 3px solid var(--sage); }
+  .ticket.return   { border-top: 3px solid var(--mist); }
+
+  /* ---- 卡片上半：主要資訊 ---- */
+  .ticket-main { padding: 18px 22px 14px; flex: 1; }
+
+  /* 方向標籤 */
+  .ticket-dir {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 2px;
+    padding: 3px 10px; border-radius: 999px; margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .ticket.outbound .ticket-dir { background: rgba(184,196,177,0.35); }
+  .ticket.return   .ticket-dir { background: rgba(183,199,217,0.4); }
+
+  /* 路線橫排：出發站 → 箭頭 → 目的站 */
+  .ticket-route {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap; /* 絕不折行 */
+    overflow: hidden;  /* 萬一超出就裁，不撐寬 */
+  }
+  .ticket-stop {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  .ticket-stop .code {
+    font-size: 1.2rem;
+    font-weight: 900;
+    white-space: nowrap; /* 站名永遠單行 */
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  .ticket-stop .name {
+    font-size: 0.68rem; opacity: 0.55; margin-top: 2px;
+    white-space: nowrap;
+  }
+  .ticket-arrow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.5;
+    min-width: 40px;
+  }
+  .ticket-arrow .bus { font-size: 0.9rem; margin-bottom: 2px; }
+  .ticket-arrow .line { width: 100%; height: 1px; border-top: 1px dashed var(--ink); }
+  .ticket-arrow .dur { font-size: 0.62rem; margin-top: 3px; font-family: var(--mono); white-space: nowrap; }
+
+  /* 車輛代號 + 建議賓客 */
+  .ticket-meta {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .ticket-vehicle {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 1px;
+    opacity: 0.65;
+  }
+  .ticket-note {
+    font-size: 0.78rem; opacity: 0.6; line-height: 1.45;
+  }
+
+  /* ---- 卡片存根：底部橫條 ---- */
+  .ticket-stub {
+    position: relative;
+    border-top: 2px dashed rgba(47, 48, 47, 0.28);
+    background: rgba(247, 246, 242, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 12px 22px;
+    gap: 16px;
+    /* 最低觸控高度已靠整張卡片的 min-height 保障 */
+  }
+  /* 撕裂線兩端圓形缺口 */
+  .ticket-stub::before, .ticket-stub::after {
+    content: ""; position: absolute; top: -9px;
+    width: 16px; height: 16px;
+    background: var(--surface); border-radius: 50%;
+  }
+  .ticket-stub::before { left: -9px; }
+  .ticket-stub::after  { right: -9px; }
+
+  .stub-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .stub-item .s-label { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 1px; opacity: 0.45; text-transform: uppercase; }
+  .stub-item .s-time  { font-family: var(--mono); font-size: 1.05rem; font-weight: 700; line-height: 1; }
+
+  .stub-sep { opacity: 0.25; font-size: 0.85rem; }
+
+  /* 回程存根：多台車合併說明 */
+  .stub-buses {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 1px;
+    opacity: 0.55; text-align: center;
+  }
+
+  /* ============================================================
+     方案 C — 站牌互動板 (LED 顯示板)
+     ============================================================ */
+  .led-board {
+    background: #0d100d;
+    border-radius: 14px;
+    padding: 6px;
+    box-shadow: 0 14px 36px rgba(13,16,13,0.4), inset 0 0 0 2px #1d221d;
+    max-width: 640px;
+  }
+  .led-inner {
+    position: relative;
+    background: radial-gradient(ellipse at top, #14181400 0%, #0a0c0a 100%), #0b0d0b;
+    border-radius: 9px;
+    padding: 20px 22px;
+    overflow: hidden;
+  }
+  /* 掃描線覆蓋 */
+  .led-inner::after {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.025) 0px,
+      rgba(255,255,255,0.025) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+  }
+  .led-head {
+    display:flex; justify-content:space-between; align-items:center;
+    border-bottom: 1px solid rgba(255,191,73,0.18); padding-bottom: 12px; margin-bottom: 6px;
+  }
+  .led-head .title {
+    font-family: var(--mono); font-weight:700; letter-spacing:2px;
+    color: #ffbf49; text-shadow: 0 0 8px rgba(255,191,73,0.55);
+    font-size: 0.95rem;
+  }
+  .led-head .clock {
+    font-family: var(--mono); color:#5fe07a; text-shadow:0 0 8px rgba(95,224,122,0.5);
+    font-size:0.85rem; letter-spacing:1px;
+  }
+  .led-head .dot { display:inline-block; width:7px;height:7px;border-radius:50%;
+    background:#5fe07a; box-shadow:0 0 6px #5fe07a; margin-right:6px; animation: blink 1.4s steps(1) infinite; }
+  @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0.25} }
+
+  /* 分組標題列 */
+  .led-group {
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 3px;
+    padding: 8px 4px 6px;
+    opacity: 0.45;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,191,73,0.1);
+    margin-bottom: 2px;
+  }
+  .led-group.outbound { color: #ffbf49; }
+  .led-group.return   { color: #5fe07a; }
+
+  /* 班次行：時間 | 路線+車輛 | 建議 | badge */
+  .led-row {
+    display: grid;
+    grid-template-columns: 56px 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    padding: 9px 4px;
+    border-bottom: 1px dotted rgba(255,191,73,0.1);
+    color: #ffbf49;
+    text-shadow: 0 0 6px rgba(255,191,73,0.4);
+  }
+  .led-row:last-of-type { border-bottom: none; }
+  .led-row .t { font-size: 1.05rem; font-weight: 700; white-space: nowrap; }
+  .led-row .r { font-size: 0.75rem; letter-spacing: 0.5px; line-height: 1.4; }
+  .led-row .r .sub { opacity: 0.55; font-size: 0.65rem; display: block; }
+  .led-row .badge {
+    font-size: 0.58rem; letter-spacing: 1px; padding: 2px 6px; border-radius: 3px;
+    border: 1px solid currentColor; white-space: nowrap;
+  }
+  .led-row.outbound { color: #ffbf49; text-shadow: 0 0 6px rgba(255,191,73,0.4); }
+  .led-row.return   { color: #5fe07a; text-shadow: 0 0 6px rgba(95,224,122,0.4); }
+
+  /* 車輛代號欄（去程 badge 位置） */
+  .led-row .veh {
+    font-size: 0.62rem; opacity: 0.7; white-space: nowrap;
+    letter-spacing: 1px;
+  }
+
+  /* 回程行：時間 | 路線 | 車輛+人數 | badge */
+  .led-row.return .r .fleet { display: block; font-size: 0.65rem; opacity: 0.6; }
+
+  .led-foot { margin-top: 14px; text-align:center; }
+  .led-cal-btn {
+    font-family: var(--mono); font-size:0.78rem; letter-spacing:1px;
+    background: transparent; color:#ffbf49; border:1px solid rgba(255,191,73,0.5);
+    padding: 8px 18px; border-radius:6px; cursor:pointer; min-height:44px;
+    text-shadow:0 0 6px rgba(255,191,73,0.4);
+    transition: background 160ms ease;
+  }
+  .led-cal-btn:hover { background: rgba(255,191,73,0.12); }
+
+  /* 跑馬燈 */
+  .led-marquee {
+    margin-top: 12px; overflow:hidden; border-top:1px solid rgba(255,191,73,0.18); padding-top:10px;
+  }
+  .led-marquee span {
+    display:inline-block; white-space:nowrap; font-family:var(--mono); font-size:0.72rem;
+    color:#5fe07a; text-shadow:0 0 6px rgba(95,224,122,0.4);
+    animation: scroll-left 20s linear infinite;
+  }
+  @keyframes scroll-left { from{transform:translateX(100%)} to{transform:translateX(-100%)} }
+
+  @media (prefers-reduced-motion: reduce) {
+    .led-head .dot, .led-marquee span { animation: none; }
+    .ticket { transition: none; }
+    .ticket:hover { transform: none; }
+  }
+
+  /* 手機響應 */
+  @media (max-width: 480px) {
+    .ticket-stop .code { font-size: 1rem; }
+    .ticket-grid { grid-template-columns: 1fr; }
+    .ticket-grid.return-grid { grid-template-columns: 1fr; }
+    .led-row { grid-template-columns: 50px 1fr auto; }
+    .led-row .veh { display: none; } /* 手機省略車輛代號欄，移入 .r .sub */
+    .led-board { max-width: 100%; }
+  }
+
+  .verdict { margin-top: 20px; padding: 16px 18px; border-radius: 10px; background: rgba(47,48,47,0.05); font-size:0.86rem; }
+  .verdict b { font-family: var(--mono); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-head">
+    <p>Shuttle Bus · Prototype</p>
+    <h1>接駁車呈現方式比較</h1>
+    <small>方案 B（車票卡片）vs 方案 C（LED 站牌板）· 配色取自專案 globals.css · 真實時刻表資料</small>
+  </div>
+
+  <!-- ===================== 方案 B ===================== -->
+  <section class="scheme">
+    <span class="scheme-tag">方案 B</span>
+    <h2>🎟️ 車票式卡片（去擬物版）</h2>
+    <p class="note">保留車票版面隱喻：出發 / 目的 / 存根時間。站名橫排不折行，存根改至底部橫條（虛線 + 圓形缺口）。去程鼠尾草綠、回程霧藍，文字+顏色雙重區分。</p>
+
+    <!-- 去程 -->
+    <p class="ticket-group-label">▶ 去程 — 新店捷運總站 → 優聖美地</p>
+    <div class="ticket-grid">
+
+      <!-- 第一趟 A1 -->
+      <div class="ticket outbound">
+        <div class="ticket-main">
+          <span class="ticket-dir">▶ 去程 第一趟</span>
+          <div class="ticket-route">
+            <div class="ticket-stop">
+              <div class="code">新店捷運總站</div>
+              <div class="name">上車點</div>
+            </div>
+            <div class="ticket-arrow">
+              <span class="bus">🚌</span>
+              <span class="line"></span>
+              <span class="dur">約 15 分</span>
+            </div>
+            <div class="ticket-stop">
+              <div class="code">優聖美地</div>
+              <div class="name">會場大門</div>
+            </div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-vehicle">A1 車</span>
+            <span class="ticket-note">工作人員、最準時的證婚賓客（莊園一開門即進場）</span>
+          </div>
+        </div>
+        <div class="ticket-stub">
+          <div class="stub-item">
+            <span class="s-label">發車</span>
+            <span class="s-time">15:45</span>
+          </div>
+          <span class="stub-sep">→</span>
+          <div class="stub-item">
+            <span class="s-label">預估抵達</span>
+            <span class="s-time">16:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第一趟 B1 -->
+      <div class="ticket outbound">
+        <div class="ticket-main">
+          <span class="ticket-dir">▶ 去程 第一趟</span>
+          <div class="ticket-route">
+            <div class="ticket-stop">
+              <div class="code">新店捷運總站</div>
+              <div class="name">上車點</div>
+            </div>
+            <div class="ticket-arrow">
+              <span class="bus">🚌</span>
+              <span class="line"></span>
+              <span class="dur">約 15 分</span>
+            </div>
+            <div class="ticket-stop">
+              <div class="code">優聖美地</div>
+              <div class="name">會場大門</div>
+            </div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-vehicle">B1 車</span>
+            <span class="ticket-note">證婚賓客（可參與完整迎賓酒會、享用點心）</span>
+          </div>
+        </div>
+        <div class="ticket-stub">
+          <div class="stub-item">
+            <span class="s-label">發車</span>
+            <span class="s-time">15:55</span>
+          </div>
+          <span class="stub-sep">→</span>
+          <div class="stub-item">
+            <span class="s-label">預估抵達</span>
+            <span class="s-time">16:10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第一趟 C1 -->
+      <div class="ticket outbound">
+        <div class="ticket-main">
+          <span class="ticket-dir">▶ 去程 第一趟</span>
+          <div class="ticket-route">
+            <div class="ticket-stop">
+              <div class="code">新店捷運總站</div>
+              <div class="name">上車點</div>
+            </div>
+            <div class="ticket-arrow">
+              <span class="bus">🚌</span>
+              <span class="line"></span>
+              <span class="dur">約 15 分</span>
+            </div>
+            <div class="ticket-stop">
+              <div class="code">優聖美地</div>
+              <div class="name">會場大門</div>
+            </div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-vehicle">C1 車</span>
+            <span class="ticket-note">證婚賓客（16:30 儀式前最後就座）</span>
+          </div>
+        </div>
+        <div class="ticket-stub">
+          <div class="stub-item">
+            <span class="s-label">發車</span>
+            <span class="s-time">16:05</span>
+          </div>
+          <span class="stub-sep">→</span>
+          <div class="stub-item">
+            <span class="s-label">預估抵達</span>
+            <span class="s-time">16:20</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二趟 A2 -->
+      <div class="ticket outbound">
+        <div class="ticket-main">
+          <span class="ticket-dir">▶ 去程 第二趟</span>
+          <div class="ticket-route">
+            <div class="ticket-stop">
+              <div class="code">新店捷運總站</div>
+              <div class="name">上車點</div>
+            </div>
+            <div class="ticket-arrow">
+              <span class="bus">🚌</span>
+              <span class="line"></span>
+              <span class="dur">約 15 分</span>
+            </div>
+            <div class="ticket-stop">
+              <div class="code">優聖美地</div>
+              <div class="name">會場大門</div>
+            </div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-vehicle">A2 車</span>
+            <span class="ticket-note">晚宴賓客（抵達時證婚進行中，可外圍觀禮或至酒會區）</span>
+          </div>
+        </div>
+        <div class="ticket-stub">
+          <div class="stub-item">
+            <span class="s-label">發車</span>
+            <span class="s-time">16:25</span>
+          </div>
+          <span class="stub-sep">→</span>
+          <div class="stub-item">
+            <span class="s-label">預估抵達</span>
+            <span class="s-time">16:40</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二趟 B2 -->
+      <div class="ticket outbound">
+        <div class="ticket-main">
+          <span class="ticket-dir">▶ 去程 第二趟</span>
+          <div class="ticket-route">
+            <div class="ticket-stop">
+              <div class="code">新店捷運總站</div>
+              <div class="name">上車點</div>
+            </div>
+            <div class="ticket-arrow">
+              <span class="bus">🚌</span>
+              <span class="line"></span>
+              <span class="dur">約 15 分</span>
+            </div>
+            <div class="ticket-stop">
+              <div class="code">優聖美地</div>
+              <div class="name">會場大門</div>
+            </div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-vehicle">B2 車</span>
+            <span class="ticket-note">晚宴賓客（證婚後半段抵達，準備合照與酒會）</span>
+          </div>
+        </div>
+        <div class="ticket-stub">
+          <div class="stub-item">
+            <span class="s-label">發車</span>
+            <span class="s-time">16:35</span>
+          </div>
+          <span class="stub-sep">→</span>
+          <div class="stub-item">
+            <span class="s-label">預估抵達</span>
+            <span class="s-time">16:50</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二趟 C2 -->
+      <div class="ticket outbound">
+        <div class="ticket-main">
+          <span class="ticket-dir">▶ 去程 第二趟</span>
+          <div class="ticket-route">
+            <div class="ticket-stop">
+              <div class="code">新店捷運總站</div>
+              <div class="name">上車點</div>
+            </div>
+            <div class="ticket-arrow">
+              <span class="bus">🚌</span>
+              <span class="line"></span>
+              <span class="dur">約 15 分</span>
+            </div>
+            <div class="ticket-stop">
+              <div class="code">優聖美地</div>
+              <div class="name">會場大門</div>
+            </div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-vehicle">C2 車</span>
+            <span class="ticket-note">純晚宴賓客（距 18:00 開餐半小時抵達，時間最完美）</span>
+          </div>
+        </div>
+        <div class="ticket-stub">
+          <div class="stub-item">
+            <span class="s-label">發車</span>
+            <span class="s-time">17:15</span>
+          </div>
+          <span class="stub-sep">→</span>
+          <div class="stub-item">
+            <span class="s-label">預估抵達</span>
+            <span class="s-time">17:30</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ticket-grid outbound -->
+
+    <!-- 回程 -->
+    <p class="ticket-group-label" style="margin-top:36px;">◀ 回程 — 優聖美地 → 新店捷運總站</p>
+    <div class="ticket-grid return-grid">
+
+      <!-- 第一趟回程 -->
+      <div class="ticket return">
+        <div class="ticket-main">
+          <span class="ticket-dir">◀ 回程 第一趟</span>
+          <div class="ticket-route">
+            <div class="ticket-stop">
+              <div class="code">優聖美地</div>
+              <div class="name">會場大門</div>
+            </div>
+            <div class="ticket-arrow">
+              <span class="bus">🚌</span>
+              <span class="line"></span>
+              <span class="dur">約 15 分</span>
+            </div>
+            <div class="ticket-stop">
+              <div class="code">新店捷運總站</div>
+              <div class="name">下車點</div>
+            </div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-vehicle">A1 · B1 · C1 車 — 共 3 台 60 人</span>
+            <span class="ticket-note">【煙火落幕首波撤場】看完煙火急著走或趕時間的賓客</span>
+          </div>
+        </div>
+        <div class="ticket-stub">
+          <div class="stub-item">
+            <span class="s-label">發車</span>
+            <span class="s-time">20:15</span>
+          </div>
+          <span class="stub-sep">→</span>
+          <div class="stub-item">
+            <span class="s-label">預估抵達</span>
+            <span class="s-time">20:30</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 第二趟回程 -->
+      <div class="ticket return">
+        <div class="ticket-main">
+          <span class="ticket-dir">◀ 回程 第二趟</span>
+          <div class="ticket-route">
+            <div class="ticket-stop">
+              <div class="code">優聖美地</div>
+              <div class="name">會場大門</div>
+            </div>
+            <div class="ticket-arrow">
+              <span class="bus">🚌</span>
+              <span class="line"></span>
+              <span class="dur">約 15 分</span>
+            </div>
+            <div class="ticket-stop">
+              <div class="code">新店捷運總站</div>
+              <div class="name">下車點</div>
+            </div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-vehicle">A2 · B2 · C2 車 — 共 3 台 60 人</span>
+            <span class="ticket-note">【最終壓軸清場】深度合照至最後的新人至親摯友、工作人員</span>
+          </div>
+        </div>
+        <div class="ticket-stub">
+          <div class="stub-item">
+            <span class="s-label">發車</span>
+            <span class="s-time">21:00</span>
+          </div>
+          <span class="stub-sep">→</span>
+          <div class="stub-item">
+            <span class="s-label">預估抵達</span>
+            <span class="s-time">21:15</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ticket-grid return -->
+  </section>
+
+  <!-- ===================== 方案 C ===================== -->
+  <section class="scheme">
+    <span class="scheme-tag">方案 C</span>
+    <h2>🚏 站牌互動板（LED 顯示板）</h2>
+    <p class="note">模擬真實公車站牌的 LED 顯示效果：深底 + 琥珀色 LED 字（去程）/ 綠色 LED 字（回程）+ 掃描線 + 閃爍狀態燈 + 底部跑馬燈。等寬字型呼應 ASCII Portal 美學。</p>
+
+    <div class="led-board">
+      <div class="led-inner">
+        <div class="led-head">
+          <span class="title">SHUTTLE · 接駁班次</span>
+          <span class="clock"><span class="dot"></span>LIVE</span>
+        </div>
+
+        <!-- 去程分組標題 -->
+        <div class="led-group outbound">▶ OUTBOUND 去程 — 新店捷運總站 → 優聖美地</div>
+
+        <div class="led-row outbound">
+          <span class="t">15:45</span>
+          <span class="r">A1 車 — 第一趟<span class="sub">工作人員、最準時的證婚賓客</span></span>
+          <span class="veh">抵 16:00</span>
+          <span class="badge">去程</span>
+        </div>
+        <div class="led-row outbound">
+          <span class="t">15:55</span>
+          <span class="r">B1 車 — 第一趟<span class="sub">證婚賓客（完整迎賓酒會）</span></span>
+          <span class="veh">抵 16:10</span>
+          <span class="badge">去程</span>
+        </div>
+        <div class="led-row outbound">
+          <span class="t">16:05</span>
+          <span class="r">C1 車 — 第一趟<span class="sub">證婚賓客（儀式前最後就座）</span></span>
+          <span class="veh">抵 16:20</span>
+          <span class="badge">去程</span>
+        </div>
+        <div class="led-row outbound">
+          <span class="t">16:25</span>
+          <span class="r">A2 車 — 第二趟<span class="sub">晚宴賓客（外圍觀禮或酒會區）</span></span>
+          <span class="veh">抵 16:40</span>
+          <span class="badge">去程</span>
+        </div>
+        <div class="led-row outbound">
+          <span class="t">16:35</span>
+          <span class="r">B2 車 — 第二趟<span class="sub">晚宴賓客（準備合照與酒會）</span></span>
+          <span class="veh">抵 16:50</span>
+          <span class="badge">去程</span>
+        </div>
+        <div class="led-row outbound">
+          <span class="t">17:15</span>
+          <span class="r">C2 車 — 第二趟<span class="sub">純晚宴賓客（距開餐半小時，最完美）</span></span>
+          <span class="veh">抵 17:30</span>
+          <span class="badge">去程</span>
+        </div>
+
+        <!-- 回程分組標題 -->
+        <div class="led-group return" style="margin-top:10px;">◀ RETURN 回程 — 優聖美地 → 新店捷運總站</div>
+
+        <div class="led-row return">
+          <span class="t">20:15</span>
+          <span class="r">A1·B1·C1 — 共 3 台 60 人<span class="sub fleet">【首波撤場】煙火落幕後趕時間的賓客</span></span>
+          <span class="veh">抵 20:30</span>
+          <span class="badge">回程</span>
+        </div>
+        <div class="led-row return">
+          <span class="t">21:00</span>
+          <span class="r">A2·B2·C2 — 共 3 台 60 人<span class="sub fleet">【壓軸清場】新人至親摯友、工作人員</span></span>
+          <span class="veh">抵 21:15</span>
+          <span class="badge">回程</span>
+        </div>
+
+        <div class="led-marquee">
+          <span>※ 請於發車前 10 分鐘抵達上車點　·　每車可容納 20 人　·　新店捷運總站上下車　·　如有問題請洽招待人員　·　共 3 台接駁車　·　去程 6 班 / 回程 2 波　·　</span>
+        </div>
+
+        <div class="led-foot">
+          <button class="led-cal-btn">＋ 加入行事曆</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="verdict">
+    <b>對照重點：</b>B 融入網站、安靜耐看、掃讀快，存根橫條修正了站名直書問題，站名現在永遠水平不折行；C 有強烈記憶點與儀式感，但風格較跳（深色板放在暖沙底上像一塊「嵌入的螢幕」）。兩者都已套 44px 觸控、prefers-reduced-motion 關閉動畫、用文字+顏色雙重區分去/回程（不只靠顏色）、真實時刻表資料（去程 6 班 + 回程 2 波）。
+  </div>
+</div>
+</body>
+</html>

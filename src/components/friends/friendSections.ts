@@ -10,8 +10,10 @@ export const friendSections: FriendSection[] = [
   { id: "opening", label: "開場", title: "Yuan & 4J" },
   { id: "signal", label: "邀請", title: "給你的一句話" },
   { id: "schedule", label: "流程", title: "10 月 3 日" },
+  { id: "dress-code", label: "穿著", title: "極簡大地" },
   { id: "venue", label: "地點", title: "優聖美地" },
   { id: "gallery", label: "照片", title: "婚禮之前" },
+  { id: "shuttle", label: "接駁車", title: "搭我們的車" },
   { id: "rsvp", label: "回覆", title: "告訴我們你會不會來" },
   { id: "finale", label: "那天見", title: "2026.10.3" }
 ];
