@@ -28,6 +28,8 @@ describe("FriendRsvpExperience", () => {
     expect(screen.getByText("Yuan")).toBeInTheDocument();
     expect(screen.getByText("葷食 2 / 素食 1")).toBeInTheDocument();
     expect(screen.getByText("大人 2 / 小孩 1")).toBeInTheDocument();
+    expect(screen.getByText("參加證婚")).toBeInTheDocument();
+    expect(screen.getByText("搭乘接駁車")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "確認送出" }));
 
@@ -45,7 +47,9 @@ describe("FriendRsvpExperience", () => {
       adultCount: 2,
       childCount: 1,
       needsChildSeat: true,
-      childSeatCount: 1
+      childSeatCount: 1,
+      attendsCeremony: true,
+      needsShuttle: true
     });
   });
 

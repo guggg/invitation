@@ -569,6 +569,24 @@ img {
   margin-top: 14px;
 }
 
+.rsvp-option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.rsvp-option-grid .child-seat-toggle,
+.rsvp-option-grid .rsvp-seat-toggle {
+  margin-top: 0;
+}
+
+.rsvp-option-grid small {
+  opacity: 0.68;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .form-note,
 .form-message {
   margin: 16px 0 0;
@@ -2159,6 +2177,10 @@ img {
   border-radius: 8px;
   padding: 12px;
   font-weight: 900;
+}
+
+.rsvp-option-grid .rsvp-seat-toggle {
+  min-height: 62px;
 }
 
 .rsvp-card-preview {

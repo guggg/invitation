@@ -12,6 +12,8 @@ const HEADERS = [
   "childCount",
   "needsChildSeat",
   "childSeatCount",
+  "attendsCeremony",
+  "needsShuttle",
   "userAgent"
 ];
 

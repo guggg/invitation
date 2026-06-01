@@ -15,6 +15,8 @@ export type RsvpFormData = {
   childCount: number;
   needsChildSeat: boolean;
   childSeatCount: number;
+  attendsCeremony: boolean;
+  needsShuttle: boolean;
 };
 
 export type RsvpPayload = RsvpFormData & {
@@ -43,7 +45,13 @@ const rawRsvpSchema = z.object({
   needsChildSeat: z
     .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
     .default(false),
-  childSeatCount: countField.optional()
+  childSeatCount: countField.optional(),
+  attendsCeremony: z
+    .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
+    .default(true),
+  needsShuttle: z
+    .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
+    .default(true)
 });
 
 export function isLateSubmission(now: Date): boolean {
@@ -70,7 +78,9 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
       adultCount: 0,
       childCount: 0,
       needsChildSeat: false,
-      childSeatCount: 0
+      childSeatCount: 0,
+      attendsCeremony: false,
+      needsShuttle: false
     };
   }
 
@@ -108,7 +118,9 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
     adultCount: data.adultCount!,
     childCount: data.childCount!,
     needsChildSeat: data.needsChildSeat,
-    childSeatCount
+    childSeatCount,
+    attendsCeremony: data.attendsCeremony,
+    needsShuttle: data.needsShuttle
   };
 }
 

@@ -21,6 +21,8 @@ type FormValues = {
   childCount?: number;
   needsChildSeat?: boolean;
   childSeatCount?: number;
+  attendsCeremony?: boolean;
+  needsShuttle?: boolean;
 };
 
 type RsvpFormProps = {
@@ -46,7 +48,9 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
       adultCount: 1,
       childCount: 0,
       needsChildSeat: false,
-      childSeatCount: 0
+      childSeatCount: 0,
+      attendsCeremony: true,
+      needsShuttle: true
     },
     shouldUnregister: true
   });
@@ -135,6 +139,17 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
               <NumberField label="兒童座椅數量" registration={register("childSeatCount", { valueAsNumber: true })} />
             </div>
           ) : null}
+
+          <div className="rsvp-option-grid">
+            <label className="child-seat-toggle">
+              <input type="checkbox" {...register("attendsCeremony")} />
+              <span>參加證婚</span>
+            </label>
+            <label className="child-seat-toggle">
+              <input type="checkbox" {...register("needsShuttle")} />
+              <span>搭乘接駁車（推薦搭乘）</span>
+            </label>
+          </div>
         </>
       ) : null}
 

@@ -14,10 +14,13 @@ describe("RsvpForm", () => {
     render(<RsvpForm endpoint="https://example.com" sourceRoute="/" variant="experimental" />);
 
     expect(screen.getByLabelText("葷食份數")).toBeInTheDocument();
+    expect(screen.getByLabelText("參加證婚")).toBeInTheDocument();
+    expect(screen.getByLabelText("搭乘接駁車（推薦搭乘）")).toBeChecked();
 
     fireEvent.click(screen.getByLabelText("不克出席"));
 
     expect(screen.queryByLabelText("葷食份數")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("大人人數")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("參加證婚")).not.toBeInTheDocument();
   });
 });

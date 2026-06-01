@@ -29,6 +29,8 @@ describe("RSVP form parsing", () => {
     expect(parsed.childCount).toBe(0);
     expect(parsed.needsChildSeat).toBe(false);
     expect(parsed.childSeatCount).toBe(0);
+    expect(parsed.attendsCeremony).toBe(false);
+    expect(parsed.needsShuttle).toBe(false);
   });
 
   it("requires attending guests to provide meal and guest counts", () => {
@@ -52,7 +54,9 @@ describe("RSVP form parsing", () => {
         adultCount: 3,
         childCount: 1,
         needsChildSeat: true,
-        childSeatCount: 1
+        childSeatCount: 1,
+        attendsCeremony: true,
+        needsShuttle: true
       },
       {
         sourceRoute: "/family",
@@ -73,6 +77,8 @@ describe("RSVP form parsing", () => {
       childCount: 1,
       needsChildSeat: true,
       childSeatCount: 1,
+      attendsCeremony: true,
+      needsShuttle: true,
       userAgent: "vitest"
     });
     expect(payload.submittedAt).toBe("2026-07-08T01:00:00.000Z");

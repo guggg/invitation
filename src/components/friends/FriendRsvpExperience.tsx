@@ -27,6 +27,8 @@ type WizardData = {
   childCount: number;
   needsChildSeat: boolean;
   childSeatCount: number;
+  attendsCeremony: boolean;
+  needsShuttle: boolean;
 };
 
 const defaultData: WizardData = {
@@ -38,7 +40,9 @@ const defaultData: WizardData = {
   adultCount: 1,
   childCount: 0,
   needsChildSeat: false,
-  childSeatCount: 0
+  childSeatCount: 0,
+  attendsCeremony: true,
+  needsShuttle: true
 };
 
 export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperienceProps) {
@@ -75,7 +79,9 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
             adultCount: 0,
             childCount: 0,
             needsChildSeat: false,
-            childSeatCount: 0
+            childSeatCount: 0,
+            attendsCeremony: false,
+            needsShuttle: false
           }
         : {
             meatCount: Math.max(current.meatCount, 1),
@@ -271,6 +277,26 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
             />
           ) : null}
 
+          <div className="rsvp-option-grid">
+            <label className="rsvp-seat-toggle">
+              <input
+                checked={data.attendsCeremony}
+                onChange={(event) => updateField("attendsCeremony", event.target.checked)}
+                type="checkbox"
+              />
+              <span>參加證婚</span>
+            </label>
+            <label className="rsvp-seat-toggle">
+              <input
+                checked={data.needsShuttle}
+                onChange={(event) => updateField("needsShuttle", event.target.checked)}
+                type="checkbox"
+              />
+              <span>搭乘接駁車</span>
+              <small>推薦搭乘</small>
+            </label>
+          </div>
+
           <div className="rsvp-buttons">
             <button className="rsvp-back" type="button" onClick={handleBack}>
               上一頁
@@ -290,6 +316,8 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
             <span>{data.attendance === "attending" ? `葷食 ${data.meatCount} / 素食 ${data.vegetarianCount}` : "已收到心意"}</span>
             {data.attendance === "attending" ? <span>{`大人 ${data.adultCount} / 小孩 ${data.childCount}`}</span> : null}
             {data.needsChildSeat ? <span>{`兒童座椅 ${data.childSeatCount}`}</span> : null}
+            {data.attendance === "attending" && data.attendsCeremony ? <span>參加證婚</span> : null}
+            {data.attendance === "attending" && data.needsShuttle ? <span>搭乘接駁車</span> : null}
             {payload?.isLate ? <span>較晚回覆</span> : <span>2026/7/7 前回覆</span>}
           </div>
 
