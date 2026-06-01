@@ -46,6 +46,8 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
   const [data, setData] = useState<WizardData>(defaultData);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   const payload = useMemo<RsvpPayload | null>(() => {
     if (step !== "card") {
@@ -80,6 +82,8 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
             adultCount: Math.max(current.adultCount, 1)
           })
     }));
+    setNameError("");
+    setPhoneError("");
     setStep("identity");
   }
 
@@ -91,10 +95,29 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
     setData((current) => ({ ...current, [field]: Math.max(0, Number(current[field]) + delta) }));
   }
 
+  function validateName(value: string): string {
+    return value.trim() ? "" : "請填寫名字";
+  }
+
+  function validatePhone(value: string): string {
+    return value.trim().length >= 6 ? "" : "請填寫聯絡電話（至少 6 碼）";
+  }
+
+  function handleNameBlur(event: React.FocusEvent<HTMLInputElement>) {
+    setNameError(validateName(event.target.value));
+  }
+
+  function handlePhoneBlur(event: React.FocusEvent<HTMLInputElement>) {
+    setPhoneError(validatePhone(event.target.value));
+  }
+
   function continueFromIdentity() {
     setMessage("");
-    if (!data.name.trim() || !data.phone.trim()) {
-      setMessage("請先填寫名字與聯絡電話。");
+    const nErr = validateName(data.name);
+    const pErr = validatePhone(data.phone);
+    setNameError(nErr);
+    setPhoneError(pErr);
+    if (nErr || pErr) {
       return;
     }
 
@@ -130,6 +153,8 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
 
   function handleBack() {
     setMessage("");
+    setNameError("");
+    setPhoneError("");
     if (step === "identity") {
       setStep("intent");
     } else if (step === "details") {
@@ -167,24 +192,48 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
 
       {step === "identity" ? (
         <div className="rsvp-identity">
-          <label>
+          <label htmlFor="rsvp-name">
             <span>名字</span>
             <input
+              id="rsvp-name"
               autoComplete="name"
               value={data.name}
-              onChange={(event) => updateField("name", event.target.value)}
+              onChange={(event) => {
+                updateField("name", event.target.value);
+                if (nameError) setNameError(validateName(event.target.value));
+              }}
+              onBlur={handleNameBlur}
               placeholder="請輸入姓名"
+              aria-invalid={nameError ? true : false}
+              aria-describedby={nameError ? "rsvp-name-error" : undefined}
             />
+            {nameError ? (
+              <span id="rsvp-name-error" className="rsvp-field-error" role="alert">
+                {nameError}
+              </span>
+            ) : null}
           </label>
-          <label>
+          <label htmlFor="rsvp-phone">
             <span>聯絡電話</span>
             <input
+              id="rsvp-phone"
               autoComplete="tel"
               inputMode="tel"
               value={data.phone}
-              onChange={(event) => updateField("phone", event.target.value)}
+              onChange={(event) => {
+                updateField("phone", event.target.value);
+                if (phoneError) setPhoneError(validatePhone(event.target.value));
+              }}
+              onBlur={handlePhoneBlur}
               placeholder="0912 345 678"
+              aria-invalid={phoneError ? true : false}
+              aria-describedby={phoneError ? "rsvp-phone-error" : undefined}
             />
+            {phoneError ? (
+              <span id="rsvp-phone-error" className="rsvp-field-error" role="alert">
+                {phoneError}
+              </span>
+            ) : null}
           </label>
           <div className="rsvp-buttons">
             <button className="rsvp-back" type="button" onClick={handleBack}>
@@ -275,7 +324,7 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
         </div>
       ) : null}
 
-      {message && step !== "card" ? (
+      {message && step !== "card" && step !== "identity" ? (
         <p className="rsvp-wizard-message error" role="status">
           {message}
         </p>

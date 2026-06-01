@@ -100,4 +100,77 @@ describe("FriendRsvpExperience", () => {
     expect(screen.getByText("不克出席")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "出席回覆尚未開放" })).toBeDisabled();
   });
+
+  describe("onBlur field validation", () => {
+    function goToIdentity() {
+      render(<FriendRsvpExperience endpoint="https://example.com/rsvp" />);
+      fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
+    }
+
+    it("shows name error and marks input invalid when name field blurs empty", () => {
+      goToIdentity();
+      const nameInput = screen.getByLabelText("名字");
+      fireEvent.blur(nameInput, { target: { value: "" } });
+
+      expect(screen.getByText("請填寫名字")).toBeInTheDocument();
+      expect(nameInput).toHaveAttribute("aria-invalid", "true");
+      // phone error must not appear
+      expect(screen.queryByText(/請填寫聯絡電話/)).not.toBeInTheDocument();
+    });
+
+    it("shows phone error when phone blurs with too-short value, no name error", () => {
+      goToIdentity();
+      fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
+      const phoneInput = screen.getByLabelText("聯絡電話");
+      fireEvent.blur(phoneInput, { target: { value: "123" } });
+
+      expect(screen.getByText(/請填寫聯絡電話/)).toBeInTheDocument();
+      expect(phoneInput).toHaveAttribute("aria-invalid", "true");
+      expect(screen.queryByText("請填寫名字")).not.toBeInTheDocument();
+    });
+
+    it("rejects phone with 5 digits, accepts phone with 6 digits", () => {
+      goToIdentity();
+      const phoneInput = screen.getByLabelText("聯絡電話");
+
+      // 5 chars → error
+      fireEvent.blur(phoneInput, { target: { value: "12345" } });
+      expect(screen.getByText(/請填寫聯絡電話/)).toBeInTheDocument();
+
+      // 6 chars → no error
+      fireEvent.blur(phoneInput, { target: { value: "123456" } });
+      expect(screen.queryByText(/請填寫聯絡電話/)).not.toBeInTheDocument();
+      expect(phoneInput).toHaveAttribute("aria-invalid", "false");
+    });
+
+    it("clears name error immediately when a valid value is typed after error (onChange path)", () => {
+      goToIdentity();
+      const nameInput = screen.getByLabelText("名字");
+
+      // trigger error first
+      fireEvent.blur(nameInput, { target: { value: "" } });
+      expect(screen.getByText("請填寫名字")).toBeInTheDocument();
+
+      // type a valid value — error should clear via onChange
+      fireEvent.change(nameInput, { target: { value: "Y" } });
+      expect(screen.queryByText("請填寫名字")).not.toBeInTheDocument();
+    });
+
+    it("re-entering identity after triggering errors via back navigation shows no stale errors", () => {
+      goToIdentity();
+
+      // trigger both errors by clicking next with empty fields
+      fireEvent.click(screen.getByRole("button", { name: "下一步" }));
+      expect(screen.getByText("請填寫名字")).toBeInTheDocument();
+      expect(screen.getByText(/請填寫聯絡電話/)).toBeInTheDocument();
+
+      // go back to intent
+      fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
+      // re-enter identity
+      fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
+
+      expect(screen.queryByText("請填寫名字")).not.toBeInTheDocument();
+      expect(screen.queryByText(/請填寫聯絡電話/)).not.toBeInTheDocument();
+    });
+  });
 });

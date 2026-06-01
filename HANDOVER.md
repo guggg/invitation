@@ -133,6 +133,22 @@
   * 透過計算 `touchStartX` 與觸控結束點的位移，判斷是否為**水平滑動**（`Math.abs(diffX) > Math.abs(diffY)` 且位移大於 `50px`）。
   * 偵測到**左滑**時切換至下一張照片 (`Math.min(projects.length - 1, prev + 1)`)，**右滑**時切換至上一張照片 (`Math.max(0, prev - 1)`)，提供手機使用者直覺且極致順暢的輪播（Carousel）手勢操作體驗，同時不影響原本的上下頁面捲動。
 
+### ⑭ 朋友版 RSVP 表單 UX/無障礙修正（依 ui-ux-pro-max skill audit）
+* **目的**：依據 `ui-ux-pro-max` 設計準則資料庫對朋友版 RSVP 表單做的 UX/A11y audit，修正三項問題：加減人數按鈕觸控尺寸不足、姓名/電話只在送出時才驗證、鍵盤 focus 無可見指示。
+* **修改檔案**：
+  * [`src/components/friends/FriendRsvpExperience.tsx`](file:///Users/cfh00585519/Documents/repos/toys/invitation/src/components/friends/FriendRsvpExperience.tsx)
+  * [`src/app/globals.css`](file:///Users/cfh00585519/Documents/repos/toys/invitation/src/app/globals.css)
+  * [`src/test/friend-rsvp-experience.test.tsx`](file:///Users/cfh00585519/Documents/repos/toys/invitation/src/test/friend-rsvp-experience.test.tsx)
+* **實作方式**：
+  1. **觸控目標 36→44px**：`.rsvp-stepper button` 的 `width`/`height` 由 `36px` 改為 `44px`（符合最小 44×44px 觸控準則），並將 `.rsvp-stepper div` 的 `grid-template-columns` 由 `36px 44px 36px` 同步改為 `44px 44px 44px`（否則按鈕會被 grid 軌道壓回 36px），`gap: 8px` 維持。
+  2. **可見 focus ring**：`.rsvp-stepper button:focus-visible` 補上 `outline: 2px solid #ffffff; outline-offset: 2px`。注意：原先 reviewer 指出若用深灰 `#2f302f` 畫在深灰按鈕背景 `#4a4a4a` 上對比僅約 1.2:1（不可見），故採白色（對比約 9.7:1，通過 WCAG 1.4.11 的 3:1 門檻）。
+  3. **即時 onBlur 驗證**：identity 步驟的姓名/電話改為失焦即驗證，新增 `nameError`/`phoneError` state 與 `validateName`/`validatePhone` 函式。電話規則為 trim 後 ≥6 字元，與 [`src/lib/rsvp.ts`](file:///Users/cfh00585519/Documents/repos/toys/invitation/src/lib/rsvp.ts) 的 zod schema 一致。
+  4. **錯誤訊息移到欄位旁**：錯誤訊息由原本「壓在元件底部統一顯示」改為顯示在各對應欄位下方（底部 fallback 加 `step !== "identity"` 條件避免重複）；input 加 `aria-invalid`（修正後明確設為 `false` 而非 `undefined`，避免螢幕報讀器快取舊狀態）與 `aria-describedby` 關聯錯誤訊息，錯誤 `<span>` 用 `role="alert"`。
+  5. **避免 stale closure**：`handleNameBlur`/`handlePhoneBlur` 接收 `React.FocusEvent` 並從 `event.target.value` 取值（而非閉包中的 `data.name`/`data.phone`），避免快速打字後立即 Tab 失焦時驗到舊值。
+  6. **清除殘留錯誤**：在 `chooseAttendance`（進入 identity 前）與 `handleBack`（返回時）各加 `setNameError(""); setPhoneError("")`，修正「觸發錯誤→上一頁→重進 identity 會閃出舊錯誤」的回歸 bug。
+  7. 保留「下一步」(`continueFromIdentity`) 按下時的總驗證作為最後防線，並新增 5 個單元測試涵蓋上述行為（空名字 blur、過短電話、5/6 碼邊界、onChange 即時清除、返回重進無殘留錯誤）。測試由 37 增至 42 個，`npm run test` 與 `npm run typecheck` 全綠。
+  8. **未更動**：reduced-motion 相關（`globals.css` 全域 catch-all 已將 CSS 動畫壓至 1ms，`FriendsMotionController.tsx` 已用 `matchMedia` 判斷並關閉 GSAP/Lenis），故本次未動任何動畫程式碼。
+
 ---
 
 ## 2. 後續開發與維護指南

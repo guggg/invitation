@@ -2109,15 +2109,15 @@ img {
 
 .rsvp-stepper div {
   display: inline-grid;
-  grid-template-columns: 36px 44px 36px;
+  grid-template-columns: 44px 44px 44px;
   gap: 8px;
   align-items: center;
 }
 
 .rsvp-stepper button {
   display: inline-flex;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   border: 1px solid #2f302f;
@@ -2131,11 +2131,18 @@ img {
     transform 160ms ease;
 }
 
-.rsvp-stepper button:hover,
+.rsvp-stepper button:hover {
+  border-color: #4a4a4a;
+  background: #4a4a4a;
+  transform: scale(1.05);
+}
+
 .rsvp-stepper button:focus-visible {
   border-color: #4a4a4a;
   background: #4a4a4a;
   transform: scale(1.05);
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
 .rsvp-stepper strong {
@@ -2195,6 +2202,17 @@ img {
   background: #f7f6f2;
   padding: 8px 10px;
   font-weight: 800;
+}
+
+.rsvp-field-error {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #9b5965;
+}
+
+.rsvp-identity input[aria-invalid="true"] {
+  border-color: #9b5965;
+  box-shadow: 0 0 0 3px rgba(155, 89, 101, 0.22);
 }
 
 .rsvp-unavailable,
