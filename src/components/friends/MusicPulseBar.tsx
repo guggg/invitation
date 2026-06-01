@@ -3,6 +3,11 @@
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { createCountdownParts, type CountdownParts } from "@/lib/countdown";
+import {
+  PORTAL_AUDIO_CUE_PHASE,
+  PORTAL_INTRO_ENTER_EVENT,
+  PORTAL_PHASE_CHANGE_EVENT
+} from "@/lib/portal-events";
 import { createTypewriterPlan, pickWeddingWelcomeMessage, weddingWelcomeMessages } from "@/lib/typewriter";
 import { wedding } from "@/lib/wedding";
 
@@ -173,6 +178,8 @@ type MusicPulseBarProps = {
 export function MusicPulseBar({ initialNow, targetIso = wedding.dateTimeIso }: MusicPulseBarProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const isArmingRef = useRef(false);
+  const audibleStartedRef = useRef(false);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [barHeights, setBarHeights] = useState<number[]>(idleBarHeights);
@@ -188,7 +195,11 @@ export function MusicPulseBar({ initialNow, targetIso = wedding.dateTimeIso }: M
     audio.preload = "none";
 
     // Keep React state in sync when OS interrupts playback (calls, notifications, etc.)
-    const onPlay = () => setIsPlaying(true);
+    const onPlay = () => {
+      if (!isArmingRef.current) {
+        setIsPlaying(true);
+      }
+    };
     const onPause = () => setIsPlaying(false);
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
@@ -225,28 +236,56 @@ export function MusicPulseBar({ initialNow, targetIso = wedding.dateTimeIso }: M
     };
   }, [isPlaying, reduceMotion]);
 
-  // Listen for portal-phase-change; also catch the case where phase was already
-  // "done" before this listener was registered (Strict Mode double-mount, fast load).
+  // The intro click silently arms playback so browser policy accepts the later audible cue.
   useEffect(() => {
-    const attemptPlay = () => {
+    const armMutedPlayback = () => {
       const audio = audioRef.current;
       if (!audio) return;
-      tryPlay(audio, setIsPlaying, setNeedsManualPlay);
+
+      // New intro cycle: allow one audible start when cue/done arrives.
+      audibleStartedRef.current = false;
+      isArmingRef.current = true;
+      audio.muted = true;
+      tryPlay(audio, () => setIsPlaying(false), () => undefined);
+    };
+
+    const startAudiblePlayback = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      if (audibleStartedRef.current) return;
+
+      isArmingRef.current = false;
+      audio.muted = false;
+      audio.currentTime = 0;
+      audibleStartedRef.current = true;
+      if (audio.paused) {
+        tryPlay(audio, setIsPlaying, setNeedsManualPlay);
+      } else {
+        setIsPlaying(true);
+        setNeedsManualPlay(false);
+      }
     };
 
     const handlePhaseChange = (event: Event) => {
       const e = event as CustomEvent<{ phase: string }>;
-      if (e.detail.phase === "done") attemptPlay();
+      if (e.detail.phase === PORTAL_AUDIO_CUE_PHASE || e.detail.phase === "done") startAudiblePlayback();
     };
 
-    window.addEventListener("portal-phase-change", handlePhaseChange);
+    window.addEventListener(PORTAL_INTRO_ENTER_EVENT, armMutedPlayback);
+    window.addEventListener(PORTAL_PHASE_CHANGE_EVENT, handlePhaseChange);
 
     // Catch-up: if phase was already "done" before we registered
-    if (document.body.dataset.portalPhase === "done") {
-      attemptPlay();
+    if (
+      document.body.dataset.portalPhase === PORTAL_AUDIO_CUE_PHASE ||
+      document.body.dataset.portalPhase === "done"
+    ) {
+      startAudiblePlayback();
     }
 
-    return () => window.removeEventListener("portal-phase-change", handlePhaseChange);
+    return () => {
+      window.removeEventListener(PORTAL_INTRO_ENTER_EVENT, armMutedPlayback);
+      window.removeEventListener(PORTAL_PHASE_CHANGE_EVENT, handlePhaseChange);
+    };
   }, []);
 
   const toggle = () => {
@@ -257,6 +296,8 @@ export function MusicPulseBar({ initialNow, targetIso = wedding.dateTimeIso }: M
       audio.pause();
       // isPlaying will be set false by the "pause" event listener
     } else {
+      isArmingRef.current = false;
+      audio.muted = false;
       tryPlay(audio, setIsPlaying, setNeedsManualPlay);
     }
   };

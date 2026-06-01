@@ -2,6 +2,11 @@
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { clsx } from "clsx";
+import {
+  PORTAL_AUDIO_CUE_PHASE,
+  PORTAL_INTRO_ENTER_EVENT,
+  PORTAL_PHASE_CHANGE_EVENT
+} from "@/lib/portal-events";
 
 type PortalPhase = "idle" | "transition" | "done";
 
@@ -14,6 +19,7 @@ const introPhrases = ["Yuan & 4J's Wedding", "2026.10.3", "4J & Yuan's Wedding",
 const CHAR_WIDTH = 7.2;
 const LINE_HEIGHT = 13;
 const TRANSITION_MS = 8100;
+const AUDIO_CUE_MS_BEFORE_END = 1000;
 const RAMP = " .`':-=/+<>!?235689AON";
 const NOISE = ".,-:;_+/<>=!?123456890AONN";
 
@@ -1567,12 +1573,13 @@ export function AsciiPortal() {
   const phaseRef = useRef<PortalPhase>("idle");
   const pointerRef = useRef({ x: 0.16, y: 0.5 });
   const startRef = useRef(0);
+  const audioCueSentRef = useRef(false);
   const textMaskRef = useRef(new Uint8ClampedArray(size.cols * size.rows));
 
   useEffect(() => {
     phaseRef.current = phase;
     document.body.dataset.portalPhase = phase;
-    window.dispatchEvent(new CustomEvent("portal-phase-change", { detail: { phase } }));
+    window.dispatchEvent(new CustomEvent(PORTAL_PHASE_CHANGE_EVENT, { detail: { phase } }));
 
     if (phase !== "done") {
       document.body.style.overflow = "hidden";
@@ -1648,6 +1655,17 @@ export function AsciiPortal() {
         )
       );
 
+      if (
+        !audioCueSentRef.current &&
+        nextProgress >= (TRANSITION_MS - AUDIO_CUE_MS_BEFORE_END) / TRANSITION_MS
+      ) {
+        audioCueSentRef.current = true;
+        document.body.dataset.portalPhase = PORTAL_AUDIO_CUE_PHASE;
+        window.dispatchEvent(
+          new CustomEvent(PORTAL_PHASE_CHANGE_EVENT, { detail: { phase: PORTAL_AUDIO_CUE_PHASE } })
+        );
+      }
+
       if (currentPhase === "transition" && nextProgress >= 1) {
         phaseRef.current = "done";
         setPhase("done");
@@ -1665,6 +1683,8 @@ export function AsciiPortal() {
 
     startRef.current = performance.now();
     phaseRef.current = "transition";
+    audioCueSentRef.current = false;
+    window.dispatchEvent(new CustomEvent(PORTAL_INTRO_ENTER_EVENT));
     setPhase("transition");
   }
 
