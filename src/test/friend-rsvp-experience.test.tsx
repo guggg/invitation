@@ -17,17 +17,18 @@ describe("FriendRsvpExperience", () => {
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
-    fireEvent.click(screen.getByLabelText("葷食份數 +"));
-    fireEvent.click(screen.getByLabelText("素食份數 +"));
-    fireEvent.click(screen.getByLabelText("大人人數 +"));
-    fireEvent.click(screen.getByLabelText("小孩人數 +"));
+    fireEvent.click(screen.getByLabelText("請問有幾位大人呢？ +"));
+    fireEvent.click(screen.getByLabelText("0-4 歲的小寶貝有幾位？ +"));
+    fireEvent.click(screen.getByLabelText("4-8 歲的小夥伴有幾位？ +"));
+    fireEvent.click(screen.getByLabelText("我們也想替吃素的朋友準備好，有幾位呢？ +"));
+    fireEvent.click(screen.getByLabelText("我們也想替吃素的朋友準備好，有幾位呢？ +"));
     fireEvent.click(screen.getByLabelText("需要兒童座椅"));
     fireEvent.click(screen.getByLabelText("兒童座椅數量 +"));
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
 
     expect(screen.getByText("Yuan")).toBeInTheDocument();
-    expect(screen.getByText("葷食 2 / 素食 1")).toBeInTheDocument();
-    expect(screen.getByText("大人 2 / 小孩 1")).toBeInTheDocument();
+    expect(screen.getByText("吃素 2")).toBeInTheDocument();
+    expect(screen.getByText("大人 2 / 0-4 歲 1 / 4-8 歲 1")).toBeInTheDocument();
     expect(screen.getByText("參加證婚")).toBeInTheDocument();
     expect(screen.getByText("搭乘接駁車")).toBeInTheDocument();
 
@@ -42,10 +43,10 @@ describe("FriendRsvpExperience", () => {
       attendance: "attending",
       name: "Yuan",
       phone: "0912345678",
-      meatCount: 2,
-      vegetarianCount: 1,
+      vegetarianCount: 2,
       adultCount: 2,
-      childCount: 1,
+      childCountUnder4: 1,
+      childCount4to8: 1,
       needsChildSeat: true,
       childSeatCount: 1,
       attendsCeremony: true,
@@ -75,7 +76,7 @@ describe("FriendRsvpExperience", () => {
 
     // Go to step 3: Details
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
-    expect(screen.getByText("葷食份數")).toBeInTheDocument();
+    expect(screen.getByText("請問有幾位大人呢？")).toBeInTheDocument();
 
     // Go back from step 3 to step 2
     fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
@@ -89,7 +90,7 @@ describe("FriendRsvpExperience", () => {
 
     // Go back from step 4 to step 3
     fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
-    expect(screen.getByText("葷食份數")).toBeInTheDocument();
+    expect(screen.getByText("請問有幾位大人呢？")).toBeInTheDocument();
   });
 
   it("lets declined guests skip meal details and keeps submission disabled without endpoint", () => {
@@ -100,7 +101,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0911111111" } });
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
 
-    expect(screen.queryByText("葷食份數")).not.toBeInTheDocument();
+    expect(screen.queryByText("請問有幾位大人呢？")).not.toBeInTheDocument();
     expect(screen.getByText("不克出席")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "出席回覆尚未開放" })).toBeDisabled();
   });

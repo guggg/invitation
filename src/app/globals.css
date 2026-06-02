@@ -2687,6 +2687,8 @@ img {
 }
 
 .led-board {
+  width: 100%;
+  min-width: 0;
   background: #0d100d;
   border-radius: 14px;
   padding: 6px;
@@ -2695,6 +2697,7 @@ img {
 
 .led-inner {
   position: relative;
+  min-width: 0;
   background: radial-gradient(ellipse at top, rgba(20, 24, 20, 0) 0%, #0a0c0a 100%), #0b0d0b;
   border-radius: 9px;
   padding: 20px 22px;
@@ -2777,6 +2780,7 @@ img {
 }
 
 .led-group {
+  min-width: 0;
   font-family: "Courier New", monospace;
   font-size: 0.65rem;
   letter-spacing: 3px;
@@ -2802,6 +2806,7 @@ img {
 .led-row {
   display: grid;
   grid-template-columns: 56px 1fr auto auto 44px;
+  min-width: 0;
   align-items: center;
   gap: 8px;
   font-family: "Courier New", monospace;
@@ -2830,6 +2835,7 @@ img {
 }
 
 .led-r {
+  min-width: 0;
   font-size: 0.75rem;
   letter-spacing: 0.5px;
   line-height: 1.4;
@@ -2944,16 +2950,77 @@ img {
 
 @media (max-width: 480px) {
   /* 3-track: time | info | cal-btn — veh and badge hidden, marquee already says "暫定預告" */
-  .led-row {
-    grid-template-columns: 50px 1fr 44px;
+  .led-inner {
+    padding: 16px 14px;
   }
+
+  .led-head {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .led-title {
+    font-size: 0.82rem;
+    letter-spacing: 1.2px;
+  }
+
+  .led-clock {
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+  }
+
+  .led-group {
+    font-size: 0.52rem;
+    letter-spacing: 1.3px;
+    line-height: 1.5;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .led-row {
+    grid-template-columns: 46px minmax(0, 1fr) 40px;
+    gap: 6px;
+    padding: 10px 2px;
+  }
+
   .led-veh,
   .led-badge {
     display: none;
   }
-  .led-r-sub {
-    max-width: 52vw;
+
+  .led-t {
+    font-size: 0.86rem;
   }
+
+  .led-r {
+    font-size: 0.66rem;
+    line-height: 1.32;
+  }
+
+  .led-r-main {
+    overflow-wrap: anywhere;
+  }
+
+  .led-r-sub {
+    max-width: none;
+    font-size: 0.58rem;
+    line-height: 1.28;
+    white-space: normal;
+  }
+
+  .led-cal-icon-btn {
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .led-marquee,
+  .led-marquee-text,
+  .led-marquee-text--static {
+    font-size: 0.62rem;
+  }
+
   .led-board {
     max-width: 100%;
   }
@@ -2974,6 +3041,7 @@ img {
 /* Remove the old standalone margin — layout now controls it */
 .shuttle-board-wrap {
   margin-top: 0;
+  min-width: 0;
   max-width: none;
 }
 

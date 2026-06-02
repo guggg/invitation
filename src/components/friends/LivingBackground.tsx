@@ -4,14 +4,17 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const palettes = [
-  ["#F7F6F2", "#F6D6DC", "#B7C7D9"],
-  ["#F6D6DC", "#E6E0D6", "#B8C4B1"],
-  ["#B7C7D9", "#F7F6F2", "#E6E0D6"],
-  ["#B8C4B1", "#F7F6F2", "#F6D6DC"],
-  ["#E6E0D6", "#B7C7D9", "#B8C4B1"],
-  ["#F7F6F2", "#B8C4B1", "#F6D6DC"],
-  ["#F6D6DC", "#B7C7D9", "#E6E0D6"]
+  ["#F8E7EA", "#F4DADF", "#EEF0F1"],
+  ["#F3ECE5", "#EAE4DD", "#EFF1F0"],
+  ["#E8EDF0", "#DDE5EA", "#F0E9E3"],
+  ["#E7DED5", "#D8CFC4", "#F1E7E1"],
+  ["#EEE9E2", "#E4E0D9", "#DEE7EC"],
+  ["#E4EBEF", "#D6E0E8", "#ECE5DF"],
+  ["#E3EAE9", "#D4DBD4", "#ECE3DA"],
+  ["#F3E3E5", "#EAE0DB", "#E4EAED"],
+  ["#F1E6E1", "#E8DDD7", "#ECEFF0"]
 ];
+const POINTER_EFFECT_SCALE = 0.67;
 
 export function LivingBackground() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -89,7 +92,7 @@ export function LivingBackground() {
           float grain = noise(uv * 800.0 + uTime) * 0.075;
           vec3 color = mix(uColorA, uColorB, b1 * uIntensity);
           color = mix(color, uColorC, b2 * 0.42);
-          color += b3 * uColorB * 0.24;
+          color += b3 * uColorB * (0.24 * ${POINTER_EFFECT_SCALE.toFixed(2)});
           color += grain;
           gl_FragColor = vec4(color, 1.0);
         }
@@ -112,7 +115,7 @@ export function LivingBackground() {
 
     const onSectionChange = (event: Event) => {
       const index = (event as CustomEvent<{ index?: number }>).detail?.index ?? 0;
-      const palette = palettes[index % palettes.length];
+      const palette = palettes[index] ?? palettes[palettes.length - 1];
       targetColors[0].set(palette[0]);
       targetColors[1].set(palette[1]);
       targetColors[2].set(palette[2]);

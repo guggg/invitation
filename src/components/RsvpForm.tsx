@@ -15,10 +15,10 @@ type FormValues = {
   attendance: Attendance;
   name: string;
   phone: string;
-  meatCount?: number;
   vegetarianCount?: number;
   adultCount?: number;
-  childCount?: number;
+  childCountUnder4?: number;
+  childCount4to8?: number;
   needsChildSeat?: boolean;
   childSeatCount?: number;
   attendsCeremony?: boolean;
@@ -43,10 +43,10 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
   } = useForm<FormValues>({
     defaultValues: {
       attendance: "attending",
-      meatCount: 1,
       vegetarianCount: 0,
       adultCount: 1,
-      childCount: 0,
+      childCountUnder4: 0,
+      childCount4to8: 0,
       needsChildSeat: false,
       childSeatCount: 0,
       attendsCeremony: true,
@@ -123,10 +123,10 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
       {isAttending ? (
         <>
           <div className="form-grid compact">
-            <NumberField label="葷食份數" registration={register("meatCount", { valueAsNumber: true })} />
-            <NumberField label="素食份數" registration={register("vegetarianCount", { valueAsNumber: true })} />
             <NumberField label="大人人數" registration={register("adultCount", { valueAsNumber: true })} />
-            <NumberField label="小孩人數" registration={register("childCount", { valueAsNumber: true })} />
+            <NumberField label="0-4 歲人數" registration={register("childCountUnder4", { valueAsNumber: true })} />
+            <NumberField label="4-8 歲人數" registration={register("childCount4to8", { valueAsNumber: true })} />
+            <NumberField label="吃素份數" registration={register("vegetarianCount", { valueAsNumber: true })} />
           </div>
 
           <label className="child-seat-toggle">

@@ -9,10 +9,10 @@ export type RsvpFormData = {
   attendance: Attendance;
   name: string;
   phone: string;
-  meatCount: number;
   vegetarianCount: number;
   adultCount: number;
-  childCount: number;
+  childCountUnder4: number;
+  childCount4to8: number;
   needsChildSeat: boolean;
   childSeatCount: number;
   attendsCeremony: boolean;
@@ -38,10 +38,10 @@ const rawRsvpSchema = z.object({
   attendance: z.enum(["attending", "declined"]),
   name: z.string().trim().min(1, "請填寫名字"),
   phone: z.string().trim().min(6, "請填寫聯絡電話"),
-  meatCount: countField.optional(),
   vegetarianCount: countField.optional(),
   adultCount: countField.optional(),
-  childCount: countField.optional(),
+  childCountUnder4: countField.optional(),
+  childCount4to8: countField.optional(),
   needsChildSeat: z
     .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
     .default(false),
@@ -73,10 +73,10 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
       attendance: data.attendance,
       name: data.name,
       phone: data.phone,
-      meatCount: 0,
       vegetarianCount: 0,
       adultCount: 0,
-      childCount: 0,
+      childCountUnder4: 0,
+      childCount4to8: 0,
       needsChildSeat: false,
       childSeatCount: 0,
       attendsCeremony: false,
@@ -85,10 +85,10 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
   }
 
   const missingMessages = [
-    data.meatCount === undefined ? "葷食份數" : null,
-    data.vegetarianCount === undefined ? "素食份數" : null,
+    data.vegetarianCount === undefined ? "吃素份數" : null,
     data.adultCount === undefined ? "大人人數" : null,
-    data.childCount === undefined ? "小孩人數" : null
+    data.childCountUnder4 === undefined ? "0-4 歲小朋友人數" : null,
+    data.childCount4to8 === undefined ? "4-8 歲小朋友人數" : null
   ].filter(Boolean);
 
   if (missingMessages.length > 0) {
@@ -96,27 +96,33 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
   }
 
   const childSeatCount = data.needsChildSeat ? (data.childSeatCount ?? 0) : 0;
+  const totalGuestCount = data.adultCount! + data.childCountUnder4! + data.childCount4to8!;
+  const totalChildCount = data.childCountUnder4! + data.childCount4to8!;
 
-  if (data.meatCount! + data.vegetarianCount! < 1) {
-    throw new Error("請至少填寫一份葷食或素食");
+  if (totalGuestCount < 1) {
+    throw new Error("請至少填寫一位大人或小孩");
   }
 
-  if (data.adultCount! + data.childCount! < 1) {
-    throw new Error("請至少填寫一位大人或小孩");
+  if (data.vegetarianCount! > totalGuestCount) {
+    throw new Error("吃素份數不能大於大人與小孩總人數");
   }
 
   if (data.needsChildSeat && (!childSeatCount || childSeatCount < 1)) {
     throw new Error("請填寫兒童座椅數量");
   }
 
+  if (childSeatCount > totalChildCount) {
+    throw new Error("兒童座椅數量不能大於小朋友總人數");
+  }
+
   return {
     attendance: data.attendance,
     name: data.name,
     phone: data.phone,
-    meatCount: data.meatCount!,
     vegetarianCount: data.vegetarianCount!,
     adultCount: data.adultCount!,
-    childCount: data.childCount!,
+    childCountUnder4: data.childCountUnder4!,
+    childCount4to8: data.childCount4to8!,
     needsChildSeat: data.needsChildSeat,
     childSeatCount,
     attendsCeremony: data.attendsCeremony,

@@ -150,8 +150,8 @@ export const wedding = {
     },
     {
       time: "20:30",
-      title: "結束",
-      titleEn: "圓滿結束"
+      title: "圓滿結束",
+      titleEn: "Let’s call it a night!"
     }
   ],
   copy: {

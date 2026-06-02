@@ -23,24 +23,38 @@ describe("RSVP form parsing", () => {
     });
 
     expect(parsed.attendance).toBe("declined");
-    expect(parsed.meatCount).toBe(0);
     expect(parsed.vegetarianCount).toBe(0);
     expect(parsed.adultCount).toBe(0);
-    expect(parsed.childCount).toBe(0);
+    expect(parsed.childCountUnder4).toBe(0);
+    expect(parsed.childCount4to8).toBe(0);
     expect(parsed.needsChildSeat).toBe(false);
     expect(parsed.childSeatCount).toBe(0);
     expect(parsed.attendsCeremony).toBe(false);
     expect(parsed.needsShuttle).toBe(false);
   });
 
-  it("requires attending guests to provide meal and guest counts", () => {
+  it("requires attending guests to provide guest counts", () => {
     expect(() =>
       parseRsvpForm({
         attendance: "attending",
         name: "王小明",
         phone: "0912345678"
       })
-    ).toThrow(/葷食|素食|大人|小孩/);
+    ).toThrow(/吃素|大人|小朋友/);
+  });
+
+  it("rejects vegetarian count larger than total guest count", () => {
+    expect(() =>
+      parseRsvpForm({
+        attendance: "attending",
+        name: "王小明",
+        phone: "0912345678",
+        vegetarianCount: 3,
+        adultCount: 1,
+        childCountUnder4: 1,
+        childCount4to8: 0
+      })
+    ).toThrow(/吃素份數不能大於大人與小孩總人數/);
   });
 
   it("builds an append-only sheet payload with source route and user agent", () => {
@@ -49,10 +63,10 @@ describe("RSVP form parsing", () => {
         attendance: "attending",
         name: "Yuan",
         phone: "0912345678",
-        meatCount: 2,
-        vegetarianCount: 1,
+        vegetarianCount: 2,
         adultCount: 3,
-        childCount: 1,
+        childCountUnder4: 1,
+        childCount4to8: 1,
         needsChildSeat: true,
         childSeatCount: 1,
         attendsCeremony: true,
@@ -71,10 +85,10 @@ describe("RSVP form parsing", () => {
       attendance: "attending",
       name: "Yuan",
       phone: "0912345678",
-      meatCount: 2,
-      vegetarianCount: 1,
+      vegetarianCount: 2,
       adultCount: 3,
-      childCount: 1,
+      childCountUnder4: 1,
+      childCount4to8: 1,
       needsChildSeat: true,
       childSeatCount: 1,
       attendsCeremony: true,

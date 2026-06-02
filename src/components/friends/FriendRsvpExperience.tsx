@@ -21,10 +21,10 @@ type WizardData = {
   attendance: Attendance;
   name: string;
   phone: string;
-  meatCount: number;
   vegetarianCount: number;
   adultCount: number;
-  childCount: number;
+  childCountUnder4: number;
+  childCount4to8: number;
   needsChildSeat: boolean;
   childSeatCount: number;
   attendsCeremony: boolean;
@@ -35,10 +35,10 @@ const defaultData: WizardData = {
   attendance: "attending",
   name: "",
   phone: "",
-  meatCount: 1,
   vegetarianCount: 0,
   adultCount: 1,
-  childCount: 0,
+  childCountUnder4: 0,
+  childCount4to8: 0,
   needsChildSeat: false,
   childSeatCount: 0,
   attendsCeremony: true,
@@ -74,17 +74,16 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
       attendance,
       ...(attendance === "declined"
         ? {
-            meatCount: 0,
             vegetarianCount: 0,
             adultCount: 0,
-            childCount: 0,
+            childCountUnder4: 0,
+            childCount4to8: 0,
             needsChildSeat: false,
             childSeatCount: 0,
             attendsCeremony: false,
             needsShuttle: false
           }
         : {
-            meatCount: Math.max(current.meatCount, 1),
             adultCount: Math.max(current.adultCount, 1)
           })
     }));
@@ -97,7 +96,10 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
     setData((current) => ({ ...current, [field]: value }));
   }
 
-  function updateCount(field: keyof Pick<WizardData, "meatCount" | "vegetarianCount" | "adultCount" | "childCount" | "childSeatCount">, delta: number) {
+  function updateCount(
+    field: keyof Pick<WizardData, "vegetarianCount" | "adultCount" | "childCountUnder4" | "childCount4to8" | "childSeatCount">,
+    delta: number
+  ) {
     setData((current) => ({ ...current, [field]: Math.max(0, Number(current[field]) + delta) }));
   }
 
@@ -254,10 +256,10 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
 
       {step === "details" ? (
         <div className="rsvp-details">
-          <Stepper label="葷食份數" value={data.meatCount} onMinus={() => updateCount("meatCount", -1)} onPlus={() => updateCount("meatCount", 1)} />
-          <Stepper label="素食份數" value={data.vegetarianCount} onMinus={() => updateCount("vegetarianCount", -1)} onPlus={() => updateCount("vegetarianCount", 1)} />
-          <Stepper label="大人人數" value={data.adultCount} onMinus={() => updateCount("adultCount", -1)} onPlus={() => updateCount("adultCount", 1)} />
-          <Stepper label="小孩人數" value={data.childCount} onMinus={() => updateCount("childCount", -1)} onPlus={() => updateCount("childCount", 1)} />
+          <Stepper label="請問有幾位大人呢？" value={data.adultCount} onMinus={() => updateCount("adultCount", -1)} onPlus={() => updateCount("adultCount", 1)} />
+          <Stepper label="0-4 歲的小寶貝有幾位？" value={data.childCountUnder4} onMinus={() => updateCount("childCountUnder4", -1)} onPlus={() => updateCount("childCountUnder4", 1)} />
+          <Stepper label="4-8 歲的小夥伴有幾位？" value={data.childCount4to8} onMinus={() => updateCount("childCount4to8", -1)} onPlus={() => updateCount("childCount4to8", 1)} />
+          <Stepper label="我們也想替吃素的朋友準備好，有幾位呢？" value={data.vegetarianCount} onMinus={() => updateCount("vegetarianCount", -1)} onPlus={() => updateCount("vegetarianCount", 1)} />
 
           <label className="rsvp-seat-toggle">
             <input
@@ -284,7 +286,7 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
                 onChange={(event) => updateField("attendsCeremony", event.target.checked)}
                 type="checkbox"
               />
-              <span>參加證婚</span>
+              <span>會不會一起來見證證婚時刻？</span>
             </label>
             <label className="rsvp-seat-toggle">
               <input
@@ -292,8 +294,8 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
                 onChange={(event) => updateField("needsShuttle", event.target.checked)}
                 type="checkbox"
               />
-              <span>搭乘接駁車</span>
-              <small>推薦搭乘</small>
+              <span>要不要和大家一起搭接駁車過來？</span>
+              <small>強烈推薦喔！</small>
             </label>
           </div>
 
@@ -313,8 +315,8 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
           <p>{payload?.attendance === "attending" ? "出席確認" : "不克出席"}</p>
           <h3>{data.name}</h3>
           <div className="rsvp-card-lines">
-            <span>{data.attendance === "attending" ? `葷食 ${data.meatCount} / 素食 ${data.vegetarianCount}` : "已收到心意"}</span>
-            {data.attendance === "attending" ? <span>{`大人 ${data.adultCount} / 小孩 ${data.childCount}`}</span> : null}
+            <span>{data.attendance === "attending" ? `吃素 ${data.vegetarianCount}` : "已收到心意"}</span>
+            {data.attendance === "attending" ? <span>{`大人 ${data.adultCount} / 0-4 歲 ${data.childCountUnder4} / 4-8 歲 ${data.childCount4to8}`}</span> : null}
             {data.needsChildSeat ? <span>{`兒童座椅 ${data.childSeatCount}`}</span> : null}
             {data.attendance === "attending" && data.attendsCeremony ? <span>參加證婚</span> : null}
             {data.attendance === "attending" && data.needsShuttle ? <span>搭乘接駁車</span> : null}
