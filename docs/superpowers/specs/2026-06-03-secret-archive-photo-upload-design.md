@@ -235,7 +235,7 @@ Client errors:
 
 - Missing photo: `請先選擇一張照片。`
 - Unsupported type: `目前只接受照片檔案。`
-- Oversized file: `照片檔案太大，請選擇 8MB 以下的照片。`
+- Oversized file: `照片檔案太大，請選擇 小於 10MB的照片。`
 - Missing consent: `請先確認照片使用同意。`
 - Invalid phone: `請填寫正確手機號碼。`
 

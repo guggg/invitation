@@ -90,6 +90,50 @@ export function FriendsMotionController() {
         });
       });
 
+      const objectRiseTargets = gsap.utils.toArray<HTMLElement>(
+        [
+          ".dress-code-swatch",
+          ".dress-code-notes",
+          ".project-meta",
+          ".project-thumb-rail",
+          ".photo-upload-friend",
+          ".shuttle-board-wrap",
+          ".shuttle-tips-card",
+          ".shuttle-picker-card"
+        ].join(", ")
+      );
+
+      if (!reduceMotion) {
+        objectRiseTargets.forEach((element, index) => {
+          gsap.fromTo(
+            element,
+            {
+              autoAlpha: 0,
+              y: 42,
+              rotate: index % 2 === 0 ? -1.6 : 1.6,
+              filter: "blur(12px)",
+              scale: 0.985
+            },
+            {
+              autoAlpha: 1,
+              y: 0,
+              rotate: 0,
+              filter: "blur(0px)",
+              scale: 1,
+              duration: 0.95,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: element,
+                start: "top 84%",
+                once: true
+              }
+            }
+          );
+        });
+      } else {
+        gsap.set(objectRiseTargets, { autoAlpha: 1, y: 0, rotate: 0, filter: "blur(0px)", scale: 1 });
+      }
+
       const gallery = document.querySelector<HTMLElement>(".project-gallery");
       const stage = document.querySelector<HTMLElement>(".project-gallery-stage");
       if (gallery && stage && !reduceMotion && window.innerWidth > 860) {

@@ -39,4 +39,4 @@ NEXT_PUBLIC_PHOTO_UPLOAD_ENDPOINT=https://script.google.com/macros/s/YOUR_PHOTO_
 NEXT_PUBLIC_PHOTO_UPLOAD_TOKEN=同一組 PHOTO_UPLOAD_TOKEN
 ```
 
-照片上傳會使用 `text/plain;charset=utf-8` 送出 JSON。Apps Script 會驗證 token、手機格式、照片 MIME type 與 8MB 大小限制，並用 `姓名_手機號碼.副檔名` 存進 Drive。若同一組姓名與手機再次上傳，舊檔案會先移到垃圾桶，Drive 內保留最新檔案。
+照片上傳會使用 `text/plain;charset=utf-8` 送出 JSON。Apps Script 會驗證 token、手機格式、照片 MIME type 與 小於 10MB 大小限制，並用 `姓名_手機號碼.副檔名` 存進 Drive。若同一組姓名與手機再次上傳，舊檔案會先移到垃圾桶，Drive 內保留最新檔案。

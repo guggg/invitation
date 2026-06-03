@@ -69,7 +69,7 @@ describe("photo upload validation", () => {
   it("rejects files over 8MB", () => {
     expect(validatePhotoUploadFile(imageFile("large.jpg", "image/jpeg", 8 * 1024 * 1024 + 1))).toMatchObject({
       ok: false,
-      message: "照片檔案太大，請選擇 8MB 以下的照片。"
+      message: "照片檔案太大，請選擇 小於 10MB的照片。"
     });
   });
 });
@@ -174,7 +174,7 @@ export function validatePhotoUploadFile(file: File): { ok: true } | { ok: false;
     return { ok: false, message: "目前只接受照片檔案。" };
   }
   if (file.size > PHOTO_UPLOAD_MAX_BYTES) {
-    return { ok: false, message: "照片檔案太大，請選擇 8MB 以下的照片。" };
+    return { ok: false, message: "照片檔案太大，請選擇 小於 10MB的照片。" };
   }
   return { ok: true };
 }

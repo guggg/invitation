@@ -444,7 +444,6 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
         <div className="rsvp-card-preview rsvp-art-card">
           <div className="rsvp-art-card-veil" aria-hidden="true" />
           <div className="rsvp-card-heading">
-            <p>{payload?.attendance === "attending" ? "Response Portrait" : "Warm Regards"}</p>
             <span className="rsvp-card-stamp">{payload?.attendance === "attending" ? "Ready To Send" : "Blessing Saved"}</span>
           </div>
           <div className="rsvp-art-headline">

@@ -1,4 +1,4 @@
-const PHOTO_UPLOAD_MAX_BYTES = 8 * 1024 * 1024;
+const PHOTO_UPLOAD_MAX_BYTES = 10 * 1024 * 1024;
 const PHOTO_UPLOAD_ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
 const PHOTO_UPLOAD_EXTENSION_BY_MIME = {
   "image/jpeg": "jpg",
@@ -52,7 +52,7 @@ function validatePhotoPayload(payload) {
     typeof payload.fileSizeBytes !== "number" ||
     !isFinite(payload.fileSizeBytes) ||
     payload.fileSizeBytes < 1 ||
-    payload.fileSizeBytes > PHOTO_UPLOAD_MAX_BYTES
+    payload.fileSizeBytes >= PHOTO_UPLOAD_MAX_BYTES
   ) {
     throw new Error("fileSizeBytes is invalid");
   }

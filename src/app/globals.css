@@ -1438,6 +1438,21 @@ img {
   padding: 22px 36px;
   color: #8f8f8f;
   text-shadow: 0 1px 20px rgba(247, 246, 242, 0.54);
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition:
+    opacity 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 760ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform, filter;
+}
+
+.friends-v2-header.is-hidden {
+  opacity: 0;
+  transform: translateY(-22px);
+  filter: blur(10px);
+  pointer-events: none;
 }
 
 .friends-v2-header::before {
@@ -1498,9 +1513,41 @@ img {
   z-index: 38;
   display: grid;
   gap: 7px;
+  padding: 18px 16px 18px 12px;
   transform: translateY(-50%);
   color: #8f8f8f;
-  text-shadow: 0 1px 18px rgba(247, 246, 242, 0.62);
+  text-shadow: 0 1px 12px rgba(247, 246, 242, 0.72);
+  opacity: 1;
+  filter: blur(0);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-rail.is-gallery-hidden {
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+  transform: translateY(-50%) translateX(-10px);
+}
+
+.section-rail::before {
+  content: "";
+  position: absolute;
+  inset: -24px -20px -24px -42px;
+  z-index: -1;
+  background: linear-gradient(
+    to left,
+    rgba(247, 246, 242, 0.78) 0%,
+    rgba(247, 246, 242, 0.48) 42%,
+    rgba(247, 246, 242, 0) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(to left, black 28%, rgba(0, 0, 0, 0.82) 58%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, black 28%, rgba(0, 0, 0, 0.82) 58%, transparent 100%);
+  pointer-events: none;
 }
 
 .section-rail a {
@@ -1779,6 +1826,17 @@ img {
   min-height: 390px;
   background: rgba(247, 246, 242, 0.48);
   backdrop-filter: blur(16px);
+  transform-origin: center bottom;
+  transition:
+    background 260ms ease,
+    box-shadow 260ms ease,
+    transform 260ms ease;
+}
+
+.dress-code-swatch:hover {
+  background: rgba(247, 246, 242, 0.68);
+  box-shadow: 0 22px 44px rgba(47, 48, 47, 0.12);
+  transform: translateY(-8px) rotateX(2.4deg) rotateZ(-0.5deg);
 }
 
 .dress-code-swatch-color {
@@ -2306,19 +2364,20 @@ img {
   box-shadow:
     0 18px 42px rgba(186, 162, 132, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  animation: rsvp-panel-rise 420ms ease both;
+  transform-origin: top center;
+  animation: rsvp-panel-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes rsvp-panel-rise {
   from {
     opacity: 0;
-    transform: translateY(18px) scale(0.985);
+    transform: translateY(22px) rotateX(3deg) scale(0.985);
     filter: blur(8px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) rotateX(0deg) scale(1);
     filter: blur(0);
   }
 }
@@ -3639,9 +3698,37 @@ img {
 
 /* Remove the old standalone margin — layout now controls it */
 .shuttle-board-wrap {
+  position: relative;
   margin-top: 0;
   min-width: 0;
   max-width: none;
+}
+
+.shuttle-board-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(255, 196, 72, 0.09) 50%, transparent 100%),
+    repeating-linear-gradient(180deg, transparent 0 10px, rgba(255, 196, 72, 0.035) 10px 12px);
+  mix-blend-mode: screen;
+  opacity: 0.34;
+  animation: shuttle-scanline-pulse 5.8s ease-in-out infinite;
+}
+
+@keyframes shuttle-scanline-pulse {
+  0%,
+  100% {
+    opacity: 0.22;
+    transform: translateY(-4px);
+  }
+  50% {
+    opacity: 0.42;
+    transform: translateY(5px);
+  }
 }
 
 .shuttle-aside {
@@ -4115,13 +4202,16 @@ img {
   gap: clamp(34px, 5vw, 76px);
   align-items: stretch;
   padding: clamp(24px, 3.6vw, 46px);
-  border: 1px solid rgba(255, 244, 219, 0.22);
-  border-radius: 8px;
+  border: 1px solid rgba(215, 198, 164, 0.52);
+  border-radius: 28px;
   background:
-    linear-gradient(135deg, rgba(19, 16, 15, 0.88), rgba(56, 38, 43, 0.78)),
-    radial-gradient(circle at 72% 18%, rgba(214, 184, 126, 0.22), transparent 38%);
-  box-shadow: 0 34px 100px rgba(37, 24, 30, 0.28);
-  color: #fff5de;
+    radial-gradient(circle at top, rgba(255, 252, 247, 0.96), rgba(247, 241, 233, 0.9) 40%, rgba(234, 223, 216, 0.78) 100%),
+    linear-gradient(145deg, rgba(255, 247, 240, 0.86), rgba(244, 232, 224, 0.72));
+  backdrop-filter: blur(26px);
+  box-shadow:
+    0 28px 90px rgba(178, 155, 125, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  color: #2f302f;
   overflow: hidden;
 }
 
@@ -4131,8 +4221,8 @@ img {
   position: absolute;
   inset: 16px;
   z-index: -1;
-  border: 1px solid rgba(255, 244, 219, 0.12);
-  border-radius: 6px;
+  border: 1px solid rgba(214, 192, 160, 0.32);
+  border-radius: 22px;
   pointer-events: none;
 }
 
@@ -4141,7 +4231,7 @@ img {
   width: 66%;
   aspect-ratio: 1;
   border: 0;
-  background: radial-gradient(circle, rgba(226, 197, 139, 0.18), transparent 66%);
+  background: radial-gradient(circle, rgba(246, 214, 220, 0.34), transparent 66%);
   filter: blur(18px);
   animation: archiveGlow 8s ease-in-out infinite alternate;
 }
@@ -4352,7 +4442,7 @@ img {
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 229, 177, 0.78);
+  color: rgba(106, 82, 63, 0.68);
 }
 
 .photo-upload-copy h3 {
@@ -4360,12 +4450,13 @@ img {
   font-size: clamp(2.2rem, 5.8vw, 4.35rem);
   line-height: 0.95;
   font-weight: 850;
+  color: #544338;
 }
 
 .photo-upload-copy p {
   margin: 0;
   max-width: 620px;
-  color: rgba(255, 245, 222, 0.78);
+  color: rgba(47, 48, 47, 0.72);
   font-size: clamp(0.98rem, 1.55vw, 1.12rem);
   line-height: 1.7;
 }
@@ -4375,13 +4466,13 @@ img {
   gap: 7px;
   margin: 0;
   padding: 0 0 0 22px;
-  border-left: 1px solid rgba(232, 205, 156, 0.42);
+  border-left: 1px solid rgba(214, 192, 160, 0.5);
   list-style: none;
 }
 
 .photo-upload-note li {
   position: relative;
-  color: rgba(255, 245, 222, 0.78);
+  color: rgba(47, 48, 47, 0.72);
   font-size: clamp(0.95rem, 1.4vw, 1.02rem);
   line-height: 1.58;
 }
@@ -4393,18 +4484,18 @@ img {
   top: 0.82em;
   width: 7px;
   height: 7px;
-  border: 1px solid rgba(245, 214, 155, 0.72);
+  border: 1px solid rgba(184, 147, 101, 0.72);
   border-radius: 50%;
-  background: rgba(245, 214, 155, 0.2);
+  background: rgba(184, 147, 101, 0.16);
 }
 
 .photo-upload-receipt {
   width: fit-content;
   padding: 9px 12px;
-  border: 1px solid rgba(154, 214, 178, 0.28);
+  border: 1px solid rgba(95, 142, 105, 0.28);
   border-radius: 999px;
-  color: #d7f0dc;
-  background: rgba(50, 116, 78, 0.16);
+  color: #3b6f45;
+  background: rgba(95, 142, 105, 0.1);
   font-size: 0.9rem;
 }
 
@@ -4435,9 +4526,9 @@ img {
 .photo-upload-grid input {
   width: 100%;
   min-height: 48px;
-  border: 1px solid rgba(255, 244, 219, 0.2);
+  border: 1px solid rgba(217, 196, 165, 0.48);
   border-radius: 6px;
-  background: rgba(255, 252, 241, 0.08);
+  background: rgba(255, 254, 252, 0.68);
   color: inherit;
   padding: 0 14px;
   font: inherit;
@@ -4446,7 +4537,7 @@ img {
 .photo-upload-grid input:focus,
 .photo-upload-dropzone:focus-within,
 .photo-upload-consent:focus-within {
-  outline: 2px solid rgba(232, 205, 156, 0.62);
+  outline: 2px solid rgba(184, 147, 101, 0.42);
   outline-offset: 3px;
 }
 
@@ -4454,11 +4545,11 @@ img {
   position: relative;
   min-height: 118px;
   place-items: center;
-  border: 1px dashed rgba(232, 205, 156, 0.42);
+  border: 1px dashed rgba(184, 147, 101, 0.42);
   border-radius: 8px;
   background:
-    linear-gradient(135deg, rgba(255, 244, 219, 0.12), rgba(255, 255, 255, 0.04)),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 16px);
+    linear-gradient(135deg, rgba(255, 254, 252, 0.72), rgba(247, 239, 231, 0.58)),
+    repeating-linear-gradient(90deg, rgba(184, 147, 101, 0.07) 0 1px, transparent 1px 16px);
   text-align: center;
   cursor: pointer;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
@@ -4466,8 +4557,8 @@ img {
 
 .photo-upload-dropzone:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 230, 176, 0.74);
-  background-color: rgba(255, 244, 219, 0.08);
+  border-color: rgba(151, 111, 72, 0.62);
+  background-color: rgba(255, 254, 252, 0.82);
 }
 
 .photo-upload-dropzone input {
@@ -4482,10 +4573,10 @@ img {
   place-items: center;
   width: 46px;
   height: 46px;
-  border: 1px solid rgba(232, 205, 156, 0.38);
+  border: 1px solid rgba(184, 147, 101, 0.38);
   border-radius: 50%;
-  color: #ffe0a3;
-  background: rgba(255, 244, 219, 0.08);
+  color: #7d5943;
+  background: rgba(255, 254, 252, 0.54);
 }
 
 .photo-upload-dropzone strong {
@@ -4494,7 +4585,7 @@ img {
 
 .photo-upload-dropzone small {
   max-width: min(100%, 28rem);
-  color: rgba(255, 245, 222, 0.62);
+  color: rgba(47, 48, 47, 0.56);
   overflow-wrap: anywhere;
 }
 
@@ -4502,9 +4593,9 @@ img {
   grid-template-columns: auto 1fr;
   align-items: start;
   padding: 12px;
-  border: 1px solid rgba(255, 244, 219, 0.16);
+  border: 1px solid rgba(217, 196, 165, 0.46);
   border-radius: 6px;
-  background: rgba(255, 252, 241, 0.06);
+  background: rgba(255, 254, 252, 0.56);
   line-height: 1.5;
 }
 
@@ -4524,15 +4615,15 @@ img {
 }
 
 .photo-upload-message.is-error {
-  border: 1px solid rgba(255, 157, 157, 0.32);
-  color: #ffd6d6;
-  background: rgba(117, 20, 32, 0.2);
+  border: 1px solid rgba(128, 0, 32, 0.22);
+  color: #800020;
+  background: rgba(128, 0, 32, 0.08);
 }
 
 .photo-upload-message.is-success {
-  border: 1px solid rgba(157, 222, 176, 0.28);
-  color: #dcf7df;
-  background: rgba(26, 112, 66, 0.16);
+  border: 1px solid rgba(95, 142, 105, 0.28);
+  color: #285c31;
+  background: rgba(95, 142, 105, 0.1);
 }
 
 .photo-upload-submit {
@@ -4543,12 +4634,12 @@ img {
   gap: 10px;
   border: 0;
   border-radius: 6px;
-  background: linear-gradient(135deg, #f5d69b, #b98254);
-  color: #281616;
+  background: #2f302f;
+  color: #fff8ec;
   font: inherit;
   font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 16px 32px rgba(47, 48, 47, 0.18);
 }
 
 .photo-upload-submit:disabled {
@@ -4675,6 +4766,27 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .friends-v2-header {
+    transition: opacity 120ms ease;
+    filter: none;
+  }
+
+  .friends-v2-header.is-hidden {
+    transform: translateY(0);
+    filter: none;
+  }
+
+  .dress-code-swatch,
+  .dress-code-swatch:hover {
+    transition: none;
+    transform: none;
+  }
+
+  .shuttle-board-wrap::after {
+    animation: none;
+    opacity: 0.16;
+  }
+
   .photo-upload-friend::after,
   .photo-archive-envelope,
   .photo-archive-thread {

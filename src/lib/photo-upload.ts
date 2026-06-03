@@ -1,7 +1,7 @@
 import { formatPhoneInput, isValidTaiwanMobilePhone, normalizePhoneNumber } from "@/lib/rsvp";
 
 export const PHOTO_UPLOAD_STORAGE_KEY = "wedding-photo-upload";
-export const PHOTO_UPLOAD_MAX_BYTES = 8 * 1024 * 1024;
+export const PHOTO_UPLOAD_MAX_BYTES = 10 * 1024 * 1024;
 export const PHOTO_UPLOAD_ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"] as const;
 
 export type PhotoUploadSourceRoute = "/" | "/family";
@@ -32,8 +32,8 @@ export function validatePhotoUploadFile(file: File): { ok: true } | { ok: false;
     return { ok: false, message: "目前只接受照片檔案。" };
   }
 
-  if (file.size > PHOTO_UPLOAD_MAX_BYTES) {
-    return { ok: false, message: "照片檔案太大，請選擇 8MB 以下的照片。" };
+  if (file.size >= PHOTO_UPLOAD_MAX_BYTES) {
+    return { ok: false, message: "照片檔案太大，請選擇小於 10MB 的照片。" };
   }
 
   return { ok: true };

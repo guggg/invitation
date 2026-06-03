@@ -28,7 +28,7 @@ function imageFile(name = "avatar.jpg", type = "image/jpeg", size = 1024) {
 }
 
 describe("photo upload validation", () => {
-  it("accepts supported image files under 8MB", () => {
+  it("accepts supported image files under 10MB", () => {
     expect(validatePhotoUploadFile(imageFile()).ok).toBe(true);
   });
 
@@ -39,10 +39,10 @@ describe("photo upload validation", () => {
     });
   });
 
-  it("rejects files over 8MB", () => {
-    expect(validatePhotoUploadFile(imageFile("large.jpg", "image/jpeg", 8 * 1024 * 1024 + 1))).toMatchObject({
+  it("rejects files that are 10MB or larger", () => {
+    expect(validatePhotoUploadFile(imageFile("large.jpg", "image/jpeg", 10 * 1024 * 1024))).toMatchObject({
       ok: false,
-      message: "照片檔案太大，請選擇 8MB 以下的照片。"
+      message: "照片檔案太大，請選擇小於 10MB 的照片。"
     });
   });
 });

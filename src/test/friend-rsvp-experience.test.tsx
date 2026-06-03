@@ -92,7 +92,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
     // Go to step 4: Card Preview
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
-    expect(screen.getByText("Response Portrait")).toBeInTheDocument();
+    expect(screen.getByText("Ready To Send")).toBeInTheDocument();
 
     // Go back from step 4 to step 3
     fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
@@ -143,7 +143,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
 
     expect(screen.queryByText("請問有幾位大人呢？")).not.toBeInTheDocument();
-    expect(screen.getByText("Warm Regards")).toBeInTheDocument();
+    expect(screen.getByText("Blessing Saved")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "出席回覆尚未開放" })).toBeDisabled();
   });
 

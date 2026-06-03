@@ -177,4 +177,15 @@ describe("PhotoUpload Apps Script receiver", () => {
     expect(response.error).toBe("mimeType is invalid");
     expect(files).toHaveLength(0);
   });
+
+  it("rejects photos that are 10MB or larger", () => {
+    const { doPost, files } = loadPhotoUploadScript({ token: "photo-token" });
+    const response = JSON.parse(
+      doPost({ postData: { contents: JSON.stringify(validPayload({ fileSizeBytes: 10 * 1024 * 1024 })) } }).content
+    );
+
+    expect(response.ok).toBe(false);
+    expect(response.error).toBe("fileSizeBytes is invalid");
+    expect(files).toHaveLength(0);
+  });
 });
