@@ -13,6 +13,7 @@ export const friendSections: FriendSection[] = [
   { id: "dress-code", label: "穿著", title: "極簡大地" },
   { id: "venue", label: "地點", title: "優聖美地" },
   { id: "gallery", label: "照片", title: "婚禮之前" },
+  { id: "secret-archive", label: "密件", title: "交給我們一張代表你的密件" },
   { id: "shuttle", label: "接駁車", title: "搭我們的車" },
   { id: "rsvp", label: "回覆", title: "告訴我們你會不會來" },
   { id: "finale", label: "那天見", title: "2026.10.3" }

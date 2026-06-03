@@ -18,7 +18,7 @@ describe("wedding content", () => {
       "#CFCAC2"
     ]);
     expect(wedding.schedule.map((item) => item.time)).toEqual(["16:30", "18:00", "20:30"]);
-    expect(wedding.schedule.map((item) => item.title)).toEqual(["證婚", "晚宴入席", "結束"]);
+    expect(wedding.schedule.map((item) => item.title)).toEqual(["證婚", "晚宴入席", "圓滿結束"]);
   });
 
   it("uses stable public photo paths without spaces", () => {

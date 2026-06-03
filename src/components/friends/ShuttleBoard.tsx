@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { shuttleTrips, type ShuttleTrip } from "@/lib/wedding";
 import { downloadShuttleIcs } from "@/lib/calendar";
+
+const REDUCE_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 type LedRowProps = {
   trip: ShuttleTrip;
@@ -50,15 +52,11 @@ function LedRow({ trip, direction }: LedRowProps) {
 }
 
 export function ShuttleBoard() {
-  const [reduceMotion, setReduceMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduceMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const reduceMotion = useSyncExternalStore(
+    subscribeReduceMotion,
+    getReduceMotionSnapshot,
+    getServerReduceMotionSnapshot
+  );
 
   const outbound1 = shuttleTrips.filter((t) => t.group === "outbound-1");
   const outbound2 = shuttleTrips.filter((t) => t.group === "outbound-2");
@@ -124,4 +122,18 @@ export function ShuttleBoard() {
       </div>
     </div>
   );
+}
+
+function subscribeReduceMotion(onStoreChange: () => void) {
+  const mq = window.matchMedia(REDUCE_MOTION_QUERY);
+  mq.addEventListener("change", onStoreChange);
+  return () => mq.removeEventListener("change", onStoreChange);
+}
+
+function getReduceMotionSnapshot() {
+  return window.matchMedia(REDUCE_MOTION_QUERY).matches;
+}
+
+function getServerReduceMotionSnapshot() {
+  return false;
 }

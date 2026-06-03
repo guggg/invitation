@@ -16,6 +16,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
+    expect(screen.getByLabelText("聯絡電話")).toHaveValue("0912 345 678");
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
     fireEvent.click(screen.getByLabelText("請問有幾位大人呢？ +"));
     fireEvent.click(screen.getByLabelText("0-4 歲的小寶貝有幾位？ +"));
@@ -24,13 +25,14 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByLabelText("我們也想替吃素的朋友準備好，有幾位呢？ +"));
     fireEvent.click(screen.getByLabelText("需要兒童座椅"));
     fireEvent.click(screen.getByLabelText("兒童座椅數量 +"));
+    fireEvent.click(screen.getByLabelText("去程要幫你保留幾個接駁座位？ +"));
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
 
     expect(screen.getByText("Yuan")).toBeInTheDocument();
-    expect(screen.getByText("吃素 2")).toBeInTheDocument();
-    expect(screen.getByText("大人 2 / 0-4 歲 1 / 4-8 歲 1")).toBeInTheDocument();
-    expect(screen.getByText("參加證婚")).toBeInTheDocument();
+    expect(screen.getByText("吃素")).toBeInTheDocument();
+    expect(screen.getByText("會一起見證")).toBeInTheDocument();
     expect(screen.getByText("搭乘接駁車")).toBeInTheDocument();
+    expect(screen.getAllByText("2 位").length).toBeGreaterThan(0);
 
     fireEvent.click(screen.getByRole("button", { name: "確認送出" }));
 
@@ -50,6 +52,10 @@ describe("FriendRsvpExperience", () => {
       needsChildSeat: true,
       childSeatCount: 1,
       attendsCeremony: true,
+      transportMode: "shuttle",
+      selfTransportMode: "",
+      shuttleOutboundCount: 2,
+      shuttleReturnCount: 1,
       needsShuttle: true
     });
   });
@@ -72,7 +78,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
     // Value should still be retained
     expect(screen.getByLabelText("名字")).toHaveValue("Yuan");
-    expect(screen.getByLabelText("聯絡電話")).toHaveValue("0912345678");
+    expect(screen.getByLabelText("聯絡電話")).toHaveValue("0912 345 678");
 
     // Go to step 3: Details
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
@@ -86,11 +92,46 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
     // Go to step 4: Card Preview
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
-    expect(screen.getByText("出席確認")).toBeInTheDocument();
+    expect(screen.getByText("Response Portrait")).toBeInTheDocument();
 
     // Go back from step 4 to step 3
     fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
     expect(screen.getByText("請問有幾位大人呢？")).toBeInTheDocument();
+  });
+
+  it("caps dependent steppers at available guest counts", () => {
+    render(<FriendRsvpExperience endpoint="https://example.com/rsvp" />);
+
+    fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
+    fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
+    fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
+    fireEvent.click(screen.getByRole("button", { name: "下一步" }));
+
+    const vegetarianPlus = screen.getByLabelText("我們也想替吃素的朋友準備好，有幾位呢？ +");
+    const childSeatPlus = () => screen.getByLabelText("兒童座椅數量 +");
+    const shuttleOutboundPlus = screen.getByLabelText("去程要幫你保留幾個接駁座位？ +");
+    const shuttleReturnPlus = screen.getByLabelText("回程要幫你保留幾個接駁座位？ +");
+
+    expect(vegetarianPlus).not.toBeDisabled();
+    fireEvent.click(vegetarianPlus);
+    expect(vegetarianPlus).toBeDisabled();
+
+    fireEvent.click(screen.getByLabelText("0-4 歲的小寶貝有幾位？ +"));
+    fireEvent.click(screen.getByLabelText("需要兒童座椅"));
+    fireEvent.click(childSeatPlus());
+    expect(childSeatPlus()).toBeDisabled();
+
+    fireEvent.click(shuttleOutboundPlus);
+    expect(shuttleOutboundPlus).toBeDisabled();
+    fireEvent.click(shuttleReturnPlus);
+    expect(shuttleReturnPlus).toBeDisabled();
+
+    fireEvent.click(screen.getByLabelText("0-4 歲的小寶貝有幾位？ -"));
+
+    expect(screen.getByText("兒童座椅數量").parentElement).toHaveTextContent("0");
+    expect(vegetarianPlus).toBeDisabled();
+    expect(shuttleOutboundPlus).toBeDisabled();
+    expect(shuttleReturnPlus).toBeDisabled();
   });
 
   it("lets declined guests skip meal details and keeps submission disabled without endpoint", () => {
@@ -102,7 +143,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
 
     expect(screen.queryByText("請問有幾位大人呢？")).not.toBeInTheDocument();
-    expect(screen.getByText("不克出席")).toBeInTheDocument();
+    expect(screen.getByText("Warm Regards")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "出席回覆尚未開放" })).toBeDisabled();
   });
 
@@ -123,28 +164,29 @@ describe("FriendRsvpExperience", () => {
       expect(screen.queryByText(/請填寫聯絡電話/)).not.toBeInTheDocument();
     });
 
-    it("shows phone error when phone blurs with too-short value, no name error", () => {
+    it("shows phone error when phone blurs with invalid value, no name error", () => {
       goToIdentity();
       fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
       const phoneInput = screen.getByLabelText("聯絡電話");
       fireEvent.blur(phoneInput, { target: { value: "123" } });
 
-      expect(screen.getByText(/請填寫聯絡電話/)).toBeInTheDocument();
+      expect(screen.getByText(/請填寫正確手機號碼/)).toBeInTheDocument();
       expect(phoneInput).toHaveAttribute("aria-invalid", "true");
       expect(screen.queryByText("請填寫名字")).not.toBeInTheDocument();
     });
 
-    it("rejects phone with 5 digits, accepts phone with 6 digits", () => {
+    it("rejects non-mobile format and accepts Taiwan mobile format", () => {
       goToIdentity();
       const phoneInput = screen.getByLabelText("聯絡電話");
 
-      // 5 chars → error
-      fireEvent.blur(phoneInput, { target: { value: "12345" } });
-      expect(screen.getByText(/請填寫聯絡電話/)).toBeInTheDocument();
+      fireEvent.change(phoneInput, { target: { value: "0812345678" } });
+      fireEvent.blur(phoneInput, { target: { value: "0812 345 678" } });
+      expect(screen.getByText(/請填寫正確手機號碼/)).toBeInTheDocument();
 
-      // 6 chars → no error
-      fireEvent.blur(phoneInput, { target: { value: "123456" } });
-      expect(screen.queryByText(/請填寫聯絡電話/)).not.toBeInTheDocument();
+      fireEvent.change(phoneInput, { target: { value: "0912345678" } });
+      expect(phoneInput).toHaveValue("0912 345 678");
+      fireEvent.blur(phoneInput, { target: { value: "0912 345 678" } });
+      expect(screen.queryByText(/請填寫正確手機號碼/)).not.toBeInTheDocument();
       expect(phoneInput).toHaveAttribute("aria-invalid", "false");
     });
 

@@ -45,7 +45,7 @@ export function DressCodeSection({ dressCode, sectionIndex }: DressCodeSectionPr
           <span>{dressCode.guidance}</span>
         </article>
         <article>
-          <p>小小提醒</p>
+          <p>小小提醒，拜託不要～</p>
           <ul>
             {dressCode.avoid.map((item) => (
               <li key={item}>{item}</li>

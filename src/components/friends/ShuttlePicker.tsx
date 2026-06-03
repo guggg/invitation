@@ -27,8 +27,8 @@ export function ShuttlePicker() {
 
   return (
     <div className="shuttle-picker-card">
-      <p className="shuttle-picker-heading">我該搭哪班？</p>
-      <p className="shuttle-picker-sub">選擇身份，馬上看推薦班次</p>
+      <p className="shuttle-picker-heading">幫你選接駁班次</p>
+      <p className="shuttle-picker-sub">先選身份，我們直接告訴你最適合搭哪一班。能搭接駁車的話，真的最推薦。</p>
 
       <div className="shuttle-picker-btns" role="group" aria-label="選擇身份">
         {identities.map((ident) => (
@@ -83,7 +83,7 @@ export function ShuttlePicker() {
         )}
 
         {selected === null && (
-          <p className="shuttle-picker-placeholder">↑ 選一個身份，幫你找最適合的班次</p>
+          <p className="shuttle-picker-placeholder">↑ 選一個身份，先看看你最適合搭哪班接駁車</p>
         )}
       </div>
     </div>

@@ -3,14 +3,16 @@ import Link from "next/link";
 import { ArrowUpRight, CalendarDays, Clock, MapPin } from "lucide-react";
 import { RsvpForm } from "@/components/RsvpForm";
 import { FamilyShuttleTable } from "@/components/FamilyShuttleTable";
+import { PhotoUploadExperience } from "@/components/PhotoUploadExperience";
 import { familyPhotos } from "@/lib/photos";
 import { wedding } from "@/lib/wedding";
 
 type FamilyExperienceProps = {
   endpoint: string;
+  photoUploadEndpoint: string;
 };
 
-export function FamilyExperience({ endpoint }: FamilyExperienceProps) {
+export function FamilyExperience({ endpoint, photoUploadEndpoint }: FamilyExperienceProps) {
   return (
     <main className="family-shell">
       <header className="family-header">
@@ -74,6 +76,7 @@ export function FamilyExperience({ endpoint }: FamilyExperienceProps) {
         <p className="family-kicker">地點</p>
         <h2>{wedding.venue.name}</h2>
         <p>證婚 16:30，晚宴 18:00 入席，預計 20:30 結束。</p>
+        <p>由於場地位於山區，且現場停車位有限，若方便的話，建議優先搭乘接駁車前來，會比自行找車位輕鬆許多。</p>
         <a className="family-map" href={wedding.venue.mapsUrl} target="_blank" rel="noreferrer">
           開啟 Google Maps
           <ArrowUpRight size={20} aria-hidden="true" />
@@ -90,11 +93,16 @@ export function FamilyExperience({ endpoint }: FamilyExperienceProps) {
         ))}
       </section>
 
+      <section className="family-section family-photo-upload">
+        <PhotoUploadExperience endpoint={photoUploadEndpoint} sourceRoute="/family" variant="family" />
+      </section>
+
       <section id="rsvp" className="family-rsvp">
         <div>
           <p className="family-kicker">出席回覆</p>
           <h2>出席回覆</h2>
           <p>麻煩於 2026/7/7 前協助填寫。若超過日期仍可送出，我們會另外確認。</p>
+          <p>因為山區停車位非常有限，若方便的話，也請優先考慮搭乘接駁車。</p>
         </div>
         <RsvpForm endpoint={endpoint} sourceRoute="/family" variant="classic" />
       </section>

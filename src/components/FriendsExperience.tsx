@@ -7,6 +7,7 @@ import { FriendsHeader } from "@/components/friends/FriendsHeader";
 import { FriendsMotionController } from "@/components/friends/FriendsMotionController";
 import { MusicPulseBar } from "@/components/friends/MusicPulseBar";
 import { LivingBackground } from "@/components/friends/LivingBackground";
+import { PhotoUploadExperience } from "@/components/PhotoUploadExperience";
 import { ProjectGallery } from "@/components/friends/ProjectGallery";
 import { SectionRail } from "@/components/friends/SectionRail";
 import { ShuttleBoard } from "@/components/friends/ShuttleBoard";
@@ -17,9 +18,10 @@ import { wedding } from "@/lib/wedding";
 
 type FriendsExperienceProps = {
   endpoint: string;
+  photoUploadEndpoint: string;
 };
 
-export function FriendsExperience({ endpoint }: FriendsExperienceProps) {
+export function FriendsExperience({ endpoint, photoUploadEndpoint }: FriendsExperienceProps) {
   return (
     <main className="friends-v2-shell">
       <LivingBackground />
@@ -127,14 +129,24 @@ export function FriendsExperience({ endpoint }: FriendsExperienceProps) {
       <ProjectGallery />
 
       <section
+        id="secret-archive"
+        className="friends-v2-section secret-archive-section"
+        data-friend-section="6"
+        data-section-label="密件"
+      >
+        <PhotoUploadExperience endpoint={photoUploadEndpoint} sourceRoute="/" variant="friend" />
+      </section>
+
+      <section
         id="shuttle"
         className="friends-v2-section shuttle-theatre"
-        data-friend-section="6"
+        data-friend-section="7"
         data-section-label="接駁車"
       >
         <div className="section-kicker" data-fx="blur-reveal">
-          <p>接駁班次・暫定預告</p>
-          <h2>搭我們的車，一起到達。</h2>
+          <p>接駁車・強烈推薦</p>
+          <h2>如果可以，請優先搭接駁車上山。</h2>
+          <span>場地位於山區，沿途山路較蜿蜒，現場停車位也非常有限。搭接駁車會比自行找車位輕鬆很多。</span>
         </div>
         <div className="shuttle-layout">
           <div className="shuttle-board-wrap">
@@ -150,13 +162,13 @@ export function FriendsExperience({ endpoint }: FriendsExperienceProps) {
       <section
         id="rsvp"
         className="friends-v2-section rsvp-theatre"
-        data-friend-section="7"
+        data-friend-section="8"
         data-section-label="回覆"
       >
         <div className="rsvp-theatre-copy" data-fx="blur-reveal">
           <p>出席回覆</p>
           <h2>告訴我們你會不會來。</h2>
-          <span>填完後，我們會把你的回覆收進婚禮名單。</span>
+          <span>填完後，我們會把你的回覆收進婚禮名單，也會依照你的交通安排幫你保留接駁座位。</span>
         </div>
         <FriendRsvpExperience endpoint={endpoint} />
       </section>
@@ -164,7 +176,7 @@ export function FriendsExperience({ endpoint }: FriendsExperienceProps) {
       <section
         id="finale"
         className="friends-v2-section finale-section"
-        data-friend-section="8"
+        data-friend-section="9"
         data-section-label="那天見"
       >
         <div data-fx="blur-reveal">

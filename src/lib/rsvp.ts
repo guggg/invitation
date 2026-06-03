@@ -4,6 +4,8 @@ export const RSVP_DEADLINE_TAIPEI = "2026-07-07";
 
 export type Attendance = "attending" | "declined";
 export type SourceRoute = "/" | "/family";
+export type TransportMode = "shuttle" | "self-arranged" | "";
+export type SelfTransportMode = "drive" | "taxi" | "";
 
 export type RsvpFormData = {
   attendance: Attendance;
@@ -16,6 +18,10 @@ export type RsvpFormData = {
   needsChildSeat: boolean;
   childSeatCount: number;
   attendsCeremony: boolean;
+  transportMode: TransportMode;
+  selfTransportMode: SelfTransportMode;
+  shuttleOutboundCount: number;
+  shuttleReturnCount: number;
   needsShuttle: boolean;
 };
 
@@ -25,6 +31,25 @@ export type RsvpPayload = RsvpFormData & {
   isLate: boolean;
   userAgent: string;
 };
+
+const TAIWAN_MOBILE_REGEX = /^09\d{8}$/;
+
+export function normalizePhoneNumber(value: string): string {
+  return value.replace(/\D/g, "").slice(0, 10);
+}
+
+export function formatPhoneInput(value: string): string {
+  const digits = normalizePhoneNumber(value);
+  const first = digits.slice(0, 4);
+  const second = digits.slice(4, 7);
+  const third = digits.slice(7, 10);
+
+  return [first, second, third].filter(Boolean).join(" ");
+}
+
+export function isValidTaiwanMobilePhone(value: string): boolean {
+  return TAIWAN_MOBILE_REGEX.test(normalizePhoneNumber(value));
+}
 
 const countField = z.preprocess((value) => {
   if (value === "" || value === null || value === undefined) {
@@ -37,7 +62,12 @@ const countField = z.preprocess((value) => {
 const rawRsvpSchema = z.object({
   attendance: z.enum(["attending", "declined"]),
   name: z.string().trim().min(1, "請填寫名字"),
-  phone: z.string().trim().min(6, "請填寫聯絡電話"),
+  phone: z
+    .string()
+    .trim()
+    .min(1, "請填寫聯絡電話")
+    .refine(isValidTaiwanMobilePhone, "請填寫正確手機號碼")
+    .transform(normalizePhoneNumber),
   vegetarianCount: countField.optional(),
   adultCount: countField.optional(),
   childCountUnder4: countField.optional(),
@@ -49,6 +79,10 @@ const rawRsvpSchema = z.object({
   attendsCeremony: z
     .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
     .default(true),
+  transportMode: z.enum(["shuttle", "self-arranged", ""]).default("shuttle"),
+  selfTransportMode: z.enum(["drive", "taxi", ""]).default(""),
+  shuttleOutboundCount: countField.optional(),
+  shuttleReturnCount: countField.optional(),
   needsShuttle: z
     .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
     .default(true)
@@ -80,6 +114,10 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
       needsChildSeat: false,
       childSeatCount: 0,
       attendsCeremony: false,
+      transportMode: "",
+      selfTransportMode: "",
+      shuttleOutboundCount: 0,
+      shuttleReturnCount: 0,
       needsShuttle: false
     };
   }
@@ -97,7 +135,9 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
 
   const childSeatCount = data.needsChildSeat ? (data.childSeatCount ?? 0) : 0;
   const totalGuestCount = data.adultCount! + data.childCountUnder4! + data.childCount4to8!;
-  const totalChildCount = data.childCountUnder4! + data.childCount4to8!;
+  const shuttleOutboundCount = data.transportMode === "shuttle" ? (data.shuttleOutboundCount ?? 0) : 0;
+  const shuttleReturnCount = data.transportMode === "shuttle" ? (data.shuttleReturnCount ?? 0) : 0;
+  const selfTransportMode = data.transportMode === "self-arranged" ? data.selfTransportMode : "";
 
   if (totalGuestCount < 1) {
     throw new Error("請至少填寫一位大人或小孩");
@@ -111,8 +151,24 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
     throw new Error("請填寫兒童座椅數量");
   }
 
-  if (childSeatCount > totalChildCount) {
-    throw new Error("兒童座椅數量不能大於小朋友總人數");
+  if (childSeatCount > data.childCountUnder4!) {
+    throw new Error("兒童座椅數量不能大於 0-4 歲小朋友人數");
+  }
+
+  if (data.transportMode === "shuttle" && shuttleOutboundCount + shuttleReturnCount < 1) {
+    throw new Error("若搭乘接駁車，請至少填寫去程或回程人數");
+  }
+
+  if (shuttleOutboundCount > totalGuestCount || shuttleReturnCount > totalGuestCount) {
+    throw new Error("接駁車人數不能大於大人與小孩總人數");
+  }
+
+  if (!data.transportMode) {
+    throw new Error("請選擇交通方式");
+  }
+
+  if (data.transportMode === "self-arranged" && !selfTransportMode) {
+    throw new Error("請選擇自行前往方式");
   }
 
   return {
@@ -126,7 +182,11 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
     needsChildSeat: data.needsChildSeat,
     childSeatCount,
     attendsCeremony: data.attendsCeremony,
-    needsShuttle: data.needsShuttle
+    transportMode: data.transportMode,
+    selfTransportMode,
+    shuttleOutboundCount,
+    shuttleReturnCount,
+    needsShuttle: data.transportMode === "shuttle"
   };
 }
 
@@ -159,15 +219,26 @@ export async function submitRsvp(
     throw new Error("出席回覆尚未開放，請稍後再試");
   }
 
+  const rsvpToken = process.env.NEXT_PUBLIC_RSVP_TOKEN;
+  const body = rsvpToken ? { ...payload, rsvpToken } : payload;
+
   const response = await fetcher(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "text/plain;charset=utf-8"
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(body)
   });
 
   if (!response.ok) {
     throw new Error("送出失敗，請稍後再試");
+  }
+
+  const result = await response
+    .json()
+    .catch(() => null) as { ok?: boolean; error?: string } | null;
+
+  if (result?.ok === false) {
+    throw new Error(result.error || "送出失敗，請稍後再試");
   }
 }
