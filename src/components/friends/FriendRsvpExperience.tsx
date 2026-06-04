@@ -17,12 +17,13 @@ type FriendRsvpExperienceProps = {
   fetcher?: typeof fetch;
 };
 
-type WizardStep = "intent" | "identity" | "details" | "card";
+type WizardStep = "intent" | "identity" | "details" | "transport" | "card";
 
 type WizardData = {
   attendance: Attendance;
   name: string;
   phone: string;
+  needsPhysicalInvitation: boolean;
   vegetarianCount: number;
   adultCount: number;
   childCountUnder4: number;
@@ -41,6 +42,7 @@ const defaultData: WizardData = {
   attendance: "attending",
   name: "",
   phone: "",
+  needsPhysicalInvitation: false,
   vegetarianCount: 0,
   adultCount: 1,
   childCountUnder4: 0,
@@ -217,12 +219,14 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
       setStep("intent");
     } else if (step === "details") {
       setStep("identity");
+    } else if (step === "transport") {
+      setStep("details");
     } else if (step === "card") {
-      setStep(data.attendance === "attending" ? "details" : "identity");
+      setStep(data.attendance === "attending" ? "transport" : "identity");
     }
   }
 
-  const stepIndex = step === "intent" ? 1 : step === "identity" ? 2 : step === "details" ? 3 : 4;
+  const stepIndex = step === "intent" ? 1 : step === "identity" ? 2 : step === "details" ? 3 : step === "transport" ? 4 : 5;
   const totalGuestCount = data.adultCount + data.childCountUnder4 + data.childCount4to8;
   const stepTitle =
     step === "intent"
@@ -230,8 +234,10 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
       : step === "identity"
         ? "留下你的名字，讓這張回函寫上稱呼"
         : step === "details"
-          ? "把那天的同行與交通，慢慢填進來"
-          : "最後，生成一張只屬於你的回函";
+          ? "先把同行與餐食，慢慢填進來"
+          : step === "transport"
+            ? "最後確認交通，讓我們幫你安排座位"
+            : "最後，生成一張只屬於你的回函";
 
   return (
     <div className="friend-rsvp-experience rsvp-luxe-stage">
@@ -253,10 +259,9 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
         </div>
 
         <div className="rsvp-ribbon-progress" aria-hidden="true">
-          <span className={`rsvp-ribbon-segment ${stepIndex >= 1 ? "is-done" : ""}`} />
-          <span className={`rsvp-ribbon-segment ${stepIndex >= 2 ? "is-done" : ""}`} />
-          <span className={`rsvp-ribbon-segment ${stepIndex >= 3 ? "is-done" : ""}`} />
-          <span className={`rsvp-ribbon-segment ${stepIndex >= 4 ? "is-done" : ""}`} />
+          {Array.from({ length: 5 }, (_, index) => (
+            <span key={index} className={`rsvp-ribbon-segment ${stepIndex >= index + 1 ? "is-done" : ""}`} />
+          ))}
           <i className={`rsvp-ribbon-marker step-${stepIndex}`} />
         </div>
       </div>
@@ -320,6 +325,14 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
               </span>
             ) : null}
           </label>
+          <label className="rsvp-seat-toggle rsvp-physical-invite-toggle">
+            <input
+              checked={data.needsPhysicalInvitation}
+              onChange={(event) => updateField("needsPhysicalInvitation", event.target.checked)}
+              type="checkbox"
+            />
+            <span>需要實體喜帖</span>
+          </label>
           <div className="rsvp-buttons">
             <button className="rsvp-back" type="button" onClick={handleBack}>
               上一頁
@@ -368,6 +381,19 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
             </label>
           </div>
 
+          <div className="rsvp-buttons">
+            <button className="rsvp-back" type="button" onClick={handleBack}>
+              上一頁
+            </button>
+            <button className="rsvp-next" type="button" onClick={() => setStep("transport")}>
+              下一步
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {step === "transport" ? (
+        <div className="rsvp-transport rsvp-luxe-panel">
           <div className="rsvp-transport-callout">
             <strong>交通提醒</strong>
             <p>場地位於山區，山路較蜿蜒，現場停車位也真的很有限。如果可以的話，我們真心推薦優先搭接駁車，會比自行找車位輕鬆很多。</p>
@@ -454,6 +480,10 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
             <div className="rsvp-card-row">
               <span className="rsvp-card-label">聯絡電話</span>
               <strong className="rsvp-card-value">{data.phone}</strong>
+            </div>
+            <div className="rsvp-card-row">
+              <span className="rsvp-card-label">實體喜帖</span>
+              <strong className="rsvp-card-value">{data.needsPhysicalInvitation ? "需要" : "不需要"}</strong>
             </div>
             <div className="rsvp-card-row">
               <span className="rsvp-card-label">出席意願</span>

@@ -31,6 +31,7 @@ describe("RSVP form parsing", () => {
     });
 
     expect(parsed.attendance).toBe("declined");
+    expect(parsed.needsPhysicalInvitation).toBe(false);
     expect(parsed.vegetarianCount).toBe(0);
     expect(parsed.adultCount).toBe(0);
     expect(parsed.childCountUnder4).toBe(0);
@@ -149,6 +150,7 @@ describe("RSVP form parsing", () => {
         attendance: "attending",
         name: "Yuan",
         phone: "0912 345 678",
+        needsPhysicalInvitation: true,
         vegetarianCount: 2,
         adultCount: 3,
         childCountUnder4: 1,
@@ -173,6 +175,7 @@ describe("RSVP form parsing", () => {
       attendance: "attending",
       name: "Yuan",
       phone: "0912345678",
+      needsPhysicalInvitation: true,
       vegetarianCount: 2,
       adultCount: 3,
       childCountUnder4: 1,

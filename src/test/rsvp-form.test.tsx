@@ -37,6 +37,7 @@ describe("RsvpForm", () => {
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
     expect(screen.getByLabelText("聯絡電話")).toHaveValue("0912 345 678");
+    fireEvent.click(screen.getByLabelText("需要實體喜帖"));
     fireEvent.click(screen.getByRole("button", { name: "0-4 歲人數 +" }));
     fireEvent.click(screen.getByRole("button", { name: "吃素份數 +" }));
     fireEvent.click(screen.getByRole("button", { name: "吃素份數 +" }));
@@ -54,6 +55,7 @@ describe("RsvpForm", () => {
       attendance: "attending",
       name: "Yuan",
       phone: "0912345678",
+      needsPhysicalInvitation: true,
       vegetarianCount: 2,
       childCountUnder4: 1,
       childCount4to8: 0,

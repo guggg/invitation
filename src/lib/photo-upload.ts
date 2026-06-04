@@ -33,7 +33,7 @@ export function validatePhotoUploadFile(file: File): { ok: true } | { ok: false;
   }
 
   if (file.size >= PHOTO_UPLOAD_MAX_BYTES) {
-    return { ok: false, message: "照片檔案太大，請選擇小於 10MB 的照片。" };
+    return { ok: false, message: "照片檔案有點太大囉，請放心我會用AI幫你把畫質拉高，請重新選擇小於 10MB 的照片。" };
   }
 
   return { ok: true };

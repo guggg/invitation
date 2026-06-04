@@ -17,6 +17,7 @@ type FormValues = {
   attendance: Attendance;
   name: string;
   phone: string;
+  needsPhysicalInvitation?: boolean;
   vegetarianCount?: number;
   adultCount?: number;
   childCountUnder4?: number;
@@ -58,6 +59,7 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
   } = useForm<FormValues>({
     defaultValues: {
       attendance: "attending",
+      needsPhysicalInvitation: false,
       vegetarianCount: 0,
       adultCount: 1,
       childCountUnder4: 0,
@@ -206,6 +208,10 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
               }
             })}
           />
+        </label>
+        <label className="child-seat-toggle rsvp-physical-invite-toggle">
+          <input type="checkbox" {...register("needsPhysicalInvitation")} />
+          <span>需要實體喜帖</span>
         </label>
       </div>
 

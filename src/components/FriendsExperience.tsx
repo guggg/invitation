@@ -89,7 +89,12 @@ export function FriendsExperience({ endpoint, photoUploadEndpoint }: FriendsExpe
         </div>
         <div className="schedule-scenes">
           {wedding.schedule.map((item, index) => (
-            <article className={`schedule-scene scene-${index + 1}`} data-fx="blur-reveal" key={item.time}>
+            <article
+              className={`schedule-scene scene-${index + 1}`}
+              data-fx="schedule-card"
+              data-schedule-index={index}
+              key={item.time}
+            >
               <time>{item.time}</time>
               <h3>{item.title}</h3>
             </article>

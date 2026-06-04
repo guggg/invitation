@@ -6,6 +6,7 @@ const HEADERS = [
   "attendance",
   "name",
   "phone",
+  "needsPhysicalInvitation",
   "vegetarianCount",
   "adultCount",
   "childCountUnder4",
@@ -56,6 +57,7 @@ function validatePayload(payload) {
   validateToken(payload.rsvpToken);
   requireString(payload.name, "name");
   requireTaiwanMobile(payload.phone);
+  requireBoolean(payload.needsPhysicalInvitation, "needsPhysicalInvitation");
   requireEnum(payload.sourceRoute, "sourceRoute", ["/", "/family"]);
   requireEnum(payload.attendance, "attendance", ["attending", "declined"]);
 
@@ -132,6 +134,12 @@ function requireTaiwanMobile(value) {
 
 function requireEnum(value, fieldName, allowedValues) {
   if (allowedValues.indexOf(value) === -1) {
+    throw new Error(fieldName + " is invalid");
+  }
+}
+
+function requireBoolean(value, fieldName) {
+  if (typeof value !== "boolean") {
     throw new Error(fieldName + " is invalid");
   }
 }

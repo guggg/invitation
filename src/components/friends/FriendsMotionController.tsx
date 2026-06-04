@@ -75,6 +75,128 @@ export function FriendsMotionController() {
         });
       }
 
+      const scheduleCards = gsap.utils.toArray<HTMLElement>("[data-fx='schedule-card']");
+      const scheduleTheatre = document.querySelector<HTMLElement>(".schedule-theatre");
+      const scheduleScenes = document.querySelector<HTMLElement>(".schedule-scenes");
+      if (!reduceMotion) {
+        gsap.fromTo(
+          scheduleCards,
+          {
+            autoAlpha: 0,
+            x: (index) => (index === 0 ? -110 : index === 2 ? 110 : 0),
+            y: (index) => (index === 1 ? 96 : 62),
+            rotateX: 12,
+            rotateY: (index) => (index === 0 ? -10 : index === 2 ? 10 : 0),
+            z: -120,
+            filter: "blur(18px)",
+            scale: 0.88
+          },
+          {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotateX: 0,
+            rotateY: 0,
+            z: 0,
+            filter: "blur(0px)",
+            scale: 1,
+            duration: 1.2,
+            stagger: 0.14,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: ".schedule-scenes",
+              start: "top 78%",
+              once: true
+            }
+          }
+        );
+
+        if (scheduleTheatre && scheduleScenes && window.innerWidth > 860) {
+          const activateScheduleScene = (activeIndex: number) => {
+            scheduleCards.forEach((card, index) => {
+              card.classList.toggle("is-scroll-active", index === activeIndex);
+            });
+          };
+
+          const scheduleScrollLength = Math.max(1800, scheduleCards.length * 720);
+
+          ScrollTrigger.create({
+            trigger: scheduleTheatre,
+            start: "top top",
+            end: `+=${scheduleScrollLength}`,
+            pin: true,
+            scrub: true,
+            onEnter: () => {
+              scheduleTheatre.classList.add("is-scroll-driven");
+              activateScheduleScene(-1);
+            },
+            onEnterBack: () => {
+              scheduleTheatre.classList.add("is-scroll-driven");
+            },
+            onLeave: () => {
+              scheduleTheatre.classList.remove("is-scroll-driven");
+              activateScheduleScene(scheduleCards.length - 1);
+            },
+            onLeaveBack: () => {
+              scheduleTheatre.classList.remove("is-scroll-driven");
+              activateScheduleScene(-1);
+            },
+            onUpdate: (self) => {
+              const progress = Math.max(0, Math.min(self.progress, 0.9999));
+              const activationThreshold = 0.045;
+              const activeIndex =
+                progress < activationThreshold
+                  ? -1
+                  : Math.min(
+                      scheduleCards.length - 1,
+                      Math.floor(((progress - activationThreshold) / (1 - activationThreshold)) * scheduleCards.length)
+                    );
+              activateScheduleScene(activeIndex);
+            }
+          });
+
+          gsap.to(scheduleScenes, {
+            "--schedule-line-scale": 1,
+            "--schedule-line-opacity": 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: scheduleTheatre,
+              start: "top top",
+              end: `+=${scheduleScrollLength}`,
+              scrub: true
+            }
+          });
+        } else {
+          gsap.fromTo(
+            ".schedule-scenes",
+            { "--schedule-line-scale": 0, "--schedule-line-opacity": 0 },
+            {
+              "--schedule-line-scale": 1,
+              "--schedule-line-opacity": 1,
+              duration: 1.15,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: ".schedule-scenes",
+                start: "top 76%",
+                once: true
+              }
+            }
+          );
+        }
+      } else {
+        gsap.set(scheduleCards, {
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          rotateX: 0,
+          rotateY: 0,
+          z: 0,
+          filter: "blur(0px)",
+          scale: 1
+        });
+        gsap.set(".schedule-scenes", { "--schedule-line-scale": 1, "--schedule-line-opacity": 1 });
+      }
+
       gsap.utils.toArray<HTMLElement>("[data-fx='drift']").forEach((element, index) => {
         gsap.to(element, {
           x: index % 2 === 0 ? -44 : 48,

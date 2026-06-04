@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { ProgressiveBlur } from "@/components/ui/skiper-ui/skiper41";
 import { createCountdownParts, type CountdownParts } from "@/lib/countdown";
 import {
   PORTAL_AUDIO_CUE_PHASE,
@@ -303,43 +304,53 @@ export function MusicPulseBar({ initialNow, targetIso = wedding.dateTimeIso }: M
   };
 
   return (
-    // No aria-label on the div — it has no role, screen readers ignore it.
-    // The meaningful label lives on the button below.
-    <div className="music-pulse-bar">
-      <div className="music-countdown-ticker" aria-live="polite">
-        <span className="music-countdown-time">{formatCompactCountdown(countdownParts)}</span>
-        <span className="music-countdown-separator" aria-hidden="true">·</span>
-        <span className="music-countdown-message">{typewriterMessage}</span>
-        {!reduceMotion && <span className="music-countdown-cursor" aria-hidden="true">|</span>}
+    <div className="music-glass-shell">
+      <div className="music-glass-blur" aria-hidden="true">
+        <ProgressiveBlur
+          position="bottom"
+          height="96px"
+          backgroundColor="#10131d"
+          blurAmount="14px"
+        />
       </div>
-      <button
-        type="button"
-        className="music-pulse-btn"
-        onClick={toggle}
-        aria-label={isPlaying ? "暫停背景音樂" : "播放背景音樂"}
-        aria-pressed={isPlaying}
-      >
-        {/* Icon */}
-        <span className="music-pulse-icon" aria-hidden="true">
-          {isPlaying ? <Volume2 size={14} strokeWidth={2} /> : <VolumeX size={14} strokeWidth={2} />}
-        </span>
+      {/* No aria-label on the div — it has no role, screen readers ignore it.
+      The meaningful label lives on the button below. */}
+      <div className="music-glass-bar">
+        <div className="music-countdown-ticker" aria-live="polite">
+          <span className="music-countdown-time">{formatCompactCountdown(countdownParts)}</span>
+          <span className="music-countdown-separator" aria-hidden="true">·</span>
+          <span className="music-countdown-message">{typewriterMessage}</span>
+          {!reduceMotion && <span className="music-countdown-cursor" aria-hidden="true">|</span>}
+        </div>
+        <button
+          type="button"
+          className="music-pulse-btn"
+          onClick={toggle}
+          aria-label={isPlaying ? "暫停背景音樂" : "播放背景音樂"}
+          aria-pressed={isPlaying}
+        >
+          {/* Icon */}
+          <span className="music-pulse-icon" aria-hidden="true">
+            {isPlaying ? <Volume2 size={14} strokeWidth={2} /> : <VolumeX size={14} strokeWidth={2} />}
+          </span>
 
-        {/* Waveform bars */}
-        <span className="music-pulse-bars" aria-hidden="true">
-          {(isPlaying && !reduceMotion ? barHeights : idleBarHeights()).map((h, i) => (
-            <span
-              key={i}
-              className="music-pulse-bar-item"
-              style={{ height: `${Math.round(h * BAR_MAX_PX)}px` }}
-            />
-          ))}
-        </span>
+          {/* Waveform bars */}
+          <span className="music-pulse-bars" aria-hidden="true">
+            {(isPlaying && !reduceMotion ? barHeights : idleBarHeights()).map((h, i) => (
+              <span
+                key={i}
+                className="music-pulse-bar-item"
+                style={{ height: `${Math.round(h * BAR_MAX_PX)}px` }}
+              />
+            ))}
+          </span>
 
-        {/* Manual play prompt shown when autoplay was blocked by browser policy */}
-        {needsManualPlay && (
-          <span className="music-pulse-hint">點擊播放音樂</span>
-        )}
-      </button>
+          {/* Manual play prompt shown when autoplay was blocked by browser policy */}
+          {needsManualPlay && (
+            <span className="music-pulse-hint">點擊播放音樂</span>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

@@ -11,6 +11,7 @@ export type RsvpFormData = {
   attendance: Attendance;
   name: string;
   phone: string;
+  needsPhysicalInvitation: boolean;
   vegetarianCount: number;
   adultCount: number;
   childCountUnder4: number;
@@ -68,6 +69,9 @@ const rawRsvpSchema = z.object({
     .min(1, "請填寫聯絡電話")
     .refine(isValidTaiwanMobilePhone, "請填寫正確手機號碼")
     .transform(normalizePhoneNumber),
+  needsPhysicalInvitation: z
+    .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
+    .default(false),
   vegetarianCount: countField.optional(),
   adultCount: countField.optional(),
   childCountUnder4: countField.optional(),
@@ -107,6 +111,7 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
       attendance: data.attendance,
       name: data.name,
       phone: data.phone,
+      needsPhysicalInvitation: data.needsPhysicalInvitation,
       vegetarianCount: 0,
       adultCount: 0,
       childCountUnder4: 0,
@@ -175,6 +180,7 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
     attendance: data.attendance,
     name: data.name,
     phone: data.phone,
+    needsPhysicalInvitation: data.needsPhysicalInvitation,
     vegetarianCount: data.vegetarianCount!,
     adultCount: data.adultCount!,
     childCountUnder4: data.childCountUnder4!,
