@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, CalendarDays, Clock, MapPin } from "lucide-react";
 import { RsvpForm } from "@/components/RsvpForm";
 import { FamilyShuttleTable } from "@/components/FamilyShuttleTable";
+import { LineOfficialCta } from "@/components/LineOfficialCta";
 import { PhotoUploadExperience } from "@/components/PhotoUploadExperience";
 import { familyPhotos } from "@/lib/photos";
 import { wedding } from "@/lib/wedding";
@@ -10,9 +11,16 @@ import { wedding } from "@/lib/wedding";
 type FamilyExperienceProps = {
   endpoint: string;
   photoUploadEndpoint: string;
+  lineAddFriendUrl: string;
+  lineQrCodeSrc: string;
 };
 
-export function FamilyExperience({ endpoint, photoUploadEndpoint }: FamilyExperienceProps) {
+export function FamilyExperience({
+  endpoint,
+  photoUploadEndpoint,
+  lineAddFriendUrl,
+  lineQrCodeSrc
+}: FamilyExperienceProps) {
   return (
     <main className="family-shell">
       <header className="family-header">
@@ -95,6 +103,11 @@ export function FamilyExperience({ endpoint, photoUploadEndpoint }: FamilyExperi
 
       <section className="family-section family-photo-upload">
         <PhotoUploadExperience endpoint={photoUploadEndpoint} sourceRoute="/family" variant="family" />
+        <LineOfficialCta
+          variant="footer"
+          lineAddFriendUrl={lineAddFriendUrl}
+          qrCodeSrc={lineQrCodeSrc}
+        />
       </section>
 
       <section id="rsvp" className="family-rsvp">

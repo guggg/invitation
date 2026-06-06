@@ -29,6 +29,7 @@ export function ShuttlePicker() {
     <div className="shuttle-picker-card">
       <p className="shuttle-picker-heading">幫你選接駁班次</p>
       <p className="shuttle-picker-sub">先選身份，我們直接告訴你最適合搭哪一班。能搭接駁車的話，真的最推薦。</p>
+      <p className="shuttle-picker-sub">注意：班次會依問卷人數而做些微調整！</p>
 
       <div className="shuttle-picker-btns" role="group" aria-label="選擇身份">
         {identities.map((ident) => (

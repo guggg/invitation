@@ -27,6 +27,7 @@ type WizardData = {
   name: string;
   phone: string;
   needsPhysicalInvitation: boolean;
+  physicalInvitationAddress: string;
   vegetarianCount: number;
   adultCount: number;
   childCountUnder4: number;
@@ -46,6 +47,7 @@ const defaultData: WizardData = {
   name: "",
   phone: "",
   needsPhysicalInvitation: false,
+  physicalInvitationAddress: "",
   vegetarianCount: 0,
   adultCount: 1,
   childCountUnder4: 0,
@@ -94,6 +96,8 @@ export function FriendRsvpExperience({
       attendance,
       ...(attendance === "declined"
         ? {
+            needsPhysicalInvitation: false,
+            physicalInvitationAddress: "",
             vegetarianCount: 0,
             adultCount: 0,
             childCountUnder4: 0,
@@ -333,14 +337,30 @@ export function FriendRsvpExperience({
               </span>
             ) : null}
           </label>
-          <label className="rsvp-seat-toggle rsvp-physical-invite-toggle">
-            <input
-              checked={data.needsPhysicalInvitation}
-              onChange={(event) => updateField("needsPhysicalInvitation", event.target.checked)}
-              type="checkbox"
-            />
-            <span>需要實體喜帖</span>
-          </label>
+          {data.attendance === "attending" ? (
+            <>
+              <label className="rsvp-seat-toggle rsvp-physical-invite-toggle">
+                <input
+                  checked={data.needsPhysicalInvitation}
+                  onChange={(event) => updateField("needsPhysicalInvitation", event.target.checked)}
+                  type="checkbox"
+                />
+                <span>需要實體喜帖</span>
+              </label>
+              {data.needsPhysicalInvitation ? (
+                <label htmlFor="rsvp-address">
+                  <span>喜帖寄送地址</span>
+                  <input
+                    id="rsvp-address"
+                    autoComplete="street-address"
+                    value={data.physicalInvitationAddress}
+                    onChange={(event) => updateField("physicalInvitationAddress", event.target.value)}
+                    placeholder="請輸入寄送地址"
+                  />
+                </label>
+              ) : null}
+            </>
+          ) : null}
           <div className="rsvp-buttons">
             <button className="rsvp-back" type="button" onClick={handleBack}>
               上一頁
@@ -489,10 +509,18 @@ export function FriendRsvpExperience({
               <span className="rsvp-card-label">聯絡電話</span>
               <strong className="rsvp-card-value">{data.phone}</strong>
             </div>
-            <div className="rsvp-card-row">
-              <span className="rsvp-card-label">實體喜帖</span>
-              <strong className="rsvp-card-value">{data.needsPhysicalInvitation ? "需要" : "不需要"}</strong>
-            </div>
+            {data.attendance === "attending" ? (
+              <div className="rsvp-card-row">
+                <span className="rsvp-card-label">實體喜帖</span>
+                <strong className="rsvp-card-value">{data.needsPhysicalInvitation ? "需要" : "不需要"}</strong>
+              </div>
+            ) : null}
+            {data.needsPhysicalInvitation ? (
+              <div className="rsvp-card-row">
+                <span className="rsvp-card-label">寄送地址</span>
+                <strong className="rsvp-card-value">{data.physicalInvitationAddress || "未填寫"}</strong>
+              </div>
+            ) : null}
             <div className="rsvp-card-row">
               <span className="rsvp-card-label">出席意願</span>
               <strong className="rsvp-card-value">{data.attendance === "attending" ? "我會到場" : "這次無法參加"}</strong>

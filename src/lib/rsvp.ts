@@ -12,6 +12,7 @@ export type RsvpFormData = {
   name: string;
   phone: string;
   needsPhysicalInvitation: boolean;
+  physicalInvitationAddress: string;
   vegetarianCount: number;
   adultCount: number;
   childCountUnder4: number;
@@ -78,6 +79,7 @@ const rawRsvpSchema = z.object({
   needsPhysicalInvitation: z
     .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
     .default(false),
+  physicalInvitationAddress: z.string().trim().default(""),
   vegetarianCount: countField.optional(),
   adultCount: countField.optional(),
   childCountUnder4: countField.optional(),
@@ -117,7 +119,8 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
       attendance: data.attendance,
       name: data.name,
       phone: data.phone,
-      needsPhysicalInvitation: data.needsPhysicalInvitation,
+      needsPhysicalInvitation: false,
+      physicalInvitationAddress: "",
       vegetarianCount: 0,
       adultCount: 0,
       childCountUnder4: 0,
@@ -182,11 +185,16 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
     throw new Error("請選擇自行前往方式");
   }
 
+  if (data.needsPhysicalInvitation && !data.physicalInvitationAddress) {
+    throw new Error("需要實體喜帖請填寫寄送地址");
+  }
+
   return {
     attendance: data.attendance,
     name: data.name,
     phone: data.phone,
     needsPhysicalInvitation: data.needsPhysicalInvitation,
+    physicalInvitationAddress: data.needsPhysicalInvitation ? data.physicalInvitationAddress : "",
     vegetarianCount: data.vegetarianCount!,
     adultCount: data.adultCount!,
     childCountUnder4: data.childCountUnder4!,

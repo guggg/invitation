@@ -7,6 +7,7 @@ const HEADERS = [
   "name",
   "phone",
   "needsPhysicalInvitation",
+  "physicalInvitationAddress",
   "vegetarianCount",
   "adultCount",
   "childCountUnder4",

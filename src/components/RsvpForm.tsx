@@ -18,6 +18,7 @@ type FormValues = {
   name: string;
   phone: string;
   needsPhysicalInvitation?: boolean;
+  physicalInvitationAddress?: string;
   vegetarianCount?: number;
   adultCount?: number;
   childCountUnder4?: number;
@@ -60,6 +61,7 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
     defaultValues: {
       attendance: "attending",
       needsPhysicalInvitation: false,
+      physicalInvitationAddress: "",
       vegetarianCount: 0,
       adultCount: 1,
       childCountUnder4: 0,
@@ -77,6 +79,7 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
 
   const attendance = useWatch({ control, name: "attendance" });
   const needsChildSeat = useWatch({ control, name: "needsChildSeat" });
+  const needsPhysicalInvitation = useWatch({ control, name: "needsPhysicalInvitation" });
   const transportMode = useWatch({ control, name: "transportMode" });
   const adultCount = numberOrZero(useWatch({ control, name: "adultCount" }));
   const childCountUnder4 = numberOrZero(useWatch({ control, name: "childCountUnder4" }));
@@ -209,14 +212,27 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
             })}
           />
         </label>
-        <label className="child-seat-toggle rsvp-physical-invite-toggle">
-          <input type="checkbox" {...register("needsPhysicalInvitation")} />
-          <span>需要實體喜帖</span>
-        </label>
       </div>
 
       {isAttending ? (
         <>
+          <label className="child-seat-toggle rsvp-physical-invite-toggle">
+            <input type="checkbox" {...register("needsPhysicalInvitation")} />
+            <span>需要實體喜帖</span>
+          </label>
+          {needsPhysicalInvitation ? (
+            <div className="form-grid" style={{ gridTemplateColumns: '1fr' }}>
+              <label htmlFor="rsvp-address">
+                <span>喜帖寄送地址</span>
+                <input
+                  id="rsvp-address"
+                  autoComplete="street-address"
+                  placeholder="請輸入寄送地址"
+                  {...register("physicalInvitationAddress", { required: !!needsPhysicalInvitation })}
+                />
+              </label>
+            </div>
+          ) : null}
           <div className="form-grid compact rsvp-count-grid !grid-cols-2 max-[560px]:!grid-cols-1">
             <NumberField label="大人人數" value={adultCount} variant={variant} onMinus={() => updateCount("adultCount", -1)} onPlus={() => updateCount("adultCount", 1)} />
             <NumberField label="0-4 歲人數" value={childCountUnder4} variant={variant} onMinus={() => updateCount("childCountUnder4", -1)} onPlus={() => updateCount("childCountUnder4", 1)} />

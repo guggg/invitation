@@ -20,7 +20,7 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     arriveTime: "16:00",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "工作人員、最準時的證婚賓客（莊園一開門即進場）",
+    note: "莊園一開門即進場，首批證婚賓客",
     capacity: 20
   },
   {
@@ -31,7 +31,7 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     arriveTime: "16:10",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "證婚賓客（可參與完整迎賓酒會、享用點心）",
+    note: "證婚賓客，可參與完整迎賓活動、享用點心",
     capacity: 20
   },
   {
@@ -42,7 +42,7 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     arriveTime: "16:20",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "證婚賓客（卡在 16:30 證婚儀式前最後就座）",
+    note: "證婚賓客，16:30 證婚儀式前最後就座",
     capacity: 20
   },
   // Outbound — Round 2
@@ -54,7 +54,7 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     arriveTime: "16:40",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "晚宴賓客（抵達時證婚進行中，可外圍觀禮或至酒會區）",
+    note: "晚宴賓客（抵達時證婚進行中，可外圍觀禮或至迎賓活動區）",
     capacity: 20
   },
   {
@@ -65,7 +65,7 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     arriveTime: "16:50",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "晚宴賓客（證婚後半段抵達，準備合照與酒會）",
+    note: "晚宴賓客（證婚後半段抵達，參與證婚大合照）",
     capacity: 20
   },
   {
@@ -84,11 +84,11 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     id: "ret-1",
     vehicle: "A1·B1·C1 車",
     group: "return-1",
-    departTime: "20:15",
-    arriveTime: "20:30",
+    departTime: "20:25",
+    arriveTime: "20:40",
     from: "優聖美地",
     to: "新店捷運總站",
-    note: "【煙火落幕首波撤場】看完煙火急著走或趕時間的賓客",
+    note: "【首波撤場】晚宴結束，首波散場賓客",
     capacity: 60
   },
   // Return — Round 2
@@ -100,7 +100,7 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     arriveTime: "21:05",
     from: "優聖美地",
     to: "新店捷運總站",
-    note: "【最終壓軸清場】深度合照至最後的新人至親摯友、工作人員",
+    note: "【幸福收尾班】陪伴新人走到婚禮最後一刻的至親好友",
     capacity: 60
   }
 ] as const;

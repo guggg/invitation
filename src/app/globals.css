@@ -947,6 +947,198 @@ img {
   color: #fff8ec;
 }
 
+/* ── Family custom radio / checkbox ── */
+
+.family-rsvp .rsvp-choice label,
+.family-rsvp .rsvp-transport-choice label,
+.family-rsvp .rsvp-option-grid .child-seat-toggle {
+  position: relative;
+  gap: 0;
+  padding-left: 42px;
+  border-color: rgba(128, 0, 32, 0.18);
+  border-radius: 14px;
+  background: rgba(255, 252, 248, 0.72);
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.family-rsvp .rsvp-choice label:hover,
+.family-rsvp .rsvp-transport-choice label:hover,
+.family-rsvp .rsvp-option-grid .child-seat-toggle:hover {
+  border-color: rgba(128, 0, 32, 0.38);
+  background: rgba(255, 252, 248, 0.92);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(128, 0, 32, 0.08);
+}
+
+.family-rsvp .rsvp-choice input[type="radio"],
+.family-rsvp .rsvp-transport-choice input[type="radio"],
+.family-rsvp .rsvp-option-grid input[type="radio"],
+.family-rsvp .rsvp-option-grid input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.family-rsvp .rsvp-choice label::before,
+.family-rsvp .rsvp-transport-choice label::before,
+.family-rsvp .rsvp-option-grid .child-seat-toggle:has(input[type="radio"])::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(128, 0, 32, 0.32);
+  border-radius: 50%;
+  background: #fff;
+  transition:
+    border-color 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.family-rsvp .rsvp-option-grid .child-seat-toggle:has(input[type="checkbox"])::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(128, 0, 32, 0.32);
+  border-radius: 5px;
+  background: #fff;
+  transition:
+    border-color 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.family-rsvp .rsvp-choice label:has(input:checked)::before,
+.family-rsvp .rsvp-transport-choice label:has(input:checked)::before,
+.family-rsvp .rsvp-option-grid .child-seat-toggle:has(input[type="radio"]:checked)::before {
+  border-color: #800020;
+  background: #800020;
+  box-shadow:
+    inset 0 0 0 3px #fff,
+    0 0 0 2px rgba(128, 0, 32, 0.18);
+}
+
+.family-rsvp .rsvp-option-grid .child-seat-toggle:has(input[type="checkbox"]:checked)::before {
+  border-color: #800020;
+  background: #800020;
+  box-shadow: 0 0 0 2px rgba(128, 0, 32, 0.18);
+}
+
+.family-rsvp .rsvp-option-grid .child-seat-toggle:has(input[type="checkbox"]:checked)::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 10px;
+  height: 5px;
+  border-left: 2.5px solid #fff;
+  border-bottom: 2.5px solid #fff;
+  transform: translateY(-60%) rotate(-45deg);
+}
+
+.family-rsvp .rsvp-choice label:has(input:checked),
+.family-rsvp .rsvp-transport-choice label:has(input:checked),
+.family-rsvp .rsvp-option-grid .child-seat-toggle:has(input:checked) {
+  border-color: rgba(128, 0, 32, 0.48);
+  background: rgba(128, 0, 32, 0.06);
+  box-shadow: 0 2px 12px rgba(128, 0, 32, 0.1);
+}
+
+/* checkbox variant — square with checkmark */
+.family-rsvp .child-seat-toggle:not(.rsvp-option-grid .child-seat-toggle)::before,
+.family-rsvp .rsvp-physical-invite-toggle::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(128, 0, 32, 0.32);
+  border-radius: 5px;
+  background: #fff;
+  transition:
+    border-color 200ms ease,
+    background 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.family-rsvp .child-seat-toggle {
+  position: relative;
+  padding-left: 42px;
+}
+
+.family-rsvp .child-seat-toggle input[type="checkbox"],
+.family-rsvp .rsvp-physical-invite-toggle input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.family-rsvp .child-seat-toggle:not(.rsvp-option-grid .child-seat-toggle):has(input:checked)::before,
+.family-rsvp .rsvp-physical-invite-toggle:has(input:checked)::before {
+  border-color: #800020;
+  background: #800020;
+  box-shadow: 0 0 0 2px rgba(128, 0, 32, 0.18);
+}
+
+.family-rsvp .child-seat-toggle:not(.rsvp-option-grid .child-seat-toggle):has(input:checked)::after,
+.family-rsvp .rsvp-physical-invite-toggle:has(input:checked)::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 10px;
+  height: 5px;
+  border-left: 2.5px solid #fff;
+  border-bottom: 2.5px solid #fff;
+  transform: translateY(-60%) rotate(-45deg);
+}
+
+.family-rsvp .rsvp-transport-choice label {
+  min-height: 56px;
+  padding: 16px 16px 16px 42px;
+  border-radius: 14px;
+}
+
+.family-rsvp .rsvp-transport-choice label.is-active {
+  border-color: rgba(128, 0, 32, 0.48);
+  background: rgba(128, 0, 32, 0.06);
+  box-shadow: 0 2px 12px rgba(128, 0, 32, 0.1);
+}
+
+.family-photo-upload {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+  gap: clamp(24px, 4vw, 52px);
+  align-items: start;
+}
+
+.family-photo-upload .photo-upload-family {
+  width: 100%;
+  max-width: none;
+}
+
+.family-photo-upload .line-note-card {
+  width: min(100%, 420px);
+  margin-inline: 0;
+}
+
 @media (max-width: 900px) {
 
   .site-header,
@@ -972,7 +1164,8 @@ img {
   .story-grid,
   .friends-rsvp,
   .family-hero,
-  .family-rsvp {
+  .family-rsvp,
+  .family-photo-upload {
     grid-template-columns: 1fr;
   }
 
@@ -3558,7 +3751,7 @@ img {
 }
 
 .line-section .line-note-card {
-  width: min(60%, 920px);
+  width: min(100%, 480px);
   text-align: left;
 }
 
@@ -4832,6 +5025,236 @@ img {
 
   .music-countdown-message {
     max-width: 9em;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Scroll Encounter Video — 影片彩蛋
+   ───────────────────────────────────────────────────────────── */
+
+.scroll-encounter-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: clamp(32px, 6vw, 64px) clamp(18px, 5vw, 72px);
+  z-index: 2;
+}
+
+.scroll-encounter-card {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 14px;
+  border: none;
+  border-radius: 24px;
+  background: #fffdf8;
+  box-shadow:
+    0 18px 60px rgba(58, 47, 38, 0.1),
+    0 4px 12px rgba(58, 47, 38, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  transform-origin: center center;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform, opacity;
+}
+
+.scroll-encounter-card::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(116, 100, 82, 0.08);
+  border-radius: 19px;
+  pointer-events: none;
+}
+
+.scroll-encounter-card:focus-visible {
+  outline: 2px solid rgba(78, 70, 61, 0.5);
+  outline-offset: 4px;
+}
+
+.scroll-encounter-card-inner {
+  position: relative;
+  width: 220px;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f0ebe3;
+}
+
+.scroll-encounter-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
+/* ── Play icon ── */
+.scroll-encounter-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.scroll-encounter-play svg {
+  width: 36px;
+  height: 36px;
+  padding: 10px;
+  border-radius: 50%;
+  background: rgba(255, 252, 246, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #4e463d;
+  opacity: 0.78;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+  filter: drop-shadow(0 4px 12px rgba(58, 47, 38, 0.14));
+}
+
+.scroll-encounter-card:hover .scroll-encounter-play svg,
+.scroll-encounter-card:focus-visible .scroll-encounter-play svg {
+  opacity: 1;
+  transform: scale(1.06);
+}
+
+/* ── Label ── */
+.scroll-encounter-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(94, 84, 74, 0.72);
+  transition: color 200ms ease;
+  padding-bottom: 2px;
+}
+
+.scroll-encounter-card:hover .scroll-encounter-label {
+  color: rgba(94, 84, 74, 0.92);
+}
+
+/* ── Modal overlay ── */
+.scroll-encounter-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(43, 37, 31, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 24px;
+}
+
+/* ── Modal card ── */
+.scroll-encounter-modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(86vw, 960px);
+  max-height: 80vh;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #1a1614;
+  box-shadow:
+    0 48px 96px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.scroll-encounter-modal-video {
+  width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  display: block;
+  background: #111;
+}
+
+/* ── Caption ── */
+.scroll-encounter-caption {
+  width: 100%;
+  padding: 14px 24px 16px;
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(248, 242, 232, 0.68);
+  text-align: center;
+  background: #1a1614;
+}
+
+/* ── Close button ── */
+.scroll-encounter-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(43, 37, 31, 0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255, 252, 246, 0.82);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.scroll-encounter-close:hover {
+  background: rgba(43, 37, 31, 0.82);
+  color: #fffaf3;
+}
+
+.scroll-encounter-close:focus-visible {
+  outline: 2px solid rgba(255, 252, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .scroll-encounter-card-inner {
+    width: 168px;
+  }
+
+  .scroll-encounter-modal {
+    width: calc(100vw - 32px);
+    max-height: 74vh;
+    border-radius: 18px;
+  }
+
+  .scroll-encounter-modal-video {
+    max-height: 64vh;
+  }
+
+  .scroll-encounter-close {
+    top: 10px;
+    right: 10px;
+    padding: 6px 14px;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-encounter-card {
+    transition: none;
+  }
+
+  .scroll-encounter-play svg {
+    transition: none;
   }
 }
 

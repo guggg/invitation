@@ -41,7 +41,7 @@ describe("buildShuttleIcs", () => {
     expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T173000");
   });
 
-  it("sets correct DTSTART/DTEND for return trip 1 (20:15 → 20:30)", () => {
+  it("sets correct DTSTART/DTEND for return trip 1 (20:25 → 20:40)", () => {
     const ics = buildShuttleIcs(ret1);
     expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T201500");
     expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T203000");

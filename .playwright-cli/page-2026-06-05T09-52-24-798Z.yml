@@ -141,7 +141,7 @@
           - time [ref=e145]: 18:00
           - heading "晚宴入席" [level=3] [ref=e146]
         - article [ref=e147]:
-          - time [ref=e148]: 20:30
+          - time [ref=e148]: 20:40
           - heading "圓滿結束" [level=3] [ref=e149]
     - region "極簡大地" [ref=e150]:
       - generic [ref=e151]:
@@ -278,7 +278,7 @@
               - generic "發車（暫定）15:45" [ref=e283]: 15:45
               - generic [ref=e284]:
                 - generic [ref=e285]: A1 車 — 第一趟
-                - generic [ref=e286]: 工作人員、最準時的證婚賓客（莊園一開門即進場）
+                - generic [ref=e286]: 莊園一開門即進場，首批證婚賓客
               - generic "預估抵達 16:00" [ref=e287]: 抵 16:00
               - generic [ref=e288]: 暫定
               - button "加入行事曆：去程 A1 車 15:45 發車（暫定）" [ref=e289] [cursor=pointer]: +
@@ -286,7 +286,7 @@
               - generic "發車（暫定）15:55" [ref=e291]: 15:55
               - generic [ref=e292]:
                 - generic [ref=e293]: B1 車 — 第一趟
-                - generic [ref=e294]: 證婚賓客（可參與完整迎賓酒會、享用點心）
+                - generic [ref=e294]: 證婚賓客，可參與完整迎賓活動、享用點心
               - generic "預估抵達 16:10" [ref=e295]: 抵 16:10
               - generic [ref=e296]: 暫定
               - button "加入行事曆：去程 B1 車 15:55 發車（暫定）" [ref=e297] [cursor=pointer]: +
@@ -294,7 +294,7 @@
               - generic "發車（暫定）16:05" [ref=e299]: 16:05
               - generic [ref=e300]:
                 - generic [ref=e301]: C1 車 — 第一趟
-                - generic [ref=e302]: 證婚賓客（卡在 16:30 證婚儀式前最後就座）
+                - generic [ref=e302]: 證婚賓客，16:30 證婚儀式前最後就座
               - generic "預估抵達 16:20" [ref=e303]: 抵 16:20
               - generic [ref=e304]: 暫定
               - button "加入行事曆：去程 C1 車 16:05 發車（暫定）" [ref=e305] [cursor=pointer]: +
@@ -303,7 +303,7 @@
               - generic "發車（暫定）16:25" [ref=e308]: 16:25
               - generic [ref=e309]:
                 - generic [ref=e310]: A2 車 — 第二趟
-                - generic [ref=e311]: 晚宴賓客（抵達時證婚進行中，可外圍觀禮或至酒會區）
+                - generic [ref=e311]: 晚宴賓客（抵達時證婚進行中，可外圍觀禮或至迎賓活動區）
               - generic "預估抵達 16:40" [ref=e312]: 抵 16:40
               - generic [ref=e313]: 暫定
               - button "加入行事曆：去程 A2 車 16:25 發車（暫定）" [ref=e314] [cursor=pointer]: +
@@ -311,7 +311,7 @@
               - generic "發車（暫定）16:35" [ref=e316]: 16:35
               - generic [ref=e317]:
                 - generic [ref=e318]: B2 車 — 第二趟
-                - generic [ref=e319]: 晚宴賓客（證婚後半段抵達，準備合照與酒會）
+                - generic [ref=e319]: 晚宴賓客（證婚後半段抵達，參與證婚大合照）
               - generic "預估抵達 16:50" [ref=e320]: 抵 16:50
               - generic [ref=e321]: 暫定
               - button "加入行事曆：去程 B2 車 16:35 發車（暫定）" [ref=e322] [cursor=pointer]: +
@@ -325,19 +325,19 @@
               - button "加入行事曆：去程 C2 車 17:15 發車（暫定）" [ref=e330] [cursor=pointer]: +
             - generic "回程第一波" [ref=e331]: ◀ RETURN 回程第一波 — 優聖美地 → 新店捷運總站
             - generic [ref=e332]:
-              - generic "發車（暫定）20:15" [ref=e333]: 20:15
+              - generic "發車（暫定）20:25" [ref=e333]: 20:25
               - generic [ref=e334]:
                 - generic [ref=e335]: A1·B1·C1 車 — 第一波
-                - generic [ref=e336]: 【煙火落幕首波撤場】看完煙火急著走或趕時間的賓客
-              - generic "預估抵達 20:30" [ref=e337]: 抵 20:30
+                - generic [ref=e336]: 【首波撤場】晚宴結束，首波散場賓客
+              - generic "預估抵達 20:40" [ref=e337]: 抵 20:40
               - generic [ref=e338]: 暫定
-              - button "加入行事曆：回程 A1·B1·C1 車 20:15 發車（暫定）" [ref=e339] [cursor=pointer]: +
+              - button "加入行事曆：回程 A1·B1·C1 車 20:25 發車（暫定）" [ref=e339] [cursor=pointer]: +
             - generic "回程第二波" [ref=e340]: ◀ RETURN 回程第二波 — 優聖美地 → 新店捷運總站
             - generic [ref=e341]:
               - generic "發車（暫定）20:50" [ref=e342]: 20:50
               - generic [ref=e343]:
                 - generic [ref=e344]: A2·B2·C2 車 — 第二波
-                - generic [ref=e345]: 【最終壓軸清場】深度合照至最後的新人至親摯友、工作人員
+                - generic [ref=e345]: 【幸福收尾班】陪伴新人走到婚禮最後一刻的至親好友
               - generic "預估抵達 21:05" [ref=e346]: 抵 21:05
               - generic [ref=e347]: 暫定
               - button "加入行事曆：回程 A2·B2·C2 車 20:50 發車（暫定）" [ref=e348] [cursor=pointer]: +
@@ -367,6 +367,7 @@
           - generic [ref=e373]:
             - paragraph [ref=e374]: 幫你選接駁班次
             - paragraph [ref=e375]: 先選身份，我們直接告訴你最適合搭哪一班。能搭接駁車的話，真的最推薦。
+            - paragraph [ref=e375]: 注意：班次會依問卷人數而做些微調整！
             - group "選擇身份" [ref=e376]:
               - button "我是證婚賓客 想趕上 16:30 證婚儀式" [ref=e377] [cursor=pointer]:
                 - generic [ref=e378]: 我是證婚賓客
