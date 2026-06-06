@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronDown, MessageCircleMore } from "lucide-react";
-import { useId, useMemo, useState } from "react";
+import { MessageCircleMore } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { clsx } from "clsx";
 
 export type LineOfficialCtaProps = {
@@ -51,29 +51,63 @@ function isSafeLineUrl(value: string) {
 export function LineOfficialCta({
   variant,
   lineAddFriendUrl,
-  qrCodeSrc,
-  defaultExpanded = false
+  qrCodeSrc
 }: LineOfficialCtaProps) {
-  const [expanded, setExpanded] = useState(defaultExpanded);
   const [qrFailed, setQrFailed] = useState(false);
+  const [inView, setInView] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
   const content = COPY[variant];
-  const panelId = useId();
   const lineHref = useMemo(
     () => (isSafeLineUrl(lineAddFriendUrl) ? lineAddFriendUrl : ""),
     [lineAddFriendUrl]
   );
 
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className={clsx("line-note-card", `is-${variant}`)} aria-label="LINE 官方帳號加入提醒">
+    <section
+      ref={cardRef}
+      className={clsx("line-note-card", `is-${variant}`, inView && "is-in-view")}
+      aria-label="LINE 官方帳號加入提醒"
+    >
+      <div className="line-note-card-qr-always" data-stagger="1">
+        {qrFailed || !qrCodeSrc ? (
+          <div className="line-note-card-qr-fallback">QR Code 圖片尚未設定</div>
+        ) : (
+          <Image
+            src={qrCodeSrc}
+            alt="LINE 官方帳號 QR Code"
+            width={176}
+            height={176}
+            sizes="(max-width: 768px) 160px, 176px"
+            onError={() => setQrFailed(true)}
+          />
+        )}
+        <small>{content.microcopy}</small>
+      </div>
+
       <div className="line-note-card-copy">
-        <p className="line-note-card-eyebrow">{content.eyebrow}</p>
-        <h3>{content.title}</h3>
-        <div className="line-note-card-body">
+        <p className="line-note-card-eyebrow" data-stagger="2">{content.eyebrow}</p>
+        <h3 data-stagger="3">{content.title}</h3>
+        <div className="line-note-card-body" data-stagger="4">
           {content.body.map((line, index) =>
             line ? <span key={`${variant}-${index}`}>{line}</span> : <br key={`${variant}-${index}`} />
           )}
         </div>
-        <div className="line-note-card-actions">
+        <div className="line-note-card-actions" data-stagger="5">
           {lineHref ? (
             <a
               className="line-note-card-primary"
@@ -90,38 +124,6 @@ export function LineOfficialCta({
               加入 LINE 官方帳號
             </button>
           )}
-          <button
-            className="line-note-card-secondary"
-            type="button"
-            aria-expanded={expanded}
-            aria-controls={panelId}
-            onClick={() => setExpanded((current) => !current)}
-          >
-            {expanded ? "收起 QR Code" : "掃描 QR Code"}
-            <ChevronDown className={expanded ? "is-open" : undefined} size={16} aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-
-      <div
-        id={panelId}
-        className={clsx("line-note-card-panel", expanded && "is-open")}
-        aria-hidden={expanded ? undefined : true}
-      >
-        <div className="line-note-card-qr">
-          {qrFailed || !qrCodeSrc ? (
-            <div className="line-note-card-qr-fallback">QR Code 圖片尚未設定</div>
-          ) : (
-            <Image
-              src={qrCodeSrc}
-              alt="LINE 官方帳號 QR Code"
-              width={176}
-              height={176}
-              sizes="(max-width: 768px) 160px, 176px"
-              onError={() => setQrFailed(true)}
-            />
-          )}
-          <small>{content.microcopy}</small>
         </div>
       </div>
     </section>
