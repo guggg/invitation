@@ -1,7 +1,7 @@
 import { FriendsExperience } from "@/components/FriendsExperience";
 
 const LINE_ADD_FRIEND_URL = "https://lin.ee/76OVDl7U";
-const LINE_QR_CODE_SRC = "/images/line-official-qr.png";
+const LINE_QR_CODE_SRC = "/2dbarcodes_BW/M_gainfriends_2dbarcodes_BW.png";
 
 export default function HomePage() {
   return (

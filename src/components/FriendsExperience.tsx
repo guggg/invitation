@@ -192,10 +192,10 @@ export function FriendsExperience({
       </section>
 
       <section
-        id="finale"
-        className="friends-v2-section finale-section"
+        id="line"
+        className="friends-v2-section line-section"
         data-friend-section="9"
-        data-section-label="那天見"
+        data-section-label="LINE"
       >
         <div data-fx="blur-reveal">
           <LineOfficialCta
@@ -204,6 +204,14 @@ export function FriendsExperience({
             qrCodeSrc={lineQrCodeSrc}
           />
         </div>
+      </section>
+
+      <section
+        id="finale"
+        className="friends-v2-section finale-section"
+        data-friend-section="10"
+        data-section-label="那天見"
+      >
         <div data-fx="blur-reveal">
           <p>那天見</p>
           <h2>2026.10.3</h2>

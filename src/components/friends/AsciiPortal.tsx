@@ -1692,7 +1692,8 @@ export function AsciiPortal() {
     return null;
   }
 
-  const words = introPhrases[phraseIndex].split(" ");
+  const phrase = introPhrases[phraseIndex];
+  const words = phrase.split(" ");
   const specimenPresence = phase === "transition" ? getSpecimenPortalStrength(progress) : 0;
   const specimenFieldOpacity = phase === "transition" ? getSpecimenFieldOpacity(progress) : 1;
 
@@ -1724,12 +1725,12 @@ export function AsciiPortal() {
           <div className="ascii-portal-grid" aria-hidden="true" />
           <div className="ascii-portal-idle">
             <p>歡迎來到我們的婚禮</p>
-            <div className="ascii-portal-phrase" aria-label={introPhrases[phraseIndex]}>
+            <div className="ascii-portal-phrase" aria-label={phrase}>
               {words.map((word, wordIndex) => (
-                <span className="ascii-portal-word" key={`${word}-${wordIndex}`}>
+                <span className="ascii-portal-word" key={wordIndex}>
                   {Array.from(word).map((letter, letterIndex) => (
                     <span
-                      key={`${letter}-${letterIndex}`}
+                      key={`${wordIndex}-${letterIndex}`}
                       style={{ "--i": wordIndex * 8 + letterIndex } as CSSProperties}
                     >
                       {letter}

@@ -9,7 +9,7 @@ describe("LineOfficialCta", () => {
       <LineOfficialCta
         variant="footer"
         lineAddFriendUrl="https://lin.ee/76OVDl7U"
-        qrCodeSrc="/images/line-official-qr.png"
+        qrCodeSrc="/2dbarcodes_BW/M_gainfriends_2dbarcodes_BW.png"
       />
     );
 
@@ -40,7 +40,7 @@ describe("LineOfficialCta", () => {
       <LineOfficialCta
         variant="rsvp-success"
         lineAddFriendUrl="TODO"
-        qrCodeSrc="/images/line-official-qr.png"
+        qrCodeSrc="/2dbarcodes_BW/M_gainfriends_2dbarcodes_BW.png"
       />
     );
 
