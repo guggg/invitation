@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import gsap from "gsap";
-import { Observer } from "gsap/Observer";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 
@@ -21,7 +20,7 @@ function setSectionRailHidden(hidden: boolean) {
 export function FriendsMotionController() {
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    gsap.registerPlugin(ScrollTrigger, Observer);
+    gsap.registerPlugin(ScrollTrigger);
 
     let lenis: Lenis | null = null;
     const tick = (time: number) => {
@@ -92,10 +91,6 @@ export function FriendsMotionController() {
       }
 
       const scheduleCards = gsap.utils.toArray<HTMLElement>("[data-fx='schedule-card']");
-      const scheduleTheatre = document.querySelector<HTMLElement>(".schedule-theatre");
-      const scheduleScenes = document.querySelector<HTMLElement>(".schedule-scenes");
-      const dressSection = document.getElementById("dress-code");
-      const signalSection = document.getElementById("signal");
       if (!reduceMotion) {
         gsap.fromTo(
           scheduleCards,
@@ -129,212 +124,21 @@ export function FriendsMotionController() {
           }
         );
 
-        if (scheduleTheatre && scheduleScenes) {
-          const activateScheduleScene = (activeIndex: number) => {
-            scheduleCards.forEach((card, index) => {
-              card.classList.toggle("is-scroll-active", index === activeIndex);
-            });
-          };
-
-          const schedulePinOffset = 80;
-          const scheduleScrollLength = Math.max(window.innerHeight * 1.8, scheduleCards.length * 720);
-          let activeStep = -1;
-          let isSchedulePinned = false;
-          let isScheduleReleasing = false;
-          let suppressUntil = 0;
-          let releaseProgressAnchor: number | null = null;
-          let scheduleTrigger: ScrollTrigger | null = null;
-
-          let scheduleObserver: Observer | null = null;
-
-          const setActiveScheduleStep = (nextStep: number) => {
-            activeStep = nextStep;
-            releaseProgressAnchor = scheduleTrigger?.progress ?? null;
-            activateScheduleScene(nextStep);
-          };
-
-          const handleScheduleEnter = () => {
-            lenis?.stop();
-            isSchedulePinned = true;
-            isScheduleReleasing = false;
-            activeStep = -1;
-            releaseProgressAnchor = scheduleTrigger?.progress ?? null;
-            suppressUntil = Date.now() + 180;
-            scheduleTheatre.classList.add("is-scroll-driven");
-            setLockedSection(2, "流程");
-            activateScheduleScene(-1);
-            scheduleObserver?.enable();
-            gsap.to(scheduleScenes, {
-              "--schedule-line-scale": 1,
-              "--schedule-line-opacity": 1,
-              duration: 0.48,
-              ease: "power2.out",
-              overwrite: true
-            });
-          };
-
-          const handleScheduleEnterBack = () => {
-            lenis?.stop();
-            isSchedulePinned = true;
-            isScheduleReleasing = false;
-            activeStep = scheduleCards.length - 1;
-            releaseProgressAnchor = scheduleTrigger?.progress ?? null;
-            suppressUntil = Date.now() + 180;
-            scheduleTheatre.classList.add("is-scroll-driven");
-            setLockedSection(2, "流程");
-            activateScheduleScene(activeStep);
-            scheduleObserver?.enable();
-            gsap.set(scheduleScenes, {
-              "--schedule-line-scale": 1,
-              "--schedule-line-opacity": 1
-            });
-          };
-
-          const handleScheduleLeave = () => {
-            scheduleObserver?.disable();
-            lenis?.start();
-            isSchedulePinned = false;
-            isScheduleReleasing = false;
-            releaseProgressAnchor = null;
-            scheduleTheatre.classList.remove("is-scroll-driven");
-            setLockedSection(null);
-            activateScheduleScene(scheduleCards.length - 1);
-          };
-
-          const handleScheduleLeaveBack = () => {
-            scheduleObserver?.disable();
-            lenis?.start();
-            isSchedulePinned = false;
-            isScheduleReleasing = false;
-            activeStep = -1;
-            releaseProgressAnchor = null;
-            scheduleTheatre.classList.remove("is-scroll-driven");
-            setLockedSection(null);
-            activateScheduleScene(-1);
-            gsap.to(scheduleScenes, {
-              "--schedule-line-scale": 0,
-              "--schedule-line-opacity": 0,
-              duration: 0.32,
-              ease: "power2.out",
-              overwrite: true
-            });
-          };
-
-          scheduleTrigger = ScrollTrigger.create({
-            trigger: scheduleTheatre,
-            start: `top top+=${schedulePinOffset}`,
-            end: `+=${scheduleScrollLength}`,
-            pin: true,
-            scrub: false,
-            onUpdate: (self) => {
-              if (!isSchedulePinned || isScheduleReleasing || releaseProgressAnchor === null) {
-                return;
-              }
-
-              const progressDelta = self.progress - releaseProgressAnchor;
-              if (activeStep === scheduleCards.length - 1 && progressDelta > 0.015) {
-                releaseSchedule(1);
-                return;
-              }
-
-              if (activeStep === -1 && progressDelta < -0.015) {
-                releaseSchedule(-1);
-              }
-            },
-            onEnter: handleScheduleEnter,
-            onEnterBack: handleScheduleEnterBack,
-            onLeave: handleScheduleLeave,
-            onLeaveBack: handleScheduleLeaveBack
-          });
-
-          const releaseSchedule = (direction: 1 | -1) => {
-            if (!scheduleTrigger || isScheduleReleasing) {
-              return;
+        gsap.fromTo(
+          ".schedule-scenes",
+          { "--schedule-line-scale": 0, "--schedule-line-opacity": 0 },
+          {
+            "--schedule-line-scale": 1,
+            "--schedule-line-opacity": 1,
+            duration: 1.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".schedule-scenes",
+              start: "top 76%",
+              once: true
             }
-
-            scheduleObserver?.disable();
-            isSchedulePinned = false;
-            isScheduleReleasing = true;
-            releaseProgressAnchor = null;
-            lenis?.start();
-            const fallbackOffset = Math.max(window.innerHeight * 0.42, schedulePinOffset + 12);
-            const target = direction > 0
-              ? Math.max(
-                  scheduleTrigger.end + fallbackOffset,
-                  (dressSection?.offsetTop ?? scheduleTrigger.end) - schedulePinOffset
-                )
-              : Math.min(
-                  scheduleTrigger.start - fallbackOffset,
-                  (signalSection?.offsetTop ?? scheduleTrigger.start) - schedulePinOffset
-                );
-            suppressUntil = Date.now() + 460;
-            window.requestAnimationFrame(() => {
-              lenis?.scrollTo(target, {
-                duration: 0.48,
-                force: true,
-                easing: (t) => 1 - Math.pow(1 - t, 3),
-                onComplete: () => {
-                  ScrollTrigger.refresh();
-                  isScheduleReleasing = false;
-                  suppressUntil = Date.now() + 120;
-                }
-              });
-            });
-          };
-
-          const triggerScheduleStep = (direction: 1 | -1) => {
-            const now = Date.now();
-            if (!isSchedulePinned || isScheduleReleasing || now < suppressUntil) {
-              return;
-            }
-
-            suppressUntil = now + 750;
-
-            if (direction > 0) {
-              if (activeStep < scheduleCards.length - 1) {
-                setActiveScheduleStep(activeStep + 1);
-                return;
-              }
-              releaseSchedule(1);
-              return;
-            }
-
-            if (activeStep > -1) {
-              setActiveScheduleStep(activeStep - 1);
-              return;
-            }
-
-            releaseSchedule(-1);
-          };
-
-          scheduleObserver = Observer.create({
-            target: window,
-            type: "wheel,touch",
-            preventDefault: true,
-            tolerance: 24,
-            wheelSpeed: 1,
-            onDown: () => triggerScheduleStep(1),
-            onUp: () => triggerScheduleStep(-1)
-          });
-          scheduleObserver.disable();
-          disposers.push(() => scheduleObserver?.kill());
-        } else {
-          gsap.fromTo(
-            ".schedule-scenes",
-            { "--schedule-line-scale": 0, "--schedule-line-opacity": 0 },
-            {
-              "--schedule-line-scale": 1,
-              "--schedule-line-opacity": 1,
-              duration: 1.15,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: ".schedule-scenes",
-                start: "top 76%",
-                once: true
-              }
-            }
-          );
-        }
+          }
+        );
       } else {
         gsap.set(scheduleCards, {
           autoAlpha: 1,

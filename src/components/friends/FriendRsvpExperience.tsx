@@ -599,13 +599,6 @@ export function FriendRsvpExperience({
               {message}
             </p>
           ) : null}
-          {status === "success" ? (
-            <LineOfficialCta
-              variant="rsvp-success"
-              lineAddFriendUrl={lineAddFriendUrl}
-              qrCodeSrc={lineQrCodeSrc}
-            />
-          ) : null}
           <div className="rsvp-buttons">
             {status !== "success" && (
               <button

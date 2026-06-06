@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ProgressiveBlur } from "@/components/ui/skiper-ui/skiper41";
 
 export function FriendsHeader() {
   const [hidden, setHidden] = useState(false);
+  const [hoverVisible, setHoverVisible] = useState(false);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const THRESHOLD = 8;
@@ -22,8 +24,10 @@ export function FriendsHeader() {
 
         if (delta > THRESHOLD && currentY > 80) {
           setHidden(true);
+          setHoverVisible(false);
         } else if (delta < -THRESHOLD) {
           setHidden(false);
+          setHoverVisible(false);
         }
 
         lastScrollY.current = currentY;
@@ -35,12 +39,36 @@ export function FriendsHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleTriggerEnter = useCallback(() => {
+    const isDesktop = window.matchMedia("(pointer: fine)").matches;
+    if (hidden && isDesktop) {
+      setHoverVisible(true);
+    }
+  }, [hidden]);
+
+  const handleHeaderLeave = useCallback(() => {
+    if (hoverVisible) {
+      setHoverVisible(false);
+    }
+  }, [hoverVisible]);
+
+  const isShown = !hidden || hoverVisible;
+
   return (
     <>
-      <div className={`friends-progressive-blur ${hidden ? "is-hidden" : ""}`} aria-hidden="true">
+      <div
+        className="friends-header-hover-zone"
+        aria-hidden="true"
+        onMouseEnter={handleTriggerEnter}
+      />
+      <div className={`friends-progressive-blur ${isShown ? "" : "is-hidden"}`} aria-hidden="true">
         <ProgressiveBlur backgroundColor="#f7f6f2" blurAmount="4px" />
       </div>
-      <header className={`friends-v2-header ${hidden ? "is-hidden" : ""}`}>
+      <header
+        ref={headerRef}
+        className={`friends-v2-header ${isShown ? "" : "is-hidden"}`}
+        onMouseLeave={handleHeaderLeave}
+      >
         <a className="friends-v2-brand" href="#opening" aria-label="Yuan and 4J wedding opening">
           4J&Yuan
         </a>

@@ -1629,6 +1629,24 @@ img {
   mix-blend-mode: overlay;
 }
 
+.friends-header-hover-zone {
+  display: none;
+}
+
+@media (pointer: fine) {
+  .friends-header-hover-zone {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 41;
+    width: 100%;
+    height: 18px;
+    background: transparent;
+    pointer-events: auto;
+  }
+}
+
 .friends-progressive-blur {
   position: fixed;
   top: 0;
@@ -2120,24 +2138,6 @@ img {
   transform: skewX(-18deg) translateX(340%);
 }
 
-.schedule-theatre.is-scroll-driven .schedule-scene:hover {
-  border-color: rgba(183, 199, 217, 0.18);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(247, 246, 242, 0.1)),
-    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.28), transparent 32%),
-    rgba(247, 246, 242, 0.12);
-  box-shadow:
-    0 12px 40px rgba(78, 70, 75, 0.05),
-    0 1px 0 rgba(255, 255, 255, 0.22) inset,
-    0 0 0 1px rgba(183, 199, 217, 0.08) inset;
-  transform: scale(0.97);
-}
-
-.schedule-theatre.is-scroll-driven .schedule-scene:hover::before {
-  opacity: 0;
-  transform: skewX(-18deg) translateX(0);
-}
-
 .schedule-scene time {
   display: block;
   font-size: 5.4rem;
@@ -2175,47 +2175,6 @@ img {
 
 .schedule-scene:hover h3 {
   color: rgba(47, 48, 47, 0.92);
-  transform: translateY(4px);
-}
-
-.schedule-scene.is-scroll-active {
-  border-color: rgba(183, 199, 217, 0.72);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.62)),
-    radial-gradient(circle at 22% 16%, rgba(255, 255, 255, 0.92), transparent 38%),
-    rgba(255, 255, 255, 0.58);
-  backdrop-filter: blur(28px) saturate(1.4);
-  -webkit-backdrop-filter: blur(28px) saturate(1.4);
-  box-shadow:
-    0 48px 110px rgba(78, 70, 75, 0.18),
-    0 0 64px rgba(183, 199, 217, 0.35),
-    0 0 48px rgba(246, 214, 220, 0.22),
-    0 1px 0 rgba(255, 255, 255, 0.82) inset,
-    0 0 0 1px rgba(246, 214, 220, 0.28) inset;
-  transform: scale(1.02) translateY(-14px) rotateX(2.8deg) rotateY(-2.8deg);
-}
-
-.schedule-scene.is-scroll-active::after {
-  border-color: rgba(183, 199, 217, 0.38);
-  box-shadow: 0 0 28px rgba(183, 199, 217, 0.18) inset;
-}
-
-.schedule-scene.is-scroll-active::before {
-  opacity: 0.82;
-  transform: skewX(-18deg) translateX(340%);
-}
-
-.schedule-scene.is-scroll-active time {
-  color: rgba(45, 43, 44, 0.96);
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9),
-    0 0 22px rgba(246, 214, 220, 0.5),
-    0 0 48px rgba(183, 199, 217, 0.48);
-  transform: translateY(-4px);
-}
-
-.schedule-scene.is-scroll-active h3 {
-  color: rgba(47, 48, 47, 0.96);
   transform: translateY(4px);
 }
 
