@@ -34,6 +34,12 @@ export type RsvpPayload = RsvpFormData & {
 };
 
 const TAIWAN_MOBILE_REGEX = /^09\d{8}$/;
+const PLACEHOLDER_RSVP_TOKENS = new Set([
+  "",
+  "replace-with-the-same-token-as-apps-script",
+  "TODO",
+  "todo"
+]);
 
 export function normalizePhoneNumber(value: string): string {
   return value.replace(/\D/g, "").slice(0, 10);
@@ -225,15 +231,16 @@ export async function submitRsvp(
     throw new Error("出席回覆尚未開放，請稍後再試");
   }
 
-  const rsvpToken = process.env.NEXT_PUBLIC_RSVP_TOKEN;
+  const rsvpToken = (process.env.NEXT_PUBLIC_RSVP_TOKEN ?? "").trim();
   const body = rsvpToken ? { ...payload, rsvpToken } : payload;
+  const sanitizedBody = PLACEHOLDER_RSVP_TOKENS.has(rsvpToken) ? payload : body;
 
   const response = await fetcher(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "text/plain;charset=utf-8"
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify(sanitizedBody)
   });
 
   if (!response.ok) {

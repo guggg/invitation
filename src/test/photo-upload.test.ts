@@ -42,7 +42,7 @@ describe("photo upload validation", () => {
   it("rejects files that are 10MB or larger", () => {
     expect(validatePhotoUploadFile(imageFile("large.jpg", "image/jpeg", 10 * 1024 * 1024))).toMatchObject({
       ok: false,
-      message: "照片檔案太大，請選擇小於 10MB 的照片。"
+      message: "照片檔案有點太大囉，請放心我會用AI幫你把畫質拉高，請重新選擇小於 10MB 的照片。"
     });
   });
 });

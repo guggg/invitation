@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { clsx } from "clsx";
 import { Check, ImagePlus, LockKeyhole, Send, Sparkles } from "lucide-react";
 import {
+  PHOTO_UPLOAD_STORAGE_KEY,
   buildPhotoUploadPayload,
   formatPhotoUploadPhone,
   readPhotoUploadState,
@@ -28,9 +29,15 @@ export function PhotoUploadExperience({ endpoint, sourceRoute, variant, fetcher 
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
-  const [storedState, setStoredState] = useState<PhotoUploadStoredState | null>(() => readPhotoUploadState());
+  const [storedStateOverride, setStoredStateOverride] = useState<PhotoUploadStoredState | null>(null);
   const archiveVisualRef = useRef<HTMLDivElement | null>(null);
   const pointerStateRef = useRef({ x: 0, y: 0, time: 0 });
+  const storedStateSnapshot = useSyncExternalStore(
+    subscribePhotoUploadState,
+    readPhotoUploadState,
+    () => null
+  );
+  const storedState = storedStateOverride ?? storedStateSnapshot;
 
   const isFriend = variant === "friend";
   const selectedFileLabel = useMemo(() => {
@@ -92,7 +99,7 @@ export function PhotoUploadExperience({ endpoint, sourceRoute, variant, fetcher 
         fileName: storedFileName,
         submittedAt: payload.submittedAt
       });
-      setStoredState({
+      setStoredStateOverride({
         submitted: true,
         name: payload.name,
         phone: payload.phone,
@@ -242,4 +249,19 @@ export function PhotoUploadExperience({ endpoint, sourceRoute, variant, fetcher 
       </div>
     </div>
   );
+}
+
+function subscribePhotoUploadState(onStoreChange: () => void) {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === null || event.key === PHOTO_UPLOAD_STORAGE_KEY) {
+      onStoreChange();
+    }
+  };
+
+  window.addEventListener("storage", handleStorage);
+  return () => window.removeEventListener("storage", handleStorage);
 }

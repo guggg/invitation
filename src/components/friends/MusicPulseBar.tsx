@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { MusicToggleButton } from "@/components/ui/skiper-ui/skiper25";
+import { AnimatedNumber } from "@/components/ui/skiper-ui/skiper37";
 import { ProgressiveBlur } from "@/components/ui/skiper-ui/skiper41";
 import { createCountdownParts, type CountdownParts } from "@/lib/countdown";
 import {
@@ -14,7 +15,6 @@ import { wedding } from "@/lib/wedding";
 
 const BAR_COUNT = 6;
 const IDLE_HEIGHT = 0.08;
-const BAR_MAX_PX = 28;
 const DEFAULT_MESSAGE = weddingWelcomeMessages[0];
 
 function randomBarHeights(): number[] {
@@ -53,6 +53,12 @@ function formatCompactCountdown(parts: CountdownParts | null): string {
   }
 
   return `距離婚禮還有 ${parts.days} 天 ${parts.hours}:${parts.minutes}:${parts.seconds}`;
+}
+
+function countdownValue(value: string | undefined) {
+  if (!value) return 0;
+  const parsed = Number.parseInt(value, 10);
+  return Number.isNaN(parsed) ? 0 : parsed;
 }
 
 function useCountdownParts(targetIso: string, initialNow?: Date) {
@@ -188,6 +194,12 @@ export function MusicPulseBar({ initialNow, targetIso = wedding.dateTimeIso }: M
   const reduceMotion = usePrefersReducedMotion();
   const countdownParts = useCountdownParts(targetIso, initialNow);
   const typewriterMessage = useTypewriterMessage(reduceMotion);
+  const displayHeights = isPlaying && !reduceMotion ? barHeights : idleBarHeights();
+  const countdownLabel = formatCompactCountdown(countdownParts);
+  const dayValue = countdownValue(countdownParts?.days);
+  const hourValue = countdownValue(countdownParts?.hours);
+  const minuteValue = countdownValue(countdownParts?.minutes);
+  const secondValue = countdownValue(countdownParts?.seconds);
 
   // Create audio element once on mount; sync isPlaying with OS play/pause events
   useEffect(() => {
@@ -305,51 +317,40 @@ export function MusicPulseBar({ initialNow, targetIso = wedding.dateTimeIso }: M
 
   return (
     <div className="music-glass-shell">
-      <div className="music-glass-blur" aria-hidden="true">
+      <div className="friends-progressive-blur friends-progressive-blur-bottom" aria-hidden="true">
         <ProgressiveBlur
           position="bottom"
-          height="96px"
-          backgroundColor="#10131d"
-          blurAmount="14px"
+          height="150px"
+          backgroundColor="#f7f6f2"
+          blurAmount="4px"
         />
       </div>
       {/* No aria-label on the div — it has no role, screen readers ignore it.
       The meaningful label lives on the button below. */}
       <div className="music-glass-bar">
-        <div className="music-countdown-ticker" aria-live="polite">
-          <span className="music-countdown-time">{formatCompactCountdown(countdownParts)}</span>
+        <div className="music-countdown-ticker" aria-live="polite" aria-label={countdownLabel}>
+          <span className="sr-only">{countdownLabel}</span>
+          <span className="music-countdown-label">距離婚禮還有</span>
+          <span className="music-countdown-time" aria-hidden="true">
+            <AnimatedNumber value={dayValue} padDigits={2} className="music-countdown-number" />
+            <span className="music-countdown-unit">天</span>
+            <AnimatedNumber value={hourValue} padDigits={2} className="music-countdown-number" />
+            <span className="music-countdown-colon">:</span>
+            <AnimatedNumber value={minuteValue} padDigits={2} className="music-countdown-number" />
+            <span className="music-countdown-colon">:</span>
+            <AnimatedNumber value={secondValue} padDigits={2} className="music-countdown-number" />
+          </span>
           <span className="music-countdown-separator" aria-hidden="true">·</span>
           <span className="music-countdown-message">{typewriterMessage}</span>
           {!reduceMotion && <span className="music-countdown-cursor" aria-hidden="true">|</span>}
         </div>
-        <button
-          type="button"
-          className="music-pulse-btn"
-          onClick={toggle}
-          aria-label={isPlaying ? "暫停背景音樂" : "播放背景音樂"}
-          aria-pressed={isPlaying}
-        >
-          {/* Icon */}
-          <span className="music-pulse-icon" aria-hidden="true">
-            {isPlaying ? <Volume2 size={14} strokeWidth={2} /> : <VolumeX size={14} strokeWidth={2} />}
-          </span>
-
-          {/* Waveform bars */}
-          <span className="music-pulse-bars" aria-hidden="true">
-            {(isPlaying && !reduceMotion ? barHeights : idleBarHeights()).map((h, i) => (
-              <span
-                key={i}
-                className="music-pulse-bar-item"
-                style={{ height: `${Math.round(h * BAR_MAX_PX)}px` }}
-              />
-            ))}
-          </span>
-
-          {/* Manual play prompt shown when autoplay was blocked by browser policy */}
-          {needsManualPlay && (
-            <span className="music-pulse-hint">點擊播放音樂</span>
-          )}
-        </button>
+        <MusicToggleButton
+          isPlaying={isPlaying}
+          onToggle={toggle}
+          heights={displayHeights}
+          hint={needsManualPlay ? "點擊播放音樂" : null}
+          label={isPlaying ? "暫停背景音樂" : "播放背景音樂"}
+        />
       </div>
     </div>
   );

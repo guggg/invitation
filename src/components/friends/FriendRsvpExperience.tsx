@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { clsx } from "clsx";
 import { Check, Minus, Plus, Send } from "lucide-react";
+import { LineOfficialCta } from "@/components/LineOfficialCta";
 import {
   buildRsvpPayload,
   formatPhoneInput,
@@ -15,6 +16,8 @@ import {
 type FriendRsvpExperienceProps = {
   endpoint: string;
   fetcher?: typeof fetch;
+  lineAddFriendUrl: string;
+  lineQrCodeSrc: string;
 };
 
 type WizardStep = "intent" | "identity" | "details" | "transport" | "card";
@@ -57,7 +60,12 @@ const defaultData: WizardData = {
   needsShuttle: true
 };
 
-export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperienceProps) {
+export function FriendRsvpExperience({
+  endpoint,
+  fetcher,
+  lineAddFriendUrl,
+  lineQrCodeSrc
+}: FriendRsvpExperienceProps) {
   const [step, setStep] = useState<WizardStep>("intent");
   const [data, setData] = useState<WizardData>(defaultData);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -562,6 +570,13 @@ export function FriendRsvpExperience({ endpoint, fetcher }: FriendRsvpExperience
               {status === "success" ? <Check size={18} aria-hidden="true" /> : null}
               {message}
             </p>
+          ) : null}
+          {status === "success" ? (
+            <LineOfficialCta
+              variant="rsvp-success"
+              lineAddFriendUrl={lineAddFriendUrl}
+              qrCodeSrc={lineQrCodeSrc}
+            />
           ) : null}
           <div className="rsvp-buttons">
             {status !== "success" && (

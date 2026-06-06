@@ -27,6 +27,9 @@ export type PhotoUploadStoredState = {
   submittedAt: string;
 };
 
+let cachedPhotoUploadRaw: string | null | undefined;
+let cachedPhotoUploadState: PhotoUploadStoredState | null = null;
+
 export function validatePhotoUploadFile(file: File): { ok: true } | { ok: false; message: string } {
   if (!PHOTO_UPLOAD_ALLOWED_TYPES.includes(file.type as (typeof PHOTO_UPLOAD_ALLOWED_TYPES)[number])) {
     return { ok: false, message: "目前只接受照片檔案。" };
@@ -121,14 +124,22 @@ export function readPhotoUploadState(): PhotoUploadStoredState | null {
   }
 
   const raw = safeStorageRead();
+  if (raw === cachedPhotoUploadRaw) {
+    return cachedPhotoUploadState;
+  }
+
+  cachedPhotoUploadRaw = raw;
   if (!raw) {
+    cachedPhotoUploadState = null;
     return null;
   }
 
   try {
     const parsed = JSON.parse(raw) as PhotoUploadStoredState;
-    return parsed.submitted ? parsed : null;
+    cachedPhotoUploadState = parsed.submitted ? parsed : null;
+    return cachedPhotoUploadState;
   } catch {
+    cachedPhotoUploadState = null;
     return null;
   }
 }
@@ -139,7 +150,10 @@ export function writePhotoUploadState(state: Omit<PhotoUploadStoredState, "submi
   }
 
   try {
-    localStorage.setItem(PHOTO_UPLOAD_STORAGE_KEY, JSON.stringify({ submitted: true, ...state }));
+    const nextRaw = JSON.stringify({ submitted: true, ...state });
+    cachedPhotoUploadRaw = nextRaw;
+    cachedPhotoUploadState = { submitted: true, ...state };
+    localStorage.setItem(PHOTO_UPLOAD_STORAGE_KEY, nextRaw);
   } catch {
     // Browsers may disable localStorage in private or restricted contexts.
   }

@@ -5,6 +5,7 @@ import { DressCodeSection } from "@/components/friends/DressCodeSection";
 import { FriendRsvpExperience } from "@/components/friends/FriendRsvpExperience";
 import { FriendsHeader } from "@/components/friends/FriendsHeader";
 import { FriendsMotionController } from "@/components/friends/FriendsMotionController";
+import { LineOfficialCta } from "@/components/LineOfficialCta";
 import { MusicPulseBar } from "@/components/friends/MusicPulseBar";
 import { LivingBackground } from "@/components/friends/LivingBackground";
 import { PhotoUploadExperience } from "@/components/PhotoUploadExperience";
@@ -19,9 +20,16 @@ import { wedding } from "@/lib/wedding";
 type FriendsExperienceProps = {
   endpoint: string;
   photoUploadEndpoint: string;
+  lineAddFriendUrl: string;
+  lineQrCodeSrc: string;
 };
 
-export function FriendsExperience({ endpoint, photoUploadEndpoint }: FriendsExperienceProps) {
+export function FriendsExperience({
+  endpoint,
+  photoUploadEndpoint,
+  lineAddFriendUrl,
+  lineQrCodeSrc
+}: FriendsExperienceProps) {
   return (
     <main className="friends-v2-shell">
       <LivingBackground />
@@ -57,6 +65,7 @@ export function FriendsExperience({ endpoint, photoUploadEndpoint }: FriendsExpe
                 width={photo.width}
                 height={photo.height}
                 priority={index === 0}
+                loading={index < 2 ? "eager" : undefined}
                 sizes="(max-width: 768px) 42vw, 18vw"
               />
             </figure>
@@ -175,7 +184,11 @@ export function FriendsExperience({ endpoint, photoUploadEndpoint }: FriendsExpe
           <h2>告訴我們你會不會來。</h2>
           <span>填完後，我們會把你的回覆收進婚禮名單，也會依照你的交通安排幫你保留接駁座位。</span>
         </div>
-        <FriendRsvpExperience endpoint={endpoint} />
+        <FriendRsvpExperience
+          endpoint={endpoint}
+          lineAddFriendUrl={lineAddFriendUrl}
+          lineQrCodeSrc={lineQrCodeSrc}
+        />
       </section>
 
       <section
@@ -184,6 +197,13 @@ export function FriendsExperience({ endpoint, photoUploadEndpoint }: FriendsExpe
         data-friend-section="9"
         data-section-label="那天見"
       >
+        <div data-fx="blur-reveal">
+          <LineOfficialCta
+            variant="footer"
+            lineAddFriendUrl={lineAddFriendUrl}
+            qrCodeSrc={lineQrCodeSrc}
+          />
+        </div>
         <div data-fx="blur-reveal">
           <p>那天見</p>
           <h2>2026.10.3</h2>

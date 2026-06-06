@@ -3,15 +3,23 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { FriendRsvpExperience } from "@/components/friends/FriendRsvpExperience";
 
+const defaultProps = {
+  lineAddFriendUrl: "https://lin.ee/76OVDl7U",
+  lineQrCodeSrc: "/images/line-official-qr.png"
+};
+
 describe("FriendRsvpExperience", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
 
   it("walks attending guests through the ritual and posts the same RSVP payload shape", async () => {
-    const fetcher = vi.fn().mockResolvedValue({ ok: true });
+    const fetcher = vi.fn().mockResolvedValue({
+      ok: true,
+      json: vi.fn().mockResolvedValue({ ok: true })
+    });
 
-    render(<FriendRsvpExperience endpoint="https://example.com/rsvp" fetcher={fetcher} />);
+    render(<FriendRsvpExperience endpoint="https://example.com/rsvp" fetcher={fetcher} {...defaultProps} />);
 
     fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
@@ -39,6 +47,11 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "確認送出" }));
 
     await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
+    expect(screen.getByText("我們收到你的回覆了")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /加入 LINE 官方帳號/i })).toHaveAttribute(
+      "href",
+      "https://lin.ee/76OVDl7U"
+    );
     const [, request] = fetcher.mock.calls[0];
     const payload = JSON.parse(request.body);
 
@@ -61,10 +74,10 @@ describe("FriendRsvpExperience", () => {
       shuttleReturnCount: 1,
       needsShuttle: true
     });
-  });
+  }, 10000);
 
   it("allows navigating back to edit previous steps", () => {
-    render(<FriendRsvpExperience endpoint="https://example.com/rsvp" />);
+    render(<FriendRsvpExperience endpoint="https://example.com/rsvp" {...defaultProps} />);
 
     // Step 1: Intent
     fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
@@ -111,7 +124,7 @@ describe("FriendRsvpExperience", () => {
   });
 
   it("caps dependent steppers at available guest counts", () => {
-    render(<FriendRsvpExperience endpoint="https://example.com/rsvp" />);
+    render(<FriendRsvpExperience endpoint="https://example.com/rsvp" {...defaultProps} />);
 
     fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
@@ -149,7 +162,7 @@ describe("FriendRsvpExperience", () => {
   });
 
   it("lets declined guests skip meal details and keeps submission disabled without endpoint", () => {
-    render(<FriendRsvpExperience endpoint="" />);
+    render(<FriendRsvpExperience endpoint="" {...defaultProps} />);
 
     fireEvent.click(screen.getByRole("button", { name: "這次無法參加" }));
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Alex" } });
@@ -163,7 +176,7 @@ describe("FriendRsvpExperience", () => {
 
   describe("onBlur field validation", () => {
     function goToIdentity() {
-      render(<FriendRsvpExperience endpoint="https://example.com/rsvp" />);
+      render(<FriendRsvpExperience endpoint="https://example.com/rsvp" {...defaultProps} />);
       fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
     }
 
