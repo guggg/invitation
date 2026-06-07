@@ -10,6 +10,7 @@ import { MusicPulseBar } from "@/components/friends/MusicPulseBar";
 import { LivingBackground } from "@/components/friends/LivingBackground";
 import { PhotoUploadExperience } from "@/components/PhotoUploadExperience";
 import { ProjectGallery } from "@/components/friends/ProjectGallery";
+import { ScrollExpandVideoSection } from "@/components/friends/ScrollExpandVideoSection";
 import { SectionRail } from "@/components/friends/SectionRail";
 import { ShuttleBoard } from "@/components/friends/ShuttleBoard";
 import { ShuttlePicker } from "@/components/friends/ShuttlePicker";
@@ -141,6 +142,10 @@ export function FriendsExperience({
       </section>
 
       <ProjectGallery />
+
+      <ScrollExpandVideoSection
+        src="/video/intro.mp4"
+      />
 
       <section
         id="secret-archive"
