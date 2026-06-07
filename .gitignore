@@ -20,3 +20,7 @@ tsconfig.tsbuildinfo
 !.dev.vars.example
 
 !.env.example
+
+# Video assets (too large for Git)
+public/video/*.MOV
+public/video/*.mp4
