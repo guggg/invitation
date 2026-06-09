@@ -67,7 +67,7 @@ describe("RsvpForm", () => {
       transportMode: "shuttle",
       selfTransportMode: "",
       shuttleOutboundCount: 2,
-      shuttleReturnCount: 1,
+      shuttleReturnCount: 2,
       needsShuttle: true
     });
   });
@@ -95,7 +95,9 @@ describe("RsvpForm", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "0-4 歲人數 -" }));
 
-    expect(screen.getByLabelText("兒童座椅數量")).toHaveTextContent("0");
+    expect(screen.queryByLabelText("兒童座椅數量")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("需要兒童座椅")).not.toBeChecked();
+    expect(screen.getByLabelText("需要兒童座椅")).toBeDisabled();
     expect(vegetarianPlus).toBeDisabled();
     expect(shuttleOutboundPlus).toBeDisabled();
     expect(shuttleReturnPlus).toBeDisabled();

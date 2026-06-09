@@ -74,8 +74,8 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
       attendsCeremony: true,
       transportMode: "shuttle",
       selfTransportMode: "",
-      shuttleOutboundCount: 0,
-      shuttleReturnCount: 0
+      shuttleOutboundCount: 1,
+      shuttleReturnCount: 1
     },
     shouldUnregister: true
   });
@@ -104,12 +104,29 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
   );
 
   useEffect(() => {
-    if (vegetarianCount > totalGuestCount) {
-      setValue("vegetarianCount", totalGuestCount, { shouldDirty: true, shouldValidate: true });
+    if (childCountUnder4 === 0) {
+      if (needsChildSeat) {
+        setValue("needsChildSeat", false, { shouldDirty: true, shouldValidate: true });
+      }
+      if (childSeatCount !== 0) {
+        setValue("childSeatCount", 0, { shouldDirty: true, shouldValidate: true });
+      }
+    } else {
+      if (needsChildSeat) {
+        if (childSeatCount === 0) {
+          setValue("childSeatCount", 1, { shouldDirty: true, shouldValidate: true });
+        } else if (childSeatCount > childCountUnder4) {
+          setValue("childSeatCount", childCountUnder4, { shouldDirty: true, shouldValidate: true });
+        }
+      } else {
+        if (childSeatCount !== 0) {
+          setValue("childSeatCount", 0, { shouldDirty: true, shouldValidate: true });
+        }
+      }
     }
 
-    if (childSeatCount > childCountUnder4) {
-      setValue("childSeatCount", childCountUnder4, { shouldDirty: true, shouldValidate: true });
+    if (vegetarianCount > totalGuestCount) {
+      setValue("vegetarianCount", totalGuestCount, { shouldDirty: true, shouldValidate: true });
     }
 
     if (transportMode === "shuttle") {
@@ -124,6 +141,7 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
   }, [
     childCountUnder4,
     childSeatCount,
+    needsChildSeat,
     setValue,
     shuttleOutboundCount,
     shuttleReturnCount,
@@ -253,31 +271,49 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
             <NumberField label="4-8 歲人數" value={childCount4to8} variant={variant} onMinus={() => updateCount("childCount4to8", -1)} onPlus={() => updateCount("childCount4to8", 1)} />
             <NumberField label="吃素份數" value={vegetarianCount} variant={variant} max={totalGuestCount} onMinus={() => updateCount("vegetarianCount", -1, totalGuestCount)} onPlus={() => updateCount("vegetarianCount", 1, totalGuestCount)} />
           </div>
-
-          <label className="child-seat-toggle">
-            <input type="checkbox" {...register("needsChildSeat")} />
+ 
+          <label className={clsx("child-seat-toggle", childCountUnder4 === 0 && "opacity-50 cursor-not-allowed")}>
+            <input type="checkbox" {...register("needsChildSeat")} disabled={childCountUnder4 === 0} />
             <span>需要兒童座椅</span>
           </label>
-
+ 
           {needsChildSeat ? (
             <div className="form-grid compact rsvp-count-grid !grid-cols-2 max-[560px]:!grid-cols-1">
               <NumberField label="兒童座椅數量" value={childSeatCount} variant={variant} max={childCountUnder4} onMinus={() => updateCount("childSeatCount", -1, childCountUnder4)} onPlus={() => updateCount("childSeatCount", 1, childCountUnder4)} />
             </div>
           ) : null}
-
+ 
           <div className="rsvp-transport-callout">
             <strong>交通提醒</strong>
             <p>場地位於山區，沿途山路較蜿蜒，現場停車位也非常有限。如果方便的話，真心推薦優先搭乘接駁車，會比自行找車位輕鬆很多。</p>
           </div>
-
+ 
           <div className="rsvp-transport-choice" role="radiogroup" aria-label="交通方式">
             <label className={transportMode === "shuttle" ? "is-active" : undefined}>
-              <input type="radio" value="shuttle" {...register("transportMode")} />
+              <input
+                type="radio"
+                value="shuttle"
+                {...register("transportMode", {
+                  onChange: () => {
+                    setValue("shuttleOutboundCount", 1, { shouldDirty: true, shouldValidate: true });
+                    setValue("shuttleReturnCount", 1, { shouldDirty: true, shouldValidate: true });
+                  }
+                })}
+              />
               <span>強烈推薦：搭乘接駁車</span>
               <small>免找車位、上下山更輕鬆、也更適合和親友一起抵達</small>
             </label>
             <label className={transportMode === "self-arranged" ? "is-active" : undefined}>
-              <input type="radio" value="self-arranged" {...register("transportMode")} />
+              <input
+                type="radio"
+                value="self-arranged"
+                {...register("transportMode", {
+                  onChange: () => {
+                    setValue("shuttleOutboundCount", 0, { shouldDirty: true, shouldValidate: true });
+                    setValue("shuttleReturnCount", 0, { shouldDirty: true, shouldValidate: true });
+                  }
+                })}
+              />
               <span>自行前往</span>
               <small>若不得不自行前往，再幫我們選擇開車或搭車方式</small>
             </label>
