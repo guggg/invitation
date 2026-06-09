@@ -143,6 +143,16 @@ export function FriendRsvpExperience({
         return { ...current, selfTransportMode: value as WizardData["selfTransportMode"] };
       }
 
+      if (field === "needsChildSeat") {
+        const checked = value as boolean;
+        const childSeatCount = checked && current.childSeatCount === 0 && current.childCountUnder4 > 0 ? 1 : checked ? current.childSeatCount : 0;
+        return {
+          ...current,
+          needsChildSeat: checked,
+          childSeatCount
+        };
+      }
+
       return { ...current, [field]: value };
     });
   }
@@ -159,10 +169,14 @@ export function FriendRsvpExperience({
 
   function clampDependentCounts(current: WizardData): WizardData {
     const totalGuestCount = current.adultCount + current.childCountUnder4 + current.childCount4to8;
+    const needsChildSeat = current.childCountUnder4 > 0 ? current.needsChildSeat : false;
+    const childSeatCount = needsChildSeat ? Math.min(current.childSeatCount, current.childCountUnder4) : 0;
+
     return {
       ...current,
+      needsChildSeat,
+      childSeatCount,
       vegetarianCount: Math.min(current.vegetarianCount, totalGuestCount),
-      childSeatCount: Math.min(current.childSeatCount, current.childCountUnder4),
       shuttleOutboundCount: current.transportMode === "shuttle" ? Math.min(current.shuttleOutboundCount, totalGuestCount) : 0,
       shuttleReturnCount: current.transportMode === "shuttle" ? Math.min(current.shuttleReturnCount, totalGuestCount) : 0
     };
@@ -423,10 +437,11 @@ export function FriendRsvpExperience({
           <Stepper label="4-8 歲的小夥伴有幾位？" value={data.childCount4to8} onMinus={() => updateCount("childCount4to8", -1)} onPlus={() => updateCount("childCount4to8", 1)} />
           <Stepper label="我們也想替吃素的朋友準備好，有幾位呢？" value={data.vegetarianCount} max={totalGuestCount} onMinus={() => updateCount("vegetarianCount", -1)} onPlus={() => updateCount("vegetarianCount", 1)} />
 
-          <label className="rsvp-seat-toggle">
+          <label className={clsx("rsvp-seat-toggle", data.childCountUnder4 === 0 && "opacity-50 cursor-not-allowed")}>
             <input
               checked={data.needsChildSeat}
               onChange={(event) => updateField("needsChildSeat", event.target.checked)}
+              disabled={data.childCountUnder4 === 0}
               type="checkbox"
             />
             <span>需要兒童座椅</span>
@@ -668,13 +683,6 @@ export function FriendRsvpExperience({
               {!endpoint ? "出席回覆尚未開放" : status === "submitting" ? "送出中" : "確認送出"}
             </button>
           </div>
-          {status === "success" ? (
-            <LineOfficialCta
-              variant="rsvp-success"
-              lineAddFriendUrl={lineAddFriendUrl}
-              qrCodeSrc={lineQrCodeSrc}
-            />
-          ) : null}
         </div>
       ) : null}
 

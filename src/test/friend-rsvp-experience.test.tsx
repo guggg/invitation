@@ -51,10 +51,6 @@ describe("FriendRsvpExperience", () => {
 
     await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
     expect(screen.getAllByText(/我們收到你的回覆了/).length).toBeGreaterThan(0);
-    expect(screen.getByRole("link", { name: /加入 LINE 官方帳號/i })).toHaveAttribute(
-      "href",
-      "https://lin.ee/76OVDl7U"
-    );
     const [, request] = fetcher.mock.calls[0];
     const payload = JSON.parse(request.body);
 
@@ -161,7 +157,9 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
     fireEvent.click(screen.getByLabelText("0-4 歲的小寶貝有幾位？ -"));
 
-    expect(screen.getByText("兒童座椅數量").parentElement).toHaveTextContent("0");
+    expect(screen.queryByText("兒童座椅數量")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("需要兒童座椅")).not.toBeChecked();
+    expect(screen.getByLabelText("需要兒童座椅")).toBeDisabled();
     expect(screen.getByLabelText("我們也想替吃素的朋友準備好，有幾位呢？ +")).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
     expect(screen.getByLabelText("去程要幫你保留幾個接駁座位？ +")).toBeDisabled();
