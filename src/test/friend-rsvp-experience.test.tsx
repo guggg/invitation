@@ -24,8 +24,10 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
+    fireEvent.click(screen.getByLabelText("女方親友"));
     expect(screen.getByLabelText("聯絡電話")).toHaveValue("0912 345 678");
     fireEvent.click(screen.getByLabelText("需要實體喜帖"));
+    fireEvent.change(screen.getByLabelText("喜帖寄送地址"), { target: { value: "台北市信義區 1 號" } });
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
     fireEvent.click(screen.getByLabelText("請問有幾位大人呢？ +"));
     fireEvent.click(screen.getByLabelText("0-4 歲的小寶貝有幾位？ +"));
@@ -39,6 +41,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
 
     expect(screen.getByText("Yuan")).toBeInTheDocument();
+    expect(screen.getByText("女方親友")).toBeInTheDocument();
     expect(screen.getByText("吃素")).toBeInTheDocument();
     expect(screen.getByText("會一起見證")).toBeInTheDocument();
     expect(screen.getByText("搭乘接駁車")).toBeInTheDocument();
@@ -47,7 +50,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "確認送出" }));
 
     await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
-    expect(screen.getByText("我們收到你的回覆了")).toBeInTheDocument();
+    expect(screen.getAllByText(/我們收到你的回覆了/).length).toBeGreaterThan(0);
     expect(screen.getByRole("link", { name: /加入 LINE 官方帳號/i })).toHaveAttribute(
       "href",
       "https://lin.ee/76OVDl7U"
@@ -60,7 +63,9 @@ describe("FriendRsvpExperience", () => {
       attendance: "attending",
       name: "Yuan",
       phone: "0912345678",
+      guestSide: "bride",
       needsPhysicalInvitation: true,
+      physicalInvitationAddress: "台北市信義區 1 號",
       vegetarianCount: 2,
       adultCount: 2,
       childCountUnder4: 1,
@@ -85,6 +90,7 @@ describe("FriendRsvpExperience", () => {
     // Step 2: Identity
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
+    fireEvent.click(screen.getByLabelText("男方親友"));
 
     // Go back from step 2 to step 1
     fireEvent.click(screen.getByRole("button", { name: "上一頁" }));
@@ -129,6 +135,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "我會到場" }));
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
+    fireEvent.click(screen.getByLabelText("男方親友"));
     fireEvent.click(screen.getByRole("button", { name: "下一步" }));
 
     const vegetarianPlus = screen.getByLabelText("我們也想替吃素的朋友準備好，有幾位呢？ +");
@@ -167,6 +174,7 @@ describe("FriendRsvpExperience", () => {
     fireEvent.click(screen.getByRole("button", { name: "這次無法參加" }));
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Alex" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0911111111" } });
+    fireEvent.click(screen.getByLabelText("男方親友"));
     fireEvent.click(screen.getByRole("button", { name: "確認回覆內容" }));
 
     expect(screen.queryByText("請問有幾位大人呢？")).not.toBeInTheDocument();

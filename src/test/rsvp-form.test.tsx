@@ -36,8 +36,10 @@ describe("RsvpForm", () => {
 
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
+    fireEvent.click(screen.getByLabelText("女方親友"));
     expect(screen.getByLabelText("聯絡電話")).toHaveValue("0912 345 678");
     fireEvent.click(screen.getByLabelText("需要實體喜帖"));
+    fireEvent.change(screen.getByLabelText("喜帖寄送地址"), { target: { value: "台北市信義區 1 號" } });
     fireEvent.click(screen.getByRole("button", { name: "0-4 歲人數 +" }));
     fireEvent.click(screen.getByRole("button", { name: "吃素份數 +" }));
     fireEvent.click(screen.getByRole("button", { name: "吃素份數 +" }));
@@ -55,7 +57,9 @@ describe("RsvpForm", () => {
       attendance: "attending",
       name: "Yuan",
       phone: "0912345678",
+      guestSide: "bride",
       needsPhysicalInvitation: true,
+      physicalInvitationAddress: "台北市信義區 1 號",
       vegetarianCount: 2,
       childCountUnder4: 1,
       childCount4to8: 0,
@@ -102,6 +106,7 @@ describe("RsvpForm", () => {
 
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0912345678" } });
+    fireEvent.click(screen.getByLabelText("男方親友"));
     fireEvent.click(screen.getByRole("radio", { name: /自行前往/ }));
     fireEvent.click(screen.getByRole("button", { name: "送出回覆" }));
 
@@ -113,6 +118,7 @@ describe("RsvpForm", () => {
 
     fireEvent.change(screen.getByLabelText("名字"), { target: { value: "Yuan" } });
     fireEvent.change(screen.getByLabelText("聯絡電話"), { target: { value: "0812345678" } });
+    fireEvent.click(screen.getByLabelText("男方親友"));
     fireEvent.click(screen.getByRole("button", { name: "送出回覆" }));
 
     await waitFor(() => expect(screen.getByText("請填寫正確手機號碼")).toBeInTheDocument());

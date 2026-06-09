@@ -3,6 +3,7 @@ import { z } from "zod";
 export const RSVP_DEADLINE_TAIPEI = "2026-07-07";
 
 export type Attendance = "attending" | "declined";
+export type GuestSide = "groom" | "bride";
 export type SourceRoute = "/" | "/family";
 export type TransportMode = "shuttle" | "self-arranged" | "";
 export type SelfTransportMode = "drive" | "taxi" | "";
@@ -11,6 +12,7 @@ export type RsvpFormData = {
   attendance: Attendance;
   name: string;
   phone: string;
+  guestSide: GuestSide;
   needsPhysicalInvitation: boolean;
   physicalInvitationAddress: string;
   vegetarianCount: number;
@@ -76,6 +78,7 @@ const rawRsvpSchema = z.object({
     .min(1, "請填寫聯絡電話")
     .refine(isValidTaiwanMobilePhone, "請填寫正確手機號碼")
     .transform(normalizePhoneNumber),
+  guestSide: z.enum(["groom", "bride"], { message: "請選擇男方或女方親友" }),
   needsPhysicalInvitation: z
     .preprocess((value) => value === true || value === "true" || value === "on", z.boolean())
     .default(false),
@@ -119,6 +122,7 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
       attendance: data.attendance,
       name: data.name,
       phone: data.phone,
+      guestSide: data.guestSide,
       needsPhysicalInvitation: false,
       physicalInvitationAddress: "",
       vegetarianCount: 0,
@@ -193,6 +197,7 @@ export function parseRsvpForm(input: unknown): RsvpFormData {
     attendance: data.attendance,
     name: data.name,
     phone: data.phone,
+    guestSide: data.guestSide,
     needsPhysicalInvitation: data.needsPhysicalInvitation,
     physicalInvitationAddress: data.needsPhysicalInvitation ? data.physicalInvitationAddress : "",
     vegetarianCount: data.vegetarianCount!,

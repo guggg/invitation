@@ -9,6 +9,7 @@ import {
   formatPhoneInput,
   submitRsvp,
   type Attendance,
+  type GuestSide,
   type SelfTransportMode,
   type SourceRoute
 } from "@/lib/rsvp";
@@ -17,6 +18,7 @@ type FormValues = {
   attendance: Attendance;
   name: string;
   phone: string;
+  guestSide: GuestSide | "";
   needsPhysicalInvitation?: boolean;
   physicalInvitationAddress?: string;
   vegetarianCount?: number;
@@ -60,6 +62,7 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
   } = useForm<FormValues>({
     defaultValues: {
       attendance: "attending",
+      guestSide: "",
       needsPhysicalInvitation: false,
       physicalInvitationAddress: "",
       vegetarianCount: 0,
@@ -211,6 +214,17 @@ export function RsvpForm({ endpoint, sourceRoute, variant }: RsvpFormProps) {
               }
             })}
           />
+        </label>
+      </div>
+
+      <div className="rsvp-option-grid" role="radiogroup" aria-label="親友來源">
+        <label className="child-seat-toggle">
+          <input type="radio" value="groom" {...register("guestSide")} />
+          <span>男方親友</span>
+        </label>
+        <label className="child-seat-toggle">
+          <input type="radio" value="bride" {...register("guestSide")} />
+          <span>女方親友</span>
         </label>
       </div>
 

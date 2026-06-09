@@ -6,6 +6,7 @@ const HEADERS = [
   "attendance",
   "name",
   "phone",
+  "guestSide",
   "needsPhysicalInvitation",
   "physicalInvitationAddress",
   "vegetarianCount",
@@ -58,6 +59,7 @@ function validatePayload(payload) {
   validateToken(payload.rsvpToken);
   requireString(payload.name, "name");
   requireTaiwanMobile(payload.phone);
+  requireEnum(payload.guestSide, "guestSide", ["groom", "bride"]);
   requireBoolean(payload.needsPhysicalInvitation, "needsPhysicalInvitation");
   requireEnum(payload.sourceRoute, "sourceRoute", ["/", "/family"]);
   requireEnum(payload.attendance, "attendance", ["attending", "declined"]);

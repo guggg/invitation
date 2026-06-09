@@ -27,7 +27,9 @@ function loadAppsScript(expectedToken = ""): AppsScriptHarness {
           "attendance",
           "name",
           "phone",
+          "guestSide",
           "needsPhysicalInvitation",
+          "physicalInvitationAddress",
           "vegetarianCount",
           "adultCount",
           "childCountUnder4",
@@ -112,6 +114,7 @@ describe("Apps Script RSVP receiver", () => {
             attendance: "declined",
             name: "王小明",
             phone: "0912345678",
+            guestSide: "groom",
             needsPhysicalInvitation: false
           })
         }
@@ -134,6 +137,7 @@ describe("Apps Script RSVP receiver", () => {
             attendance: "declined",
             name: "=IMPORTXML(\"https://example.com\")",
             phone: "0912345678",
+            guestSide: "bride",
             needsPhysicalInvitation: true,
             userAgent: "+agent"
           })
@@ -144,7 +148,8 @@ describe("Apps Script RSVP receiver", () => {
     expect(response.ok).toBe(true);
     expect(appendRows).toHaveLength(1);
     expect(appendRows[0][4]).toBe("'=IMPORTXML(\"https://example.com\")");
-    expect(appendRows[0][6]).toBe(true);
-    expect(appendRows[0][19]).toBe("'+agent");
+    expect(appendRows[0][6]).toBe("bride");
+    expect(appendRows[0][7]).toBe(true);
+    expect(appendRows[0][21]).toBe("'+agent");
   });
 });
