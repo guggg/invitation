@@ -683,13 +683,6 @@ export function FriendRsvpExperience({
               {!endpoint ? "出席回覆尚未開放" : status === "submitting" ? "送出中" : "確認送出"}
             </button>
           </div>
-          {status === "success" ? (
-            <LineOfficialCta
-              variant="rsvp-success"
-              lineAddFriendUrl={lineAddFriendUrl}
-              qrCodeSrc={lineQrCodeSrc}
-            />
-          ) : null}
         </div>
       ) : null}
 

@@ -51,10 +51,6 @@ describe("FriendRsvpExperience", () => {
 
     await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
     expect(screen.getAllByText(/我們收到你的回覆了/).length).toBeGreaterThan(0);
-    expect(screen.getByRole("link", { name: /加入 LINE 官方帳號/i })).toHaveAttribute(
-      "href",
-      "https://lin.ee/76OVDl7U"
-    );
     const [, request] = fetcher.mock.calls[0];
     const payload = JSON.parse(request.body);
 
