@@ -66,6 +66,11 @@ export function LineOfficialCta({
     const el = cardRef.current;
     if (!el) return;
 
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setInView(entry.isIntersecting);

@@ -10,6 +10,7 @@ import {
   isValidTaiwanMobilePhone,
   submitRsvp,
   type Attendance,
+  type GuestSide,
   type RsvpPayload
 } from "@/lib/rsvp";
 
@@ -26,6 +27,7 @@ type WizardData = {
   attendance: Attendance;
   name: string;
   phone: string;
+  guestSide: GuestSide | "";
   needsPhysicalInvitation: boolean;
   physicalInvitationAddress: string;
   vegetarianCount: number;
@@ -46,6 +48,7 @@ const defaultData: WizardData = {
   attendance: "attending",
   name: "",
   phone: "",
+  guestSide: "",
   needsPhysicalInvitation: false,
   physicalInvitationAddress: "",
   vegetarianCount: 0,
@@ -74,6 +77,7 @@ export function FriendRsvpExperience({
   const [message, setMessage] = useState("");
   const [nameError, setNameError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [guestSideError, setGuestSideError] = useState("");
 
   const payload = useMemo<RsvpPayload | null>(() => {
     if (step !== "card") {
@@ -117,6 +121,7 @@ export function FriendRsvpExperience({
     }));
     setNameError("");
     setPhoneError("");
+    setGuestSideError("");
     setStep("identity");
   }
 
@@ -175,6 +180,10 @@ export function FriendRsvpExperience({
     return isValidTaiwanMobilePhone(value) ? "" : "請填寫正確手機號碼";
   }
 
+  function validateGuestSide(value: WizardData["guestSide"]): string {
+    return value ? "" : "請選擇男方或女方親友";
+  }
+
   function handleNameBlur(event: React.FocusEvent<HTMLInputElement>) {
     setNameError(validateName(event.target.value));
   }
@@ -187,9 +196,11 @@ export function FriendRsvpExperience({
     setMessage("");
     const nErr = validateName(data.name);
     const pErr = validatePhone(data.phone);
+    const gErr = validateGuestSide(data.guestSide);
     setNameError(nErr);
     setPhoneError(pErr);
-    if (nErr || pErr) {
+    setGuestSideError(gErr);
+    if (nErr || pErr || gErr) {
       return;
     }
 
@@ -227,6 +238,7 @@ export function FriendRsvpExperience({
     setMessage("");
     setNameError("");
     setPhoneError("");
+    setGuestSideError("");
     if (step === "identity") {
       setStep("intent");
     } else if (step === "details") {
@@ -337,6 +349,38 @@ export function FriendRsvpExperience({
               </span>
             ) : null}
           </label>
+          <span className="rsvp-field-label">你是哪邊的親友？</span>
+          <div className="rsvp-transport-choice friend-guest-side-choice" role="radiogroup" aria-label="親友來源">
+            <label className={data.guestSide === "groom" ? "is-active" : undefined}>
+              <input
+                checked={data.guestSide === "groom"}
+                onChange={() => {
+                  updateField("guestSide", "groom");
+                  setGuestSideError("");
+                }}
+                type="radio"
+                name="friend-guest-side"
+              />
+              <span>男方親友</span>
+            </label>
+            <label className={data.guestSide === "bride" ? "is-active" : undefined}>
+              <input
+                checked={data.guestSide === "bride"}
+                onChange={() => {
+                  updateField("guestSide", "bride");
+                  setGuestSideError("");
+                }}
+                type="radio"
+                name="friend-guest-side"
+              />
+              <span>女方親友</span>
+            </label>
+          </div>
+          {guestSideError ? (
+            <span className="rsvp-field-error" role="alert">
+              {guestSideError}
+            </span>
+          ) : null}
           {data.attendance === "attending" ? (
             <>
               <label className="rsvp-seat-toggle rsvp-physical-invite-toggle">
@@ -509,6 +553,10 @@ export function FriendRsvpExperience({
               <span className="rsvp-card-label">聯絡電話</span>
               <strong className="rsvp-card-value">{data.phone}</strong>
             </div>
+            <div className="rsvp-card-row">
+              <span className="rsvp-card-label">親友來源</span>
+              <strong className="rsvp-card-value">{data.guestSide === "groom" ? "男方親友" : "女方親友"}</strong>
+            </div>
             {data.attendance === "attending" ? (
               <div className="rsvp-card-row">
                 <span className="rsvp-card-label">實體喜帖</span>
@@ -620,6 +668,13 @@ export function FriendRsvpExperience({
               {!endpoint ? "出席回覆尚未開放" : status === "submitting" ? "送出中" : "確認送出"}
             </button>
           </div>
+          {status === "success" ? (
+            <LineOfficialCta
+              variant="rsvp-success"
+              lineAddFriendUrl={lineAddFriendUrl}
+              qrCodeSrc={lineQrCodeSrc}
+            />
+          ) : null}
         </div>
       ) : null}
 

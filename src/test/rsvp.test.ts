@@ -27,10 +27,12 @@ describe("RSVP form parsing", () => {
     const parsed = parseRsvpForm({
       attendance: "declined",
       name: "王小明",
-      phone: "0912 345 678"
+      phone: "0912 345 678",
+      guestSide: "groom"
     });
 
     expect(parsed.attendance).toBe("declined");
+    expect(parsed.guestSide).toBe("groom");
     expect(parsed.needsPhysicalInvitation).toBe(false);
     expect(parsed.vegetarianCount).toBe(0);
     expect(parsed.adultCount).toBe(0);
@@ -51,19 +53,32 @@ describe("RSVP form parsing", () => {
       parseRsvpForm({
         attendance: "attending",
         name: "王小明",
-        phone: "0912 345 678"
+        phone: "0912 345 678",
+        guestSide: "groom"
       })
     ).toThrow(/吃素|大人|小朋友/);
+  });
+
+  it("requires guests to choose whether they are groom or bride side guests", () => {
+    expect(() =>
+      parseRsvpForm({
+        attendance: "declined",
+        name: "王小明",
+        phone: "0912 345 678"
+      })
+    ).toThrow(/請選擇男方或女方親友/);
   });
 
   it("accepts spaced phone input and normalizes it", () => {
     const parsed = parseRsvpForm({
       attendance: "declined",
       name: "王小明",
-      phone: "0912 345 678"
+      phone: "0912 345 678",
+      guestSide: "bride"
     });
 
     expect(parsed.phone).toBe("0912345678");
+    expect(parsed.guestSide).toBe("bride");
   });
 
   it("rejects invalid phone formats", () => {
@@ -71,7 +86,8 @@ describe("RSVP form parsing", () => {
       parseRsvpForm({
         attendance: "declined",
         name: "王小明",
-        phone: "0812 345 678"
+        phone: "0812 345 678",
+        guestSide: "groom"
       })
     ).toThrow(/請填寫正確手機號碼/);
   });
@@ -82,6 +98,7 @@ describe("RSVP form parsing", () => {
         attendance: "attending",
         name: "王小明",
         phone: "0912 345 678",
+        guestSide: "groom",
         vegetarianCount: 3,
         adultCount: 1,
         childCountUnder4: 1,
@@ -99,6 +116,7 @@ describe("RSVP form parsing", () => {
         attendance: "attending",
         name: "王小明",
         phone: "0912 345 678",
+        guestSide: "groom",
         vegetarianCount: 0,
         adultCount: 2,
         childCountUnder4: 1,
@@ -118,6 +136,7 @@ describe("RSVP form parsing", () => {
         attendance: "attending",
         name: "王小明",
         phone: "0912 345 678",
+        guestSide: "groom",
         vegetarianCount: 1,
         adultCount: 1,
         childCountUnder4: 0,
@@ -133,6 +152,7 @@ describe("RSVP form parsing", () => {
         attendance: "attending",
         name: "王小明",
         phone: "0912 345 678",
+        guestSide: "groom",
         vegetarianCount: 1,
         adultCount: 1,
         childCountUnder4: 0,
@@ -150,7 +170,9 @@ describe("RSVP form parsing", () => {
         attendance: "attending",
         name: "Yuan",
         phone: "0912 345 678",
+        guestSide: "bride",
         needsPhysicalInvitation: true,
+        physicalInvitationAddress: "台北市信義區 1 號",
         vegetarianCount: 2,
         adultCount: 3,
         childCountUnder4: 1,
@@ -175,7 +197,9 @@ describe("RSVP form parsing", () => {
       attendance: "attending",
       name: "Yuan",
       phone: "0912345678",
+      guestSide: "bride",
       needsPhysicalInvitation: true,
+      physicalInvitationAddress: "台北市信義區 1 號",
       vegetarianCount: 2,
       adultCount: 3,
       childCountUnder4: 1,
@@ -207,7 +231,8 @@ describe("RSVP submission", () => {
       {
         attendance: "declined",
         name: "王小明",
-        phone: "0912 345 678"
+        phone: "0912 345 678",
+        guestSide: "groom"
       },
       { sourceRoute: "/" }
     );
@@ -228,7 +253,8 @@ describe("RSVP submission", () => {
       {
         attendance: "declined",
         name: "王小明",
-        phone: "0912 345 678"
+        phone: "0912 345 678",
+        guestSide: "groom"
       },
       { sourceRoute: "/" }
     );
@@ -244,6 +270,7 @@ describe("RSVP submission", () => {
     const [, request] = fetcher.mock.calls[0];
     expect(JSON.parse((request as RequestInit).body as string)).toMatchObject({
       name: "王小明",
+      guestSide: "groom",
       rsvpToken: "shared-secret"
     });
   });

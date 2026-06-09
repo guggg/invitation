@@ -2839,12 +2839,7 @@ img {
   gap: 18px;
 }
 
-.rsvp-identity label {
-  display: grid;
-  gap: 10px;
-}
-
-.rsvp-identity label span {
+.rsvp-field-label {
   font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 0.18em;
@@ -2852,7 +2847,20 @@ img {
   color: rgba(106, 82, 63, 0.72);
 }
 
-.rsvp-identity input:not([type="checkbox"]) {
+.rsvp-identity > label {
+  display: grid;
+  gap: 10px;
+}
+
+.rsvp-identity > label > span {
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(106, 82, 63, 0.72);
+}
+
+.rsvp-identity input:not([type="checkbox"]):not([type="radio"]) {
   min-height: 66px;
   border: 1px solid rgba(217, 196, 165, 0.8);
   border-radius: 18px;
@@ -2864,12 +2872,12 @@ img {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
 
-.rsvp-identity input:not([type="checkbox"]):focus {
+.rsvp-identity input:not([type="checkbox"]):not([type="radio"]):focus {
   border-color: rgba(182, 153, 116, 0.9);
   box-shadow: 0 0 0 4px rgba(227, 210, 184, 0.36);
 }
 
-.rsvp-identity button,
+.rsvp-identity button:not(.rsvp-back),
 .rsvp-next,
 .rsvp-confirm {
   display: inline-flex;
@@ -2891,10 +2899,10 @@ img {
     transform 180ms ease;
 }
 
-.rsvp-identity button:hover,
+.rsvp-identity button:not(.rsvp-back):hover,
 .rsvp-next:hover,
 .rsvp-confirm:hover,
-.rsvp-identity button:focus-visible,
+.rsvp-identity button:not(.rsvp-back):focus-visible,
 .rsvp-next:focus-visible,
 .rsvp-confirm:focus-visible {
   transform: translateY(-2px);
@@ -2937,8 +2945,9 @@ img {
 
 .rsvp-back:hover,
 .rsvp-back:focus-visible {
-  border-color: rgba(141, 115, 91, 0.66);
-  background: rgba(255, 251, 247, 0.96);
+  border-color: rgba(106, 82, 64, 0.82);
+  background: rgba(106, 82, 64, 0.12);
+  color: #5d4637;
   transform: translateY(-2px);
 }
 
@@ -3073,6 +3082,16 @@ img {
     rgba(255, 255, 255, 0.5);
   padding: 24px 28px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+@media (min-width: 480px) {
+  .friend-rsvp-experience .friend-guest-side-choice {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.friend-rsvp-experience .friend-guest-side-choice label {
+  min-height: 72px;
 }
 
 .friend-rsvp-experience .rsvp-transport-choice label:hover,
