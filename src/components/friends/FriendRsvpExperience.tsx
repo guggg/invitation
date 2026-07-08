@@ -652,7 +652,7 @@ export function FriendRsvpExperience({
             )}
           </div>
           <div className="rsvp-card-meta">
-            {payload?.isLate ? <span>較晚回覆</span> : <span>2026/7/7 前回覆</span>}
+            {payload?.isLate ? <span>較晚回覆</span> : <span>2026/8/26 前回覆</span>}
           </div>
 
           {!endpoint ? <p className="rsvp-unavailable">出席回覆尚未開放，請稍後再回來填寫。</p> : null}

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const RSVP_DEADLINE_TAIPEI = "2026-07-07";
+export const RSVP_DEADLINE_TAIPEI = "2026-08-26";
 
 export type Attendance = "attending" | "declined";
 export type GuestSide = "groom" | "bride";

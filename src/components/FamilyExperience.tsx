@@ -114,7 +114,7 @@ export function FamilyExperience({
         <div>
           <p className="family-kicker">出席回覆</p>
           <h2>出席回覆</h2>
-          <p>麻煩於 2026/7/7 前協助填寫。若超過日期仍可送出，我們會另外確認。</p>
+          <p>麻煩於 2026/8/26 前協助填寫。若超過日期仍可送出，我們會另外確認。</p>
           <p>因為山區停車位非常有限，若方便的話，也請優先考慮搭乘接駁車。</p>
         </div>
         <RsvpForm endpoint={endpoint} sourceRoute="/family" variant="classic" />
