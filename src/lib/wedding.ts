@@ -111,8 +111,8 @@ export const wedding = {
   dateDisplay: "2026.10.3",
   dateIso: "2026-10-03",
   dateTimeIso: "2026-10-03T16:30:00+08:00",
-  rsvpDeadlineDisplay: "2026/7/7",
-  rsvpDeadlineIso: "2026-07-07",
+  rsvpDeadlineDisplay: "2026/8/26",
+  rsvpDeadlineIso: "2026-08-26",
   dressCode: {
     title: "極簡大地",
     subtitle: "戶外半正式，中性率性、低調時髦",

@@ -15,10 +15,10 @@ afterEach(() => {
 });
 
 describe("RSVP deadline", () => {
-  it("marks submissions after 2026-07-07 Taipei time as late", () => {
-    expect(isLateSubmission(new Date("2026-07-07T15:59:59+08:00"))).toBe(false);
-    expect(isLateSubmission(new Date("2026-07-08T00:00:00+08:00"))).toBe(true);
-    expect(RSVP_DEADLINE_TAIPEI).toBe("2026-07-07");
+  it("marks submissions after 2026-08-26 Taipei time as late", () => {
+    expect(isLateSubmission(new Date("2026-08-26T15:59:59+08:00"))).toBe(false);
+    expect(isLateSubmission(new Date("2026-08-27T00:00:00+08:00"))).toBe(true);
+    expect(RSVP_DEADLINE_TAIPEI).toBe("2026-08-26");
   });
 });
 
@@ -186,7 +186,7 @@ describe("RSVP form parsing", () => {
       },
       {
         sourceRoute: "/family",
-        now: new Date("2026-07-08T09:00:00+08:00"),
+        now: new Date("2026-08-27T09:00:00+08:00"),
         userAgent: "vitest"
       }
     );
@@ -214,7 +214,7 @@ describe("RSVP form parsing", () => {
       needsShuttle: true,
       userAgent: "vitest"
     });
-    expect(payload.submittedAt).toBe("2026-07-08T01:00:00.000Z");
+    expect(payload.submittedAt).toBe("2026-08-27T01:00:00.000Z");
   });
 
   it("formats and validates Taiwan mobile numbers", () => {
