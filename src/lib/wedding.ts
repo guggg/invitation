@@ -145,7 +145,7 @@ export const wedding = {
     },
     {
       time: "18:00",
-      title: "晚宴入席",
+      title: "晚宴開席",
       titleEn: "Dinner"
     },
     {
