@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
+import { ArrowUpRight, CalendarDays, LockKeyhole, MapPin } from "lucide-react";
 import { AsciiPortal } from "@/components/friends/AsciiPortal";
 import { DressCodeSection } from "@/components/friends/DressCodeSection";
 import { FriendsHeader } from "@/components/friends/FriendsHeader";
@@ -7,7 +7,6 @@ import { FriendsMotionController } from "@/components/friends/FriendsMotionContr
 import { LineOfficialCta } from "@/components/LineOfficialCta";
 import { MusicPulseBar } from "@/components/friends/MusicPulseBar";
 import { LivingBackground } from "@/components/friends/LivingBackground";
-import { PhotoUploadExperience } from "@/components/PhotoUploadExperience";
 import { ProjectGallery } from "@/components/friends/ProjectGallery";
 import { ScrollExpandVideoSection } from "@/components/friends/ScrollExpandVideoSection";
 import { SectionRail } from "@/components/friends/SectionRail";
@@ -25,7 +24,6 @@ type FriendsExperienceProps = {
 };
 
 export function FriendsExperience({
-  photoUploadEndpoint,
   lineAddFriendUrl,
   lineQrCodeSrc
 }: FriendsExperienceProps) {
@@ -151,7 +149,34 @@ export function FriendsExperience({
         data-friend-section="6"
         data-section-label="密件"
       >
-        <PhotoUploadExperience endpoint={photoUploadEndpoint} sourceRoute="/" variant="friend" />
+        <div className="photo-upload-experience photo-upload-friend photo-upload-closed-friend" role="status">
+          <div className="photo-archive-visual photo-archive-visual-closed" aria-hidden="true">
+            <div className="photo-archive-envelope">
+              <span className="photo-archive-flap" />
+              <span className="photo-archive-letter" />
+              <span className="photo-archive-script">4J &amp; Yuan</span>
+              <span className="photo-archive-stamp">one photo<br />one secret</span>
+              <span className="photo-archive-postmark">2026.10.03</span>
+              <span className="photo-archive-wax">
+                <LockKeyhole size={18} />
+              </span>
+            </div>
+            <span className="photo-archive-thread thread-one" />
+            <span className="photo-archive-thread thread-two" />
+          </div>
+
+          <div className="photo-upload-content">
+            <div className="photo-upload-copy">
+              <span className="photo-upload-kicker">Secret Archive · Closed</span>
+              <h3>秘密收藏室</h3>
+              <p>交給我們一張代表你的照片。它可能會在婚禮相關的小驚喜中被參與的嘉賓一起看見，所以請挑一張你願意被大家記住的畫面。</p>
+            </div>
+
+            <div className="photo-upload-closed-panel">
+              <strong>秘密收藏已截止，讓我們一起在婚禮當天揭曉。</strong>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section

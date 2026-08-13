@@ -1156,7 +1156,7 @@ img {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
   gap: clamp(24px, 4vw, 52px);
-  align-items: start;
+  align-items: stretch;
 }
 
 .family-photo-upload .photo-upload-family {
@@ -1166,6 +1166,7 @@ img {
 
 .family-photo-upload .line-note-card {
   width: min(100%, 420px);
+  height: 100%;
   margin-inline: 0;
 }
 
@@ -5846,6 +5847,50 @@ img {
   background: rgba(42, 120, 61, 0.1);
 }
 
+.photo-upload-closed-friend {
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1fr);
+  min-height: 620px;
+}
+
+.photo-archive-visual-closed .photo-archive-letter,
+.photo-upload-closed-friend:hover .photo-archive-letter {
+  transform: translateY(12px) translateZ(32px);
+}
+
+.photo-upload-closed-panel {
+  display: grid;
+  min-height: 190px;
+  place-items: center;
+  align-content: center;
+  border: 1px solid rgba(217, 196, 165, 0.48);
+  border-radius: 24px;
+  padding: clamp(28px, 4vw, 48px);
+  background:
+    linear-gradient(180deg, rgba(255, 254, 252, 0.86), rgba(247, 239, 231, 0.78)),
+    rgba(255, 255, 255, 0.52);
+  text-align: center;
+  box-shadow:
+    0 18px 42px rgba(186, 162, 132, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.photo-upload-closed-panel > strong {
+  color: #544338;
+  font-size: clamp(1.7rem, 3.2vw, 2.65rem);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.photo-upload-closed-family {
+  min-height: 100%;
+  place-content: center;
+  text-align: center;
+}
+
+.photo-upload-closed-family .photo-upload-copy {
+  justify-items: center;
+}
+
 @keyframes archiveEnvelopeFloat {
   from {
     transform: rotateX(var(--archive-rotate-x)) rotateY(var(--archive-rotate-y)) rotateZ(-4deg) translateY(calc(-1 * var(--archive-lift)));
@@ -5881,10 +5926,6 @@ img {
 }
 
 @media (max-width: 900px) {
-  .photo-upload-friend {
-    grid-template-columns: 1fr;
-  }
-
   .photo-archive-visual {
     min-height: 360px;
   }
@@ -5898,6 +5939,10 @@ img {
   .photo-upload-friend,
   .photo-upload-family {
     padding: 22px;
+  }
+
+  .photo-upload-friend {
+    grid-template-columns: 1fr;
   }
 
   .photo-upload-grid {

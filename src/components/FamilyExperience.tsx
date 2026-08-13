@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowUpRight, CalendarDays, Clock, MapPin } from "lucide-react";
 import { FamilyShuttleTable } from "@/components/FamilyShuttleTable";
 import { LineOfficialCta } from "@/components/LineOfficialCta";
-import { PhotoUploadExperience } from "@/components/PhotoUploadExperience";
 import { familyPhotos } from "@/lib/photos";
 import { wedding } from "@/lib/wedding";
 
@@ -15,7 +14,6 @@ type FamilyExperienceProps = {
 };
 
 export function FamilyExperience({
-  photoUploadEndpoint,
   lineAddFriendUrl,
   lineQrCodeSrc
 }: FamilyExperienceProps) {
@@ -100,7 +98,13 @@ export function FamilyExperience({
       </section>
 
       <section className="family-section family-photo-upload">
-        <PhotoUploadExperience endpoint={photoUploadEndpoint} sourceRoute="/family" variant="family" />
+        <div className="photo-upload-experience photo-upload-family photo-upload-closed-family" role="status">
+          <div className="photo-upload-copy">
+            <span className="photo-upload-kicker">照片上傳 · 已截止</span>
+            <h3>照片上傳已截止</h3>
+            <p>謝謝大家的分享與祝福，我們已經將每一份心意好好收藏。</p>
+          </div>
+        </div>
         <LineOfficialCta
           variant="footer"
           lineAddFriendUrl={lineAddFriendUrl}
