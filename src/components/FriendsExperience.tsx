@@ -2,7 +2,6 @@ import Image from "next/image";
 import { ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
 import { AsciiPortal } from "@/components/friends/AsciiPortal";
 import { DressCodeSection } from "@/components/friends/DressCodeSection";
-import { FriendRsvpExperience } from "@/components/friends/FriendRsvpExperience";
 import { FriendsHeader } from "@/components/friends/FriendsHeader";
 import { FriendsMotionController } from "@/components/friends/FriendsMotionController";
 import { LineOfficialCta } from "@/components/LineOfficialCta";
@@ -26,7 +25,6 @@ type FriendsExperienceProps = {
 };
 
 export function FriendsExperience({
-  endpoint,
   photoUploadEndpoint,
   lineAddFriendUrl,
   lineQrCodeSrc
@@ -186,14 +184,31 @@ export function FriendsExperience({
       >
         <div className="rsvp-theatre-copy" data-fx="blur-reveal">
           <p>出席回覆</p>
-          <h2>告訴我們你會不會來。</h2>
-          <span>填完後，我們會把你的回覆收進婚禮名單，也會依照你的交通安排幫你保留接駁座位。</span>
+          <h2>出席回覆已截止。</h2>
+          <span>謝謝大家的回覆與祝福，我們已經把你們的心意好好收下。</span>
         </div>
-        <FriendRsvpExperience
-          endpoint={endpoint}
-          lineAddFriendUrl={lineAddFriendUrl}
-          lineQrCodeSrc={lineQrCodeSrc}
-        />
+        <div className="friend-rsvp-experience rsvp-luxe-stage friend-rsvp-closed" role="status">
+          <div className="rsvp-orbit" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <div className="rsvp-stage-shell">
+            <div className="rsvp-stage-label">
+              <span>RSVP Reply Card</span>
+              <strong>Closed</strong>
+            </div>
+            <div className="rsvp-stage-hero">
+              <p>出席回覆</p>
+              <h3>謝謝你，把心意留在這裡。</h3>
+            </div>
+          </div>
+          <div className="rsvp-luxe-panel rsvp-closed-panel">
+            <span>RSVP CLOSED</span>
+            <strong>出席回覆已截止</strong>
+            <p>謝謝你的回覆，我們婚禮當天見。</p>
+          </div>
+        </div>
       </section>
 
       <section

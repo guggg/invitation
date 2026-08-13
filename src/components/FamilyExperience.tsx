@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, CalendarDays, Clock, MapPin } from "lucide-react";
-import { RsvpForm } from "@/components/RsvpForm";
 import { FamilyShuttleTable } from "@/components/FamilyShuttleTable";
 import { LineOfficialCta } from "@/components/LineOfficialCta";
 import { PhotoUploadExperience } from "@/components/PhotoUploadExperience";
@@ -16,7 +15,6 @@ type FamilyExperienceProps = {
 };
 
 export function FamilyExperience({
-  endpoint,
   photoUploadEndpoint,
   lineAddFriendUrl,
   lineQrCodeSrc
@@ -25,7 +23,7 @@ export function FamilyExperience({
     <main className="family-shell">
       <header className="family-header">
         <Link href="/">士杰與慧媛</Link>
-        <a href="#rsvp">填寫出席回覆</a>
+        <a href="#rsvp">出席回覆已截止</a>
       </header>
 
       <section className="family-hero">
@@ -43,7 +41,7 @@ export function FamilyExperience({
             </span>
           </div>
           <a className="family-primary" href="#rsvp">
-            填寫出席回覆
+            出席回覆已截止
           </a>
         </div>
         <div className="family-hero-photo">
@@ -113,11 +111,14 @@ export function FamilyExperience({
       <section id="rsvp" className="family-rsvp">
         <div>
           <p className="family-kicker">出席回覆</p>
-          <h2>出席回覆</h2>
-          <p>麻煩於 2026/8/26 前協助填寫。若超過日期仍可送出，我們會另外確認。</p>
-          <p>因為山區停車位非常有限，若方便的話，也請優先考慮搭乘接駁車。</p>
+          <h2>出席回覆已截止</h2>
+          <p>謝謝大家的回覆與祝福，我們已經收到各位的心意。</p>
         </div>
-        <RsvpForm endpoint={endpoint} sourceRoute="/family" variant="classic" />
+        <div className="family-rsvp-closed" role="status">
+          <span>RSVP CLOSED</span>
+          <strong>出席回覆已截止</strong>
+          <p>謝謝您的回覆，我們婚禮當天見。</p>
+        </div>
       </section>
     </main>
   );

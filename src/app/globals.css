@@ -947,6 +947,36 @@ img {
   color: #fff8ec;
 }
 
+.family-rsvp-closed {
+  display: grid;
+  gap: 14px;
+  min-height: 280px;
+  place-content: center;
+  border: 1px solid rgba(200, 164, 93, 0.48);
+  border-radius: 8px;
+  padding: clamp(28px, 5vw, 52px);
+  background: rgba(255, 248, 236, 0.72);
+  text-align: center;
+  box-shadow: 0 18px 50px rgba(128, 0, 32, 0.1);
+}
+
+.family-rsvp-closed span,
+.rsvp-closed-panel > span {
+  color: rgba(128, 0, 32, 0.62);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+}
+
+.family-rsvp-closed strong {
+  color: #800020;
+  font-size: clamp(1.65rem, 4vw, 2.5rem);
+}
+
+.family-rsvp-closed p {
+  margin: 0;
+}
+
 /* ── Family custom radio / checkbox ── */
 
 .family-rsvp .rsvp-choice label,
@@ -2777,6 +2807,33 @@ img {
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
   transform-origin: top center;
   animation: rsvp-panel-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.friend-rsvp-closed {
+  display: grid;
+  align-content: center;
+}
+
+.rsvp-closed-panel {
+  min-height: 260px;
+  place-content: center;
+  text-align: center;
+}
+
+.rsvp-closed-panel > span {
+  color: rgba(106, 82, 63, 0.62);
+}
+
+.rsvp-closed-panel strong {
+  color: #544338;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+}
+
+.rsvp-closed-panel p {
+  margin: 0;
+  color: rgba(84, 67, 56, 0.72);
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
 @keyframes rsvp-panel-rise {
