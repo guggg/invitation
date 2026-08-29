@@ -41,16 +41,16 @@ describe("buildShuttleIcs", () => {
     expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T160000");
   });
 
-  it("sets correct DTSTART/DTEND for C2 outbound (17:25 → 17:40)", () => {
+  it("sets correct DTSTART/DTEND for C2 outbound (17:15 → 17:30)", () => {
     const ics = buildShuttleIcs(outC2);
-    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T172500");
-    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T174000");
+    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T171500");
+    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T173000");
   });
 
   it("keeps the confirmed ceremony and banquet departure times", () => {
     expect(outA2).toMatchObject({ departTime: "16:15", arriveTime: "16:30", group: "outbound-1" });
-    expect(outB2).toMatchObject({ departTime: "17:15", arriveTime: "17:30", group: "outbound-2" });
-    expect(outC2).toMatchObject({ departTime: "17:25", arriveTime: "17:40", group: "outbound-2" });
+    expect(outB2).toMatchObject({ departTime: "17:00", arriveTime: "17:15", group: "outbound-2" });
+    expect(outC2).toMatchObject({ departTime: "17:15", arriveTime: "17:30", group: "outbound-2" });
 
     const ics = buildShuttleIcs(outA2);
     expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T161500");

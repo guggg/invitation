@@ -61,22 +61,22 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     id: "out-b2",
     vehicle: "B2 車",
     group: "outbound-2",
-    departTime: "17:15",
-    arriveTime: "17:30",
+    departTime: "17:00",
+    arriveTime: "17:15",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "晚宴賓客（距 18:00 開餐半小時抵達，時間最完美）",
+    note: "晚宴賓客，抵達後還有時間走走、拍照再入席",
     capacity: 20
   },
   {
     id: "out-c2",
     vehicle: "C2 車",
     group: "outbound-2",
-    departTime: "17:25",
-    arriveTime: "17:40",
+    departTime: "17:15",
+    arriveTime: "17:30",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "純晚宴賓客（18:00 開餐前抵達，直接入座）",
+    note: "純晚宴賓客（距 18:00 開餐半小時抵達，時間最完美）",
     capacity: 20
   },
   // Return — 第一波
