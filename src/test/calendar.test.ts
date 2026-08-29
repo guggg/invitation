@@ -3,9 +3,15 @@ import { buildShuttleIcs, downloadShuttleIcs } from "@/lib/calendar";
 import { shuttleTrips } from "@/lib/wedding";
 
 const outA1 = shuttleTrips.find((t) => t.id === "out-a1")!;
+const outA2 = shuttleTrips.find((t) => t.id === "out-a2")!;
+const outB2 = shuttleTrips.find((t) => t.id === "out-b2")!;
 const outC2 = shuttleTrips.find((t) => t.id === "out-c2")!;
 const ret1 = shuttleTrips.find((t) => t.id === "ret-1")!;
 const ret2 = shuttleTrips.find((t) => t.id === "ret-2")!;
+
+function unfoldIcs(ics: string) {
+  return ics.replace(/\r\n /g, "");
+}
 
 describe("buildShuttleIcs", () => {
   it("produces a valid VCALENDAR wrapper", () => {
@@ -35,22 +41,32 @@ describe("buildShuttleIcs", () => {
     expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T160000");
   });
 
-  it("sets correct DTSTART/DTEND for C2 outbound (17:15 → 17:30)", () => {
+  it("sets correct DTSTART/DTEND for C2 outbound (17:25 → 17:40)", () => {
     const ics = buildShuttleIcs(outC2);
-    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T171500");
-    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T173000");
+    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T172500");
+    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T174000");
   });
 
-  it("sets correct DTSTART/DTEND for return trip 1 (20:25 → 20:40)", () => {
+  it("keeps the confirmed ceremony and banquet departure times", () => {
+    expect(outA2).toMatchObject({ departTime: "16:15", arriveTime: "16:30", group: "outbound-1" });
+    expect(outB2).toMatchObject({ departTime: "17:15", arriveTime: "17:30", group: "outbound-2" });
+    expect(outC2).toMatchObject({ departTime: "17:25", arriveTime: "17:40", group: "outbound-2" });
+
+    const ics = buildShuttleIcs(outA2);
+    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T161500");
+    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T163000");
+  });
+
+  it("sets correct DTSTART/DTEND for return trip 1 (20:30 → 20:45)", () => {
     const ics = buildShuttleIcs(ret1);
-    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T201500");
-    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T203000");
+    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T203000");
+    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T204500");
   });
 
-  it("sets correct DTSTART/DTEND for return trip 2 (20:50 → 21:05)", () => {
+  it("sets correct DTSTART/DTEND for return trip 2 (21:00 → 21:15)", () => {
     const ics = buildShuttleIcs(ret2);
-    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T205000");
-    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T210500");
+    expect(ics).toContain("DTSTART;TZID=Asia/Taipei:20261003T210000");
+    expect(ics).toContain("DTEND;TZID=Asia/Taipei:20261003T211500");
   });
 
   it("includes vehicle name in SUMMARY", () => {
@@ -66,9 +82,9 @@ describe("buildShuttleIcs", () => {
   });
 
   it("includes note text in DESCRIPTION", () => {
-    const ics = buildShuttleIcs(outA1);
+    const ics = unfoldIcs(buildShuttleIcs(outA1));
     expect(ics).toContain("DESCRIPTION:");
-    expect(ics).toContain("工作人員");
+    expect(ics).toContain("首批證婚賓客");
   });
 
   it("includes 10-min early reminder in DESCRIPTION", () => {
@@ -143,12 +159,12 @@ describe("buildShuttleIcs", () => {
   });
 
   it("outbound capacity note says per-bus capacity", () => {
-    const ics = buildShuttleIcs(outA1);
+    const ics = unfoldIcs(buildShuttleIcs(outA1));
     expect(ics).toContain("每車容納 20 人");
   });
 
   it("return capacity note says wave total, not per-bus", () => {
-    const ics = buildShuttleIcs(ret1);
+    const ics = unfoldIcs(buildShuttleIcs(ret1));
     expect(ics).toContain("本波共 60 人");
     expect(ics).not.toContain("每車容納 60");
   });

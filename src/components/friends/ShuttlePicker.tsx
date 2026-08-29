@@ -57,10 +57,7 @@ export function ShuttlePicker() {
             <ul className="shuttle-picker-trips">
               {outboundTrips.map((t) => (
                 <li key={t.id} className="shuttle-picker-trip outbound">
-                  <span className="shuttle-picker-time">
-                    {t.departTime}
-                    <span className="shuttle-picker-pending" aria-label="暫定">暫</span>
-                  </span>
+                  <span className="shuttle-picker-time">{t.departTime}</span>
                   <span className="shuttle-picker-vehicle">{t.vehicle}</span>
                   <span className="shuttle-picker-note">{t.note}</span>
                 </li>
@@ -71,10 +68,7 @@ export function ShuttlePicker() {
             <ul className="shuttle-picker-trips">
               {returnTrips.map((t) => (
                 <li key={t.id} className="shuttle-picker-trip return">
-                  <span className="shuttle-picker-time">
-                    {t.departTime}
-                    <span className="shuttle-picker-pending" aria-label="暫定">暫</span>
-                  </span>
+                  <span className="shuttle-picker-time">{t.departTime}</span>
                   <span className="shuttle-picker-vehicle">{t.vehicle}</span>
                   <span className="shuttle-picker-note">{t.note}</span>
                 </li>

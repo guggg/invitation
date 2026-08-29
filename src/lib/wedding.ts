@@ -11,7 +11,7 @@ export type ShuttleTrip = {
 };
 
 export const shuttleTrips: readonly ShuttleTrip[] = [
-  // Outbound — Round 1
+  // Outbound — 證婚接駁
   {
     id: "out-a1",
     vehicle: "A1 車",
@@ -42,62 +42,62 @@ export const shuttleTrips: readonly ShuttleTrip[] = [
     arriveTime: "16:20",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "證婚賓客，16:30 證婚儀式前最後就座",
+    note: "證婚賓客，證婚儀式前從容入座",
     capacity: 20
   },
-  // Outbound — Round 2
   {
     id: "out-a2",
     vehicle: "A2 車",
-    group: "outbound-2",
-    departTime: "16:25",
-    arriveTime: "16:40",
+    group: "outbound-1",
+    departTime: "16:15",
+    arriveTime: "16:30",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "晚宴賓客（抵達時證婚進行中，可外圍觀禮或至迎賓活動區）",
+    note: "證婚賓客，16:30 證婚儀式前最後就座",
     capacity: 20
   },
+  // Outbound — 晚宴接駁
   {
     id: "out-b2",
     vehicle: "B2 車",
     group: "outbound-2",
-    departTime: "16:35",
-    arriveTime: "16:50",
+    departTime: "17:15",
+    arriveTime: "17:30",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "晚宴賓客（證婚後半段抵達，參與證婚大合照）",
+    note: "晚宴賓客（距 18:00 開餐半小時抵達，時間最完美）",
     capacity: 20
   },
   {
     id: "out-c2",
     vehicle: "C2 車",
     group: "outbound-2",
-    departTime: "17:15",
-    arriveTime: "17:30",
+    departTime: "17:25",
+    arriveTime: "17:40",
     from: "新店捷運總站",
     to: "優聖美地",
-    note: "純晚宴賓客（距 18:00 開餐半小時抵達，時間最完美）",
+    note: "純晚宴賓客（18:00 開餐前抵達，直接入座）",
     capacity: 20
   },
-  // Return — Round 1
+  // Return — 第一波
   {
     id: "ret-1",
     vehicle: "A1·B1·C1 車",
     group: "return-1",
-    departTime: "20:25",
-    arriveTime: "20:40",
+    departTime: "20:30",
+    arriveTime: "20:45",
     from: "優聖美地",
     to: "新店捷運總站",
     note: "【首波撤場】晚宴結束，首波散場賓客",
     capacity: 60
   },
-  // Return — Round 2
+  // Return — 第二波
   {
     id: "ret-2",
     vehicle: "A2·B2·C2 車",
     group: "return-2",
-    departTime: "20:50",
-    arriveTime: "21:05",
+    departTime: "21:00",
+    arriveTime: "21:15",
     from: "優聖美地",
     to: "新店捷運總站",
     note: "【幸福收尾班】陪伴新人走到婚禮最後一刻的至親好友",

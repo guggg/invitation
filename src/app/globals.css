@@ -4308,15 +4308,14 @@ img {
   animation: none;
 }
 
-/* Amber dot + PENDING label — used when schedule is not yet confirmed */
-.led-clock--pending {
-  color: #ffbf49;
-  text-shadow: 0 0 8px rgba(255, 191, 73, 0.55);
+.led-clock--on-time {
+  color: #5fe07a;
+  text-shadow: 0 0 8px rgba(95, 224, 122, 0.5);
 }
 
-.led-dot--amber {
-  background: #ffbf49;
-  box-shadow: 0 0 6px #ffbf49;
+.led-dot--green {
+  background: #5fe07a;
+  box-shadow: 0 0 6px #5fe07a;
 }
 
 @keyframes led-blink {
@@ -4358,7 +4357,7 @@ img {
 
 .led-row {
   display: grid;
-  grid-template-columns: 56px 1fr auto auto 44px;
+  grid-template-columns: 56px 1fr auto 44px;
   min-width: 0;
   align-items: center;
   gap: 8px;
@@ -4413,22 +4412,6 @@ img {
   opacity: 0.7;
   white-space: nowrap;
   letter-spacing: 1px;
-}
-
-.led-badge {
-  font-size: 0.58rem;
-  letter-spacing: 1px;
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid currentColor;
-  white-space: nowrap;
-}
-
-/* Pending badge overrides colour to amber regardless of row direction */
-.led-badge--pending {
-  color: #ffbf49;
-  border-color: rgba(255, 191, 73, 0.65);
-  text-shadow: 0 0 6px rgba(255, 191, 73, 0.4);
 }
 
 /* Per-row calendar button */
@@ -4508,7 +4491,7 @@ img {
 
 @media (max-width: 480px) {
 
-  /* 3-track: time | info | cal-btn — veh and badge hidden, marquee already says "暫定預告" */
+  /* 3-track: time | info | cal-btn */
   .led-inner {
     padding: 16px 14px;
   }
@@ -4543,8 +4526,7 @@ img {
     padding: 10px 2px;
   }
 
-  .led-veh,
-  .led-badge {
+  .led-veh {
     display: none;
   }
 
@@ -4837,14 +4819,6 @@ img {
   white-space: nowrap;
 }
 
-.shuttle-picker-pending {
-  font-size: 0.6em;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  color: #c8960a;
-  opacity: 0.85;
-}
-
 .shuttle-picker-vehicle {
   font-weight: 800;
   white-space: nowrap;
@@ -4882,18 +4856,6 @@ img {
 
 .family-shuttle-section {
   border-top: 1px solid rgba(200, 164, 93, 0.28);
-}
-
-.family-shuttle-pending-notice {
-  margin: 0 0 18px;
-  padding: 14px 18px;
-  border-left: 4px solid #c8a45d;
-  border-radius: 0 6px 6px 0;
-  background: rgba(200, 164, 93, 0.1);
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  font-weight: 800;
-  color: #7a5c1e;
-  line-height: 1.6;
 }
 
 .family-shuttle-info {

@@ -49,9 +49,6 @@ export function FamilyShuttleTable() {
         <Bus size={26} aria-hidden="true" />
         <h2>接駁車時刻表</h2>
       </div>
-      <p className="family-shuttle-pending-notice">
-        以下班次為暫定安排，確認後另行通知。
-      </p>
       <p className="family-shuttle-info">
         上車點：<strong>新店捷運總站</strong>，請於發車前 10 分鐘抵達。每車 20 人。
       </p>
@@ -75,14 +72,14 @@ export function FamilyShuttleTable() {
           </thead>
           <tbody>
             <tr className="family-shuttle-group-header family-shuttle-outbound-header">
-              <td colSpan={5}>第一趟</td>
+              <td colSpan={5}>證婚接駁</td>
             </tr>
             <GroupRows
               trips={outbound.filter((t) => t.group === "outbound-1")}
               colorClass="family-shuttle-outbound"
             />
             <tr className="family-shuttle-group-header family-shuttle-outbound-header">
-              <td colSpan={5}>第二趟</td>
+              <td colSpan={5}>晚宴接駁</td>
             </tr>
             <GroupRows
               trips={outbound.filter((t) => t.group === "outbound-2")}

@@ -15,16 +15,16 @@ function LedRow({ trip, direction }: LedRowProps) {
   const dirLabel = direction === "outbound" ? "去程" : "回程";
   const roundLabel =
     trip.group === "outbound-1"
-      ? "第一趟"
+      ? "證婚班"
       : trip.group === "outbound-2"
-        ? "第二趟"
+        ? "晚宴班"
         : trip.group === "return-1"
           ? "第一波"
           : "第二波";
 
   return (
     <div className={`led-row ${direction}`}>
-      <span className="led-t" aria-label={`發車（暫定）${trip.departTime}`}>
+      <span className="led-t" aria-label={`發車 ${trip.departTime}`}>
         {trip.departTime}
       </span>
       <span className="led-r">
@@ -36,13 +36,9 @@ function LedRow({ trip, direction }: LedRowProps) {
       <span className="led-veh" aria-label={`預估抵達 ${trip.arriveTime}`}>
         抵 {trip.arriveTime}
       </span>
-      {/* Visual-only pending badge; direction + pending info carried by CalBtn aria-label */}
-      <span className="led-badge led-badge--pending" aria-hidden="true">
-        暫定
-      </span>
       <button
         className="led-cal-icon-btn"
-        aria-label={`加入行事曆：${dirLabel} ${trip.vehicle} ${trip.departTime} 發車（暫定）`}
+        aria-label={`加入行事曆：${dirLabel} ${trip.vehicle} ${trip.departTime} 發車`}
         onClick={() => downloadShuttleIcs(trip)}
       >
         +
@@ -64,34 +60,34 @@ export function ShuttleBoard() {
   const return2 = shuttleTrips.filter((t) => t.group === "return-2");
 
   const marqueeText =
-    "※ 以下班次為暫定預告，確認後另行通知　·　請於發車前 10 分鐘抵達上車點　·　每車可容納 20 人（回程每波 60 人）　·　新店捷運總站上下車　·　";
+    "※ 請於發車前 10 分鐘抵達上車點　·　每車可容納 20 人（回程每波 60 人）　·　新店捷運總站上下車　·　";
 
   return (
-    <div className="led-board" role="region" aria-label="接駁車時刻表（班次暫定）">
+    <div className="led-board" role="region" aria-label="接駁車時刻表">
       <div className="led-inner">
         {/* Header */}
         <div className="led-head">
           <span className="led-title">SHUTTLE · 接駁班次</span>
-          <span className="led-clock led-clock--pending">
+          <span className="led-clock led-clock--on-time" aria-label="班次狀態：準時，ON TIME">
             <span
-              className={`led-dot led-dot--amber${reduceMotion ? " led-dot--static" : ""}`}
+              className={`led-dot led-dot--green${reduceMotion ? " led-dot--static" : ""}`}
               aria-hidden="true"
             />
-            PENDING
+            ON TIME
           </span>
         </div>
 
-        {/* Outbound — Round 1 */}
-        <div className="led-group outbound" aria-label="去程第一趟">
-          ▶ OUTBOUND 去程第一趟 — 新店捷運總站 → 優聖美地
+        {/* Outbound — 證婚接駁 */}
+        <div className="led-group outbound" aria-label="去程 證婚接駁">
+          ▶ OUTBOUND 去程 · 證婚接駁 — 新店捷運總站 → 優聖美地
         </div>
         {outbound1.map((t) => (
           <LedRow key={t.id} trip={t} direction="outbound" />
         ))}
 
-        {/* Outbound — Round 2 */}
-        <div className="led-group outbound led-group--mt" aria-label="去程第二趟">
-          ▶ OUTBOUND 去程第二趟 — 新店捷運總站 → 優聖美地
+        {/* Outbound — 晚宴接駁 */}
+        <div className="led-group outbound led-group--mt" aria-label="去程 晚宴接駁">
+          ▶ OUTBOUND 去程 · 晚宴接駁 — 新店捷運總站 → 優聖美地
         </div>
         {outbound2.map((t) => (
           <LedRow key={t.id} trip={t} direction="outbound" />
